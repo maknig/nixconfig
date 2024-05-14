@@ -5,8 +5,13 @@
   home.sessionPath = [ "$HOME/.nix-profile/bin" "$HOME/bin" ];
 
   dots = {
-    alacritty.font_size = 14.0;
-    alacritty.font_normal = "UbuntuMono Nerd Font Mono";
-    alacritty.enable = true;
-  };
-}
+    profiles = {
+      linux.enable = true;
+    };
+    alacritty = {
+      font_size = 14.0;
+      font_normal = "UbuntuMono Nerd Font Mono";
+      enable = true;
+    };
+      };
+  }

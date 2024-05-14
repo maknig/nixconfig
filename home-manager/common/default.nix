@@ -16,23 +16,32 @@
 
   home.packages = [
     pkgs.google-chrome
-    pkgs.direnv
     pkgs.dua
     pkgs.eza
     pkgs.fd
     pkgs.jq
-    pkgs.nix-direnv
     pkgs.procs
+    pkgs.libnotify
     # fonts
     pkgs.fontconfig
-    (pkgs.nerdfonts.override { fonts = [ "UbuntuMono" "Iosevka" ]; })
+    (pkgs.nerdfonts.override { fonts = [ "UbuntuMono" "Iosevka" "ZedMono" ]; })
   ];
 
+  
+
+
+  programs.direnv = {
+    enable = true;
+    config = {
+      hide_env_diff = true;
+    };
+    nix-direnv.enable = true;
+  };
   programs.fzf = {
     enable = true;
     # enableZshIntegration = true;
   };
-  
+
 
 
   home.file.".lesskey".text =

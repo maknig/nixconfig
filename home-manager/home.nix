@@ -24,6 +24,7 @@
      ./programs/git.nix
      ./programs/hyprland.nix
      ./common/default.nix
+     ./profiles/default.nix
   ];
 
   nixpkgs = {

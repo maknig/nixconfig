@@ -88,34 +88,35 @@
   # layout = "us";
   #  xkbVariant = "";
   #};
+
   hardware.opengl.enable = true;
 
 
-#  # Styling
-#  fonts = {
-#    packages = with pkgs; [
-#      noto-fonts
-#      noto-fonts-emoji
-#    ];
-#
-#    fontconfig = {
-#      # Fixes pixelation
-#      antialias = true;
-#
-#      # Fixes antialiasing blur
-#      hinting = {
-#        enable = true;
-#        style = "medium"; # no difference
-#        autohint = true; # no difference
-#      };
-#
-#      subpixel = {
-#        # Makes it bolder
-#        rgba = "rgb";
-#        lcdfilter = "default"; # no difference
-#      };
-#    };
-#  };
+  #  # Styling
+  #  fonts = {
+  #    packages = with pkgs; [
+  #      noto-fonts
+  #      noto-fonts-emoji
+  #    ];
+  #
+  #    fontconfig = {
+  #      # Fixes pixelation
+  #      antialias = true;
+  #
+  #      # Fixes antialiasing blur
+  #      hinting = {
+  #        enable = true;
+  #        style = "medium"; # no difference
+  #        autohint = true; # no difference
+  #      };
+  #
+  #      subpixel = {
+  #        # Makes it bolder
+  #        rgba = "rgb";
+  #        lcdfilter = "default"; # no difference
+  #      };
+  #    };
+  #  };
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -132,9 +133,13 @@
   };
   environment.systemPackages = [
     pkgs.wireplumber
-
     pkgs.brightnessctl
+    pkgs.openconnect_openssl
   ];
+  programs.evolution = {
+    enable = true;
+    plugins = [ pkgs.evolution-ews ];
+  };
   # hardware = {
   #   pulseaudio = {
   #     enable = true;
@@ -145,12 +150,11 @@
   services.dbus.enable = true;
   services.dbus.packages = [ pkgs.gcr ];
 
+  virtualisation.docker.enable = true;
 
   # TODO: Set your hostname
   networking.hostName = "dell-notebook";
 
-  # TODO: This is just an example, be sure to use whatever bootloader you prefer
-  # boot.loader.systemd-boot.enable = true;
 
   # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
 
@@ -158,7 +162,7 @@
   users.users.matthias = {
     isNormalUser = true;
     description = "Matthias";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       firefox
       #  thunderbird
@@ -181,6 +185,7 @@
 
   #programs.alacritty.enable = true;
   programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.11";

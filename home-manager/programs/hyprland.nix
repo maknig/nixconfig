@@ -58,6 +58,11 @@ in
     };
   };
 
+  services.mako = {
+    enable = true;
+    defaultTimeout = 4000;
+  };
+
   programs.waybar = {
     enable = true;
     # systemd = {

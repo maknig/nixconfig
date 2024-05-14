@@ -1,8 +1,5 @@
 { config, pkgs, lib, ... }: {
 
-  # programs.starship.enable = true;
-  # home.file.".config/starship.toml".source = ./zsh/starship.toml;
-
   programs.zsh = lib.mkMerge [
     ({
       initExtra = lib.optionalString pkgs.stdenv.isDarwin ''
@@ -33,7 +30,6 @@
 
       initExtra = ''
         eval "$(direnv hook zsh)"
-        # eval "$(starship init zsh)"
         path+="$HOME/.nix-profile/bin"
       ''
       + builtins.readFile ./zsh/config.zsh
