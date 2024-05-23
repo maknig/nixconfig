@@ -114,6 +114,7 @@ function M.setup()
 					"tabs",
 					max_length = vim.o.columns,
 					show_modified_status = false,
+					mode=2,
 				},
 			},
 			lualine_y = {

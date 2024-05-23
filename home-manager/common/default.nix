@@ -15,19 +15,21 @@
   fonts.fontconfig.enable = true;
 
   home.packages = [
+    pkgs.firefox
+    pkgs.signal-desktop
     pkgs.google-chrome
     pkgs.dua
     pkgs.eza
     pkgs.fd
     pkgs.jq
     pkgs.procs
-    pkgs.libnotify
+    pkgs.logseq
     # fonts
     pkgs.fontconfig
     (pkgs.nerdfonts.override { fonts = [ "UbuntuMono" "Iosevka" "ZedMono" ]; })
   ];
 
-  
+
 
 
   programs.direnv = {

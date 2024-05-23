@@ -12,8 +12,6 @@
     # inputs.hardware.nixosModules.common-cpu-amd
     # inputs.hardware.nixosModules.common-ssd
 
-    # You can also split up your configuration and import pieces of it here:
-    # ./users.nix
     #./desktop.nix
     ./home-manager.nix
     # Import your generated (nixos-generate-config) hardware configuration
@@ -62,68 +60,43 @@
     auto-optimise-store = true;
   };
 
-  # FIXME: Add the rest of your current configuration
-
   # Enable networking
   networking.networkmanager.enable = true;
-
   # Set your time zone.
   time.timeZone = "Europe/Zurich";
-
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  programs.hyprland.enable = true;
-  #programs.sway.enable = true;
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+
+  programs.hyprland.enable = true;
+  #programs.sway.enable = true;
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   services.displayManager.defaultSession = "hyprland";
 
-  # Configure keymap in X11
-  #services.xserver = {
-  # layout = "us";
-  #  xkbVariant = "";
-  #};
-
   hardware.opengl.enable = true;
 
-
-  #  # Styling
-  #  fonts = {
-  #    packages = with pkgs; [
-  #      noto-fonts
-  #      noto-fonts-emoji
-  #    ];
-  #
-  #    fontconfig = {
-  #      # Fixes pixelation
-  #      antialias = true;
-  #
-  #      # Fixes antialiasing blur
-  #      hinting = {
-  #        enable = true;
-  #        style = "medium"; # no difference
-  #        autohint = true; # no difference
-  #      };
-  #
-  #      subpixel = {
-  #        # Makes it bolder
-  #        rgba = "rgb";
-  #        lcdfilter = "default"; # no difference
-  #      };
-  #    };
-  #  };
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
   # Enable sound with pipewire.
   #sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  #hardware = {
+  #   pulseaudio = {
+  #     enable = true;
+  #     support32Bit = true;
+  #     package = pkgs.pulseaudioFull;
+  #   };
+  # };
+
   security.rtkit.enable = true;
+
+  hardware.pulseaudio.enable = false;
 
   services.pipewire = {
     enable = true;
@@ -131,42 +104,43 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+
   environment.systemPackages = [
     pkgs.wireplumber
     pkgs.brightnessctl
     pkgs.openconnect_openssl
+    pkgs.zsh
   ];
+
   programs.evolution = {
     enable = true;
     plugins = [ pkgs.evolution-ews ];
   };
-  # hardware = {
-  #   pulseaudio = {
-  #     enable = true;
-  #     support32Bit = true;
-  #     package = pkgs.pulseaudioFull;
-  #   };
-  # };
-  services.dbus.enable = true;
-  services.dbus.packages = [ pkgs.gcr ];
 
-  virtualisation.docker.enable = true;
+  services.dbus = {
+    enable = true;
+    packages = [ pkgs.gcr ];
+  };
 
-  # TODO: Set your hostname
+
   networking.hostName = "dell-notebook";
 
 
   # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
 
+  programs.zsh.enable = true;
+
+  users.defaultUserShell = pkgs.zsh;
+
+  virtualisation.docker.enable = true;
 
   users.users.matthias = {
     isNormalUser = true;
     description = "Matthias";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = with pkgs; [
-      firefox
-      #  thunderbird
-    ];
+    #packages = with pkgs; [
+    #  firefox
+    #];
     shell = pkgs.zsh;
   };
 
@@ -182,10 +156,6 @@
       PasswordAuthentication = false;
     };
   };
-
-  #programs.alacritty.enable = true;
-  programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.11";
