@@ -4,8 +4,9 @@ function mod.setup()
     vim.g['fugitive_no_maps'] = 1
 
     vim.keymap.set('n', ',gs', ':tab Git<enter>')
-    -- vim.keymap.set('n', ',gd', ':Git diff<cr>')
-    -- vim.keymap.set('n', ',gl', ':Gclog<cr>')
+    vim.keymap.set('n', ',gci', ':Git commit<enter>')
+    vim.keymap.set('n', ',gd', ':Git diff<cr>')
+    vim.keymap.set('n', ',gl', ':Gclog<cr>')
 
     vim.api.nvim_create_autocmd('User', {
         pattern = { 'FugitiveIndex', 'FugitiveObject' },
