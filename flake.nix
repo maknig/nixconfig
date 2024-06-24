@@ -30,6 +30,18 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    semshi-nvim = {
+      url = github:numirias/semshi;
+      flake = false;
+    };
+
+    
+    python-synt-nvim = {
+      url = github:vim-python/python-syntax;
+      flake = false;
+    };
+
     hop-nvim = {
       url = github:phaazon/hop.nvim;
       flake = false;
@@ -37,6 +49,11 @@
 
     fugitive-nvim = {
       url = github:tpope/vim-fugitive;
+      flake = false;
+    };
+
+    jukit-nvim = {
+      url = github:luk400/vim-jukit;
       flake = false;
     };
 
@@ -202,7 +219,7 @@
 
       # NixOS configuration entrypoint
       # Available through 'nixos-rebuild --flake .#your-hostname'
-      
+
       nixosConfigurations = {
         # FIXME replace with your hostname
         dell-notebook = nixpkgs.lib.nixosSystem {

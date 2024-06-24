@@ -575,6 +575,22 @@
         "type": "github"
       }
     },
+    "jukit-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1697989051,
+        "narHash": "sha256-wWpa08WG0CGQiI3G7g6k2ruSnyAXxmRJ1OW26oyoBgE=",
+        "owner": "luk400",
+        "repo": "vim-jukit",
+        "rev": "73214c9a8abc4b6aa7a6266b5bc2ddbf8b3e3c00",
+        "type": "github"
+      },
+      "original": {
+        "owner": "luk400",
+        "repo": "vim-jukit",
+        "type": "github"
+      }
+    },
     "lsp-indicator-nvim": {
       "flake": false,
       "locked": {
@@ -1058,6 +1074,22 @@
         "type": "github"
       }
     },
+    "python-synt-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1607981602,
+        "narHash": "sha256-BQjf67ah68c2+ASedWl2cbE98gR4PxWQvhoum4tonvA=",
+        "owner": "vim-python",
+        "repo": "python-syntax",
+        "rev": "2cc00ba72929ea5f9456a26782db57fb4cc56a65",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vim-python",
+        "repo": "python-syntax",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "cmp-buffer-nvim": "cmp-buffer-nvim",
@@ -1074,6 +1106,7 @@
         "hop-nvim": "hop-nvim",
         "hypr-contrib": "hypr-contrib",
         "hyprpaper": "hyprpaper",
+        "jukit-nvim": "jukit-nvim",
         "lsp-indicator-nvim": "lsp-indicator-nvim",
         "lsp-signature-nvim": "lsp-signature-nvim",
         "lspkind-nvim": "lspkind-nvim",
@@ -1086,7 +1119,9 @@
         "nvim-cmp": "nvim-cmp",
         "nvim-lspconfig": "nvim-lspconfig",
         "plenary-nvim": "plenary-nvim",
+        "python-synt-nvim": "python-synt-nvim",
         "rustacean-nvim": "rustacean-nvim",
+        "semshi-nvim": "semshi-nvim",
         "telescope-fzf-native-nvim": "telescope-fzf-native-nvim",
         "telescope-nvim": "telescope-nvim",
         "web-devicons-nvim": "web-devicons-nvim"
@@ -1111,6 +1146,22 @@
       "original": {
         "owner": "mrcjkb",
         "repo": "rustaceanvim",
+        "type": "github"
+      }
+    },
+    "semshi-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1627096571,
+        "narHash": "sha256-A/voYRhrihnA8GF03CCuEXhsqYTLwuSg2whM6OHMNmQ=",
+        "owner": "numirias",
+        "repo": "semshi",
+        "rev": "252f07fd5f0ae9eb19d02bae979fd7c9152c1ccf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numirias",
+        "repo": "semshi",
         "type": "github"
       }
     },

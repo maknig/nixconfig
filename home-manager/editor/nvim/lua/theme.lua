@@ -4,8 +4,8 @@ function M.setup()
 	vim.cmd("syntax enable")
 
 	vim.opt.background = "dark"
-	--vim.cmd('colorscheme nordfox')
-	vim.cmd("colorscheme nordfox")
+	vim.cmd('colorscheme nordfox')
+	-- vim.cmd("colorscheme nightfox")
 
 	require("nvim-web-devicons").setup({})
 	local lsp_indicator = require("lsp-indicator")

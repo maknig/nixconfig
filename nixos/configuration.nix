@@ -141,7 +141,7 @@
     #packages = with pkgs; [
     #  firefox
     #];
-    shell = pkgs.zsh;
+    #shell = pkgs.zsh;
   };
 
 

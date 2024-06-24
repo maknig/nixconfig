@@ -77,6 +77,8 @@ in
       pkgs.gthumb
       pkgs.scrot
       pkgs.libnotify
+      pkgs.teams-for-linux
+      pkgs.networkmanagerapplet
     ];
 
     services = {

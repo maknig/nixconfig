@@ -5,12 +5,15 @@ with builtins;
 let
   pyformat = pkgs.writeScriptBin "pyformat"
     ''
-      #!/bin/zsh
+      #!/usr/bin/env zsh
       set -eu -o pipefail
 
       if [[ -f ./.venv/bin/ruff ]]; then
           ./.venv/bin/ruff check --fix-only --select 'I' -s - | ./.venv/bin/ruff format -s -
+          exit $?
       fi
+
+      ruff check --fix-only --select 'I' -s - | ruff format -s -
     '';
 
   treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: with p; [
@@ -53,6 +56,7 @@ let
   };
 in
 {
+
   programs = {
     neovim = {
       enable = true;
@@ -96,6 +100,11 @@ in
         (plug "rustacean-nvim")
 
         (plug "neodev-nvim")
+        (plug "python-synt-nvim")
+        #(plug "jukit-nvim")
+
+        #(plug "jukit-nvim")
+        #(plug "semshi-nvim")
 
         # interesting navigation and term/tmux commands: https://github.com/ThePrimeagen/harpoon/tree/harpoon2
 
@@ -123,6 +132,7 @@ in
       nodePackages.typescript-language-server
       rustfmt
       stylua
+      ruff
     ];
   };
 

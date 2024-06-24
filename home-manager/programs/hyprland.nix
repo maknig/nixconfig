@@ -198,6 +198,7 @@ in
         "custom/vpn"
         "pulseaudio"
         "battery"
+        "backlight"
         "memory"
         "cpu"
         "temperature"
@@ -210,6 +211,13 @@ in
       "hyprland/language" = {
         "format" = "{short}";
       };
+
+      "backlight" = {
+        "device" = "intel_backlight";
+        "format" = "{percent}% {icon}";
+        "format-icons" = [ "" "" ];
+      };
+
       "custom/vpn" = {
         "interval" = 30;
         "format" = "{}";
