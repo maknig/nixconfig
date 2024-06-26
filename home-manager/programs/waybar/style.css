@@ -1,0 +1,234 @@
+@import "macchiato.css";
+
+* {
+  /* `otf-font-awesome` is required to be installed for icons */
+  /*font-family: "JetBrainsMono Nerd Font";*/
+  font-family: "Ubuntu Mono Nerd Font";
+  font-size: 12pt;
+  /*font-weight: bold;*/
+  border-radius: 0px;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+  min-height: 15px;
+  padding: 0px;
+  margin: 0px;
+}
+
+window > box {
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+  /*margin-bottom: 5px;*/
+  padding: 3px;
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.65);
+}
+window#waybar {
+  /*background-color: shade(@base, 0.1);*/
+  /*background-color: rgba(0, 0, 0, 0.45);*/
+  background-color: transparent;
+}
+
+tooltip {
+  border-radius: 3px;
+  padding: 15px;
+  background-color: @base;
+  color: @text;
+}
+
+tooltip label {
+  color: @text;
+  padding: 5px;
+}
+
+button {
+  /* Use box-shadow instead of border so the text isn'tt offset */
+  box-shadow: inset 0 -3px transparent;
+  /* Avoid rounded borders under each button name */
+  /* border: solid; */
+  border-radius: 0;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+button:hover {
+  background: inherit;
+  box-shadow: inset 0 -3px #ffffff;
+}
+
+#workspaces {
+  /* margin-right: 8px; */
+  transition: none;
+
+  /*background: #131b23;*/
+  /*margin-top: 2px;*/
+  /* margin-left: 8px; */
+  padding-left: 0px;
+  padding-right: 0px;
+
+  /*border: 2px solid #ccc;*/
+  border-radius: 3px;
+  /*margin-bottom: 2px;*/
+}
+
+#workspaces button {
+  transition: none;
+  color: @text;
+  min-width: 20px;
+}
+
+#workspaces button.persistent {
+  color: @text;
+}
+
+#workspaces button.empty {
+  color: #7c818c;
+}
+
+#workspaces button:hover {
+  transition: none;
+  box-shadow: inherit;
+  text-shadow: inherit;
+  border-radius: inherit;
+  color: @text;
+  background: #7c818c;
+}
+
+#workspaces button.urgent {
+  background-color: @red;
+  box-shadow: inherit;
+  text-shadow: inherit;
+  border-radius: inherit;
+}
+
+#workspaces button.active {
+  transition: none;
+  box-shadow: inherit;
+  text-shadow: inherit;
+  border-radius: inherit;
+  background: #caccd1;
+  color: #383c4a;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#language,
+#custom-spotify,
+#window,
+#mpris,
+#power-profiles-daemon, 
+#submap,
+#custom-nvid,
+/* #workspaces, */ 
+#mpd {
+  /*margin-top: 2px;*/
+  /*margin-bottom: 2px;*/
+  margin-left: 2px;
+  margin-right: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 3px;
+  transition: none;
+  background: #131b23;
+  /* background-color: @overlay2; */
+  color: @text;
+  border-style: solid;
+  border-color: @overlay1;
+}
+
+#power-profiles-daemon.power-saver {
+  color: @green;
+}
+/* #power-profiles-daemon.balanced { */
+/*   color: @blue; */
+/* } */
+#power-profiles-daemon.performance {
+  color: @red;
+}
+
+
+#battery.charging,
+#battery.plugged {
+  color: @green;
+}
+
+@keyframes blink {
+  to {
+    background-color: @red;
+  }
+}
+
+@keyframes warn {
+  to {
+    color: @yellow;
+  }
+}
+
+#battery.warning:not(.charging) {
+  color: @text;
+  animation-name: warn;
+  animation-duration: 4s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#battery.critical:not(.charging) {
+  background-color: #383c4a;
+  color: @text;
+  animation-name: blink;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#network.disconnected {
+  background-color: #f53c3c;
+}
+
+#pulseaudio {
+  color: @yellow;
+}
+
+#pulseaudio.muted {
+  color: @text;
+}
+
+#temperature.critical {
+  background-color: @red;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: @yellow;
+}
+
+#idle_inhibitor.activated {
+  background-color: @lavender;
+  color: #0c0c0c;
+}
+
+#keyboard-state > label {
+  padding: 0 5px;
+}
+
+#keyboard-state > label.locked {
+  background: rgba(0, 0, 0, 0.2);
+}

@@ -15,14 +15,14 @@ let
     '';
   vpn_status = pkgs.writeScriptBin "vpn_status"
     ''
-        #!/usr/bin/env zsh
-        set -eux -o pipefail
+      #!/usr/bin/env zsh
+      set -eux -o pipefail
 
-        if [ -d "/proc/sys/net/ipv4/conf/tun0" ]; then
-            echo "vpn"
-        else
-            echo ""
-        fi 
+      if [ -d "/proc/sys/net/ipv4/conf/tun0" ]; then
+          echo "vpn"
+      else
+          echo ""
+      fi 
     '';
   susp = pkgs.writeScriptBin "susp"
     ''
@@ -78,7 +78,11 @@ in
       pkgs.scrot
       pkgs.libnotify
       pkgs.teams-for-linux
+      pkgs.spotify
       pkgs.networkmanagerapplet
+      pkgs.wl-clipboard
+      pkgs.pavucontrol
+      pkgs.pamixer
     ];
 
     services = {

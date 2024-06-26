@@ -4,9 +4,9 @@ with lib;
 let
   startw = pkgs.writeScriptBin "startw"
     ''
+      export HYPRSHOT_DIR=~/Pictures/screenshots
       export XDG_SESSION_TYPE=wayland
       export WLR_NO_HARDWARE_CURSORS=1
-
       Hyprland
     '';
 in
@@ -15,6 +15,7 @@ in
     inputs.hypr-contrib.packages.${pkgs.system}.grimblast
     pkgs.hyprpaper
     pkgs.hyprlock
+    pkgs.hyprshot
     pkgs.rofi-wayland
     # pkgs.swaylock-effects
     startw
@@ -47,153 +48,33 @@ in
     ignoreTimeout = true;
     extraConfig = ''
       max-history=5
+      sort=-time
+      layer=overlay
       border-radius=4
+      background-color=#666666
+      border-color=#1a1a1a
+      font=Cantarell Extra-Light 10
+      default-timeout=0
     '';
   };
 
   programs.waybar = {
     enable = true;
-    # systemd = {
-    #   enable = false;
-    #   target = "graphical-session.target";
-    # };
-    style = ''
-        * {
-          font-family: "Ubuntu Mono Nerd Font";
-          font-size: 12pt;
-          font-weight: bold;
-          border-radius: 0px;
-          transition-property: background-color;
-          transition-duration: 0.5s;
-        }
-        @keyframes blink_red {
-          to {
-            background-color: rgb(242, 143, 173);
-            color: rgb(26, 24, 38);
-          }
-        }
-        .warning, .critical, .urgent {
-          animation-name: blink_red;
-          animation-duration: 1s;
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
-          animation-direction: alternate;
-        }
-        window#waybar {
-          background-color: transparent;
-        }
-        window > box {
-          margin-left: 5px;
-          margin-right: 5px;
-          margin-top: 5px;
-          background-color: #3b4252;
-        }
-        *{
-         padding:0px;
-         margin:0px; 
-         min-height: 15px;
-         }
-      #workspaces {
-              padding-left: 0px;
-              padding-right: 4px;
-            }
-      #workspaces button {
-              padding-top: 0px;
-              padding-bottom: 0px;
-              padding-left: 6px;
-              padding-right: 6px;
-              color:#D8DEE9;
-            }
-      #workspaces button.active {
-              background-color: rgb(181, 232, 224);
-              color: rgb(26, 24, 38);
-            }
-      #workspaces button.urgent {
-              color: rgb(26, 24, 38);
-            }
-      #workspaces button:hover {
-              background-color: #B38DAC;
-              color: rgb(26, 24, 38);
-            }
-            tooltip {
-              /* background: rgb(250, 244, 252); */
-              background: #3b4253;
-            }
-            tooltip label {
-              color: #E4E8EF;
-            }
-      #mode, #clock,#battery, #memory, #temperature, #cpu, #mpd, #temperature, #backlight, #pulseaudio, #network {
-              padding-left: 10px;
-              padding-right: 10px;
-            }
-      #memory {
-
-              color: #8EBBBA;
-            }
-      #custom-vpn {
-              color: #8EBBBA;
-            }
-      #cpu {
-              color: #B38DAC;
-            }
-      #clock {
-              color: #E4E8EF;
-            }
-      #temperature {
-              color: #80A0C0;
-            }
-      #battery{
-              color: #80A0C0;
-              min-width: 50px;
-            }
-      #language{
-              color: #80A0C0;
-            }
-
-
-      #backlight {
-              color: #A2BD8B;
-            }
-
-      #pulseaudio {
-              color: #E9C98A;
-            }
-      #network {
-              color: #99CC99;
-            }
-
-      #network.disconnected {
-              color: #CCCCCC;
-            }
-      #tray {
-              padding-right: 8px;
-              padding-left: 10px;
-            }
-      #tray menu {
-              background: #3b4252;
-              color: #DEE2EA;
-      }
-      #mpd.paused {
-              color: rgb(192, 202, 245);
-              font-style: italic;
-            }
-      #mpd.stopped {
-              background: transparent;
-            }
-      #mpd {
-                color: #E4E8EF;
-            }
-    '';
+    systemd = {
+      enable = false;
+      target = "graphical-session.target";
+    };
     settings = [{
       "layer" = "top";
       "position" = "top";
+      "spacing" = 0;
 
       modules-left = [
         "hyprland/workspaces"
         "mpd"
       ];
-      modules-center = [
-      ];
+      modules-center = [ "clock" ];
+
       modules-right = [
         "custom/vpn"
         "pulseaudio"
@@ -204,7 +85,6 @@ in
         "temperature"
         "network"
         "hyprland/language"
-        "clock"
         "tray"
 
       ];
@@ -214,7 +94,7 @@ in
 
       "backlight" = {
         "device" = "intel_backlight";
-        "format" = "{percent}% {icon}";
+        "format" = "{icon}  {percent}%";
         "format-icons" = [ "" "" ];
       };
 
@@ -223,16 +103,33 @@ in
         "format" = "{}";
         "exec" = "vpn_status";
       };
+      #"battery" = {
+      #  "bat" = "BAT0";
+      #  "interval" = 60;
+      #  "states" = {
+      #    "warning" = 30;
+      #    "critical" = 15;
+      #  };
+      #  "format" = "{capacity}% {icon}";
+      #  "format-icons" = [ "" "" "" "" "" ];
+      #  "max-length" = 50;
+      #};
       "battery" = {
-        "bat" = "BAT0";
-        "interval" = 60;
         "states" = {
+          "good" = 95;
           "warning" = 30;
-          "critical" = 15;
+          "critical" = 10;
         };
-        "format" = "{capacity}% {icon}";
+        "format" = "{icon} {capacity}%";
+        "format-charging" = "{capacity}% ";
+        "format-plugged" = "";
+        "format-alt" = "{time} {icon}";
+        "full-at" = 96;
+        # "format-good": "", // An empty format will hide the module
+        #"format-full": "",
         "format-icons" = [ "" "" "" "" "" ];
-        "max-length" = 50;
+        "tooltip" = true;
+        "tooltip-format" = "{timeTo}\nPWR:{power}W";
       };
       "upower" = {
         "show-icon" = false;
@@ -256,14 +153,41 @@ in
         "states" = {
           "warning" = 0;
         };
-        "on-click" = "pamixer -t";
+        "on-click" = "pavucontrol";
         "tooltip" = false;
       };
 
+      #"clock" = {
+      #  "interval" = 1;
+      #  "format" = "{:%I:%M %p}";
+      #  "tooltip" = true;
+      #};
       "clock" = {
-        "interval" = 1;
-        "format" = "{:%I:%M %p}";
-        "tooltip" = true;
+        # for a doc on how to format this =
+        # https=#howardhinnant.github.io/date/date.html#to_stream_formatting
+        # "timezone"= "America/New_York";
+        # "tooltip-format"= "<tt><small>{calendar}</small></tt>";
+        "tooltip-format" = "<tt>{calendar}</tt>";
+        "format-alt" = "{:%Y-%m-%d}";
+        "format" = "{:%a, %d %b, %H:%M %p}";
+        "calendar" = {
+          "mode" = "month";
+          "mode-mon-col" = 3;
+          "weeks-pos" = "left";
+          "on-scroll" = 1;
+          #   "on-click-right"= "mode";
+          "format" = {
+            #     "months"= "<span color='#ffead3'><b>{}</b></span>";
+            #     "days"= "<span color='#ecc6d9'><b>{}</b></span>";
+            "weeks" = "<span color='#99ffdd'><b>{}</b></span>";
+            #     "weekdays"= "<span color='#ffcc66'><b>{}</b></span>";
+            "today" = "<span color='#ff6699'><b><u>{}</u></b></span>";
+          };
+        };
+        "actions" = {
+          "on-scroll-up" = "shift_down";
+          "on-scroll-down" = "shift_up";
+        };
       };
 
       "memory" = {
@@ -315,6 +239,8 @@ in
     }];
   };
 
+  home.file.".config/waybar/style.css".source = ./waybar/style.css;
+  home.file.".config/waybar/macchiato.css".source = ./waybar/macchiato.css;
   home.file.".config/hypr/hyprpaper.conf".source = ./hyprland/hyprpaper.conf;
   home.file.".config/hypr/hyprlock.conf".source = ./hyprland/hyprlock.conf;
   home.file.".config/hypr/hyprland.conf".source = ./hyprland/hyprland.conf;
