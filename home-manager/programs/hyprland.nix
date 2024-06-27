@@ -2,6 +2,10 @@
 
 with lib;
 let
+  sptfy = pkgs.writeScriptBin "sptfy"
+    ''
+      spotify --enable-features=UseOzonePlatform --ozone-platform=wayland
+    '';
   startw = pkgs.writeScriptBin "startw"
     ''
       export HYPRSHOT_DIR=~/Pictures/screenshots
@@ -17,6 +21,7 @@ in
     pkgs.hyprlock
     pkgs.hyprshot
     pkgs.rofi-wayland
+    sptfy
     # pkgs.swaylock-effects
     startw
   ];
@@ -53,7 +58,7 @@ in
       border-radius=4
       background-color=#666666
       border-color=#1a1a1a
-      font=Cantarell Extra-Light 10
+      font=UbuntuMono Nerd Font Light 12
       default-timeout=0
     '';
   };
@@ -100,7 +105,8 @@ in
 
       "custom/vpn" = {
         "interval" = 30;
-        "format" = "{}";
+        "format" = "{} ";
+        "format-icon" = [ "󱇱" "󱇱" ];
         "exec" = "vpn_status";
       };
       #"battery" = {

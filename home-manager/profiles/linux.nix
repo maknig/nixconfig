@@ -3,23 +3,14 @@
 with lib;
 let
   cfg = config.dots.profiles.linux;
-
-  sshot = pkgs.writeScriptBin "sshot"
-    ''
-      #!/usr/bin/env zsh
-      set -eux -o pipefail
-
-      mkdir -p ~/sshots
-      sleep 0.2s
-      scrot ~/sshots/'%Y-%m-%d--%H:%M:%S.png' --silent --exec 'gthumb $f'
-    '';
+ 
   vpn_status = pkgs.writeScriptBin "vpn_status"
     ''
       #!/usr/bin/env zsh
       set -eux -o pipefail
 
       if [ -d "/proc/sys/net/ipv4/conf/tun0" ]; then
-          echo "vpn"
+          echo "󱇱"
       else
           echo ""
       fi 
@@ -70,7 +61,6 @@ in
   config = mkIf cfg.enable {
     home.packages = [
       lvm-overview
-      sshot
       susp
       vpn_status
       pkgs.redshift
