@@ -22,7 +22,7 @@
     # You can add overlays here
     overlays = [
       # If you want to use overlays exported from other flakes:
-      # neovim-nightly-overlay.overlays.default
+      inputs.neovim-nightly-overlay.overlays.default
 
       # Or define it inline, for example:
       # (final: prev: {
@@ -77,9 +77,9 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-  services.displayManager.defaultSession = "hyprland";
+  #services.displayManager.defaultSession = "hyprland";
 
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -112,10 +112,7 @@
     pkgs.zsh
   ];
 
-  programs.evolution = {
-    enable = true;
-    plugins = [ pkgs.evolution-ews ];
-  };
+
 
   services.dbus = {
     enable = true;

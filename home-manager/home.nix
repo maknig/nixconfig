@@ -34,7 +34,8 @@
       #outputs.overlays.additions
       #outputs.overlays.modifications
       #outputs.overlays.unstable-packages
-      inputs.neovim-nightly-overlay.overlay
+      #inputs.neovim-nightly-overlay.overlay
+      inputs.neovim-nightly-overlay.overlays.default
       # You can also add overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
 
@@ -51,6 +52,10 @@
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
       #allowUnfreePredicate = _: true;
+    permittedInsecurePackages = [
+                "electron-28.3.3"
+              ];
+
     };
   };
 
