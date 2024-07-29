@@ -104,11 +104,25 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+  services.mpd = {
+    enable = true;
+    musicDirectory = "/home/matthias/Music";
+    user = "matthias";
+    extraConfig = ''
+      audio_output {
+        type "pipewire"
+        name "My PipeWire Output"
+      }
+    '';
 
+  };
+ 
   environment.systemPackages = [
     pkgs.wireplumber
     pkgs.brightnessctl
     pkgs.openconnect_openssl
+    pkgs.mpd-mpris
+    pkgs.playerctl
     pkgs.zsh
   ];
 
@@ -134,7 +148,7 @@
   users.users.matthias = {
     isNormalUser = true;
     description = "Matthias";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" ];
     #packages = with pkgs; [
     #  firefox
     #];

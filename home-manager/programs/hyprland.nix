@@ -21,6 +21,7 @@ in
     pkgs.hyprlock
     pkgs.hyprshot
     pkgs.rofi-wayland
+    pkgs.waybar-mpris
     sptfy
     # pkgs.swaylock-effects
     startw
@@ -45,7 +46,6 @@ in
       });
     })
   ];
-
 
   services.mako = {
     enable = true;
@@ -76,7 +76,7 @@ in
 
       modules-left = [
         "hyprland/workspaces"
-        "mpd"
+        "mpris"
       ];
       modules-center = [ "clock" ];
 
@@ -95,6 +95,19 @@ in
       ];
       "hyprland/language" = {
         "format" = "{short}";
+      };
+      "mpris" = {
+        "format" = "{player_icon} {artist} - {title}";
+        "format-paused" = "{status_icon} {artist} - {title}";
+        "player-icons" = {
+          "default" = "";
+          "spotifyd" = "";
+          "spotify" = "";
+        };
+        "status-icons" = {
+          "paused" = "";
+        };
+        "ignored-players" = [ ];#[ "firefox" ];
       };
 
       "backlight" = {
@@ -250,4 +263,5 @@ in
   home.file.".config/hypr/hyprpaper.conf".source = ./hyprland/hyprpaper.conf;
   home.file.".config/hypr/hyprlock.conf".source = ./hyprland/hyprlock.conf;
   home.file.".config/hypr/hyprland.conf".source = ./hyprland/hyprland.conf;
+  home.file.".config/rofi/config.rasi".source = ./rofi/config.rasi;
 }
