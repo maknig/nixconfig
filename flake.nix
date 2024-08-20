@@ -39,7 +39,11 @@
       flake = false;
     };
 
-    
+    which-key = {
+      url = github:folke/which-key.nvim;
+      flake = false;
+    };
+
     python-synt-nvim = {
       url = github:vim-python/python-syntax;
       flake = false;

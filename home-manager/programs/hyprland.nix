@@ -10,6 +10,7 @@ let
     ''
       export HYPRSHOT_DIR=~/Pictures/screenshots
       export XDG_SESSION_TYPE=wayland
+      export MOZ_ENABLE_WAYLAND=1
       export WLR_NO_HARDWARE_CURSORS=1
       Hyprland
     '';

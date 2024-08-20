@@ -101,6 +101,7 @@ in
 
         (plug "neodev-nvim")
         (plug "python-synt-nvim")
+        (plug "which-key")
         #(plug "jukit-nvim")
 
         #(plug "jukit-nvim")

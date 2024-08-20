@@ -20,10 +20,11 @@
     pkgs.google-chrome
     pkgs.dua
     pkgs.eza
+    pkgs.yazi
     pkgs.fd
     pkgs.jq
     pkgs.procs
-    pkgs.logseq
+    #pkgs.logseq
     # fonts
     pkgs.fontconfig
     (pkgs.nerdfonts.override { fonts = [ "UbuntuMono" "Iosevka" "ZedMono" ]; })
