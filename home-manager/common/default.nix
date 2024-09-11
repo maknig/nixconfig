@@ -24,6 +24,7 @@
     pkgs.fd
     pkgs.jq
     pkgs.procs
+    pkgs.obsidian
     #pkgs.logseq
     # fonts
     pkgs.fontconfig

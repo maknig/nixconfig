@@ -5,12 +5,12 @@ let
 in
 {
 
-
   programs.git = {
     enable = true;
     userName = "Matthias Koenig";
     userEmail = "matthias.koenig@gmail.com";
     #signing.key = "165AEDEB";
+    lfs.enable= true;
 
     extraConfig = {
       core = {
@@ -28,7 +28,6 @@ in
       merge = {
         tool = "nvim";
       };
-      lfs.enable = true;
     };
 
     aliases = {

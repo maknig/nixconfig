@@ -1,12 +1,11 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
+{ inputs
+, outputs
+, lib
+, config
+, pkgs
+, ...
 }: {
   # You can import other home-manager modules here
   imports = [
@@ -17,14 +16,14 @@
     # inputs.nix-colors.homeManagerModules.default
 
     # You can also split up your configuration and import pieces of it here:
-     ./editor/nvim.nix
-     ./hosts/dell-notebook.nix
-     ./programs/alacritty.nix
-     ./programs/zsh.nix
-     ./programs/git.nix
-     ./programs/hyprland.nix
-     ./common/default.nix
-     ./profiles/default.nix
+    ./editor/nvim.nix
+    ./hosts/dell-notebook.nix
+    ./programs/alacritty.nix
+    ./programs/zsh.nix
+    ./programs/git.nix
+    ./programs/hyprland.nix
+    ./common/default.nix
+    ./profiles/default.nix
   ];
 
   nixpkgs = {
@@ -51,11 +50,7 @@
       # Disable if you don't want unfree packages
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
-      #allowUnfreePredicate = _: true;
-    permittedInsecurePackages = [
-                "electron-28.3.3"
-              ];
-
+      #allowUnfreePredicate = _: true; 
     };
   };
 
@@ -63,7 +58,7 @@
   home = {
     username = "matthias";
     homeDirectory = "/home/matthias";
-    
+
   };
 
   # Add stuff for your user as you see fit:
@@ -72,9 +67,9 @@
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
-#  programs.alacritty.enable = true;
+  #  programs.alacritty.enable = true;
   programs.git.enable = true;
-  
+  home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

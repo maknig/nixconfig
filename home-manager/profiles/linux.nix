@@ -3,7 +3,7 @@
 with lib;
 let
   cfg = config.dots.profiles.linux;
- 
+
   vpn_status = pkgs.writeScriptBin "vpn_status"
     ''
       #!/usr/bin/env zsh
@@ -23,7 +23,7 @@ let
     '';
   lvm-overview = pkgs.writeScriptBin "lvm-overview"
     ''
-      #!/usr/bin/python3
+      ##!/usr/bin/python3
 
       # show hierarchically vg/lv/pv
       # for pv every segment is shown
@@ -57,6 +57,7 @@ in
   options.dots.profiles.linux = {
     enable = mkEnableOption "linux profile";
   };
+
 
   config = mkIf cfg.enable {
     home.packages = [

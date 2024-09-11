@@ -4,7 +4,7 @@ function M.setup()
 	vim.cmd("syntax enable")
 
 	vim.opt.background = "dark"
-	vim.cmd('colorscheme nordfox')
+	vim.cmd("colorscheme nordfox")
 	-- vim.cmd("colorscheme nightfox")
 
 	require("nvim-web-devicons").setup({})
@@ -114,7 +114,7 @@ function M.setup()
 					"tabs",
 					max_length = vim.o.columns,
 					show_modified_status = false,
-					mode=2,
+					mode = 2,
 				},
 			},
 			lualine_y = {
@@ -134,32 +134,32 @@ function M.setup()
 
 	-- custom diagnostics
 	--vim.cmd([[
-    --   highlight DiagnosticFloatingError guifg=#3c3836
-    --   highlight DiagnosticVirtualTextError guifg=#bdae93
-    --   highlight DiagnosticUnderlineError gui=undercurl guisp=#cc241d
-    --   highlight DiagnosticSignError guifg=#cc241d
-    --   sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=
+	--   highlight DiagnosticFloatingError guifg=#3c3836
+	--   highlight DiagnosticVirtualTextError guifg=#bdae93
+	--   highlight DiagnosticUnderlineError gui=undercurl guisp=#cc241d
+	--   highlight DiagnosticSignError guifg=#cc241d
+	--   sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=
 
-    --   highlight DiagnosticFloatingWarn guifg=#3c3836
-    --   highlight DiagnosticVirtualTextWarn guifg=#bdae93
-    --   highlight DiagnosticUnderlineWarn gui=undercurl guisp=#cc241d
-    --   highlight DiagnosticSignWarn guifg=#cc241d
-    --   sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=
+	--   highlight DiagnosticFloatingWarn guifg=#3c3836
+	--   highlight DiagnosticVirtualTextWarn guifg=#bdae93
+	--   highlight DiagnosticUnderlineWarn gui=undercurl guisp=#cc241d
+	--   highlight DiagnosticSignWarn guifg=#cc241d
+	--   sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=
 
-    --   highlight DiagnosticFloatingInfo guifg=#3c3836
-    --   highlight DiagnosticVirtualTextInfo guifg=#bdae93
-    --   highlight DiagnosticUnderlineInfo gui=undercurl guisp=#076678
-    --   highlight DiagnosticSignInfo guifg=#076678
-    --   sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=
+	--   highlight DiagnosticFloatingInfo guifg=#3c3836
+	--   highlight DiagnosticVirtualTextInfo guifg=#bdae93
+	--   highlight DiagnosticUnderlineInfo gui=undercurl guisp=#076678
+	--   highlight DiagnosticSignInfo guifg=#076678
+	--   sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=
 
-    --   highlight DiagnosticFloatingHint guifg=#3c3836
-    --   highlight DiagnosticVirtualTextHint guifg=#bdae93
-    --   highlight DiagnosticUnderlineHint gui=undercurl guisp=#076678
-    --   highlight DiagnosticSignHint guifg=#076678
-    --   sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=
+	--   highlight DiagnosticFloatingHint guifg=#3c3836
+	--   highlight DiagnosticVirtualTextHint guifg=#bdae93
+	--   highlight DiagnosticUnderlineHint gui=undercurl guisp=#076678
+	--   highlight DiagnosticSignHint guifg=#076678
+	--   sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=
 
-    --   highlight LspSignatureActiveParameter gui=bold
-    --]])
+	--   highlight LspSignatureActiveParameter gui=bold
+	--]])
 end
 
 return M
