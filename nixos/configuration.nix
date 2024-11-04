@@ -144,6 +144,7 @@
     pkgs.wireplumber
     pkgs.brightnessctl
     pkgs.openconnect_openssl
+    pkgs.networkmanager-openconnect
     pkgs.mpd-mpris
     pkgs.playerctl
     pkgs.zsh
