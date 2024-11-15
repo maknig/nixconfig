@@ -8,6 +8,7 @@
     # at the same time. Here's an working example:
     #nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -27,7 +28,7 @@
       url = "github:hyprwm/contrib";
     };
 
-    
+
 
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
@@ -184,6 +185,7 @@
   outputs =
     { self
     , nixpkgs
+    , nixpkgs-stable
     , flake-utils
     , neovim-nightly-overlay
     , home-manager
@@ -242,16 +244,16 @@
 
       # Standalone home-manager configuration entrypoint
       # Available through 'home-manager --flake .#your-username@your-hostname'
-      #homeConfigurations = {
-      # FIXME replace with your username@hostname
-      #"your-username@your-hostname" = home-manager.lib.homeManagerConfiguration {
-      #  pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-      #  extraSpecialArgs = {inherit inputs outputs;};
-      #  modules = [
-      #    # > Our main home-manager configuration file <
-      #     ./home-manager/home.nix
-      #    ];
-      #  };
-      #};
+      homeConfigurations = {
+        #FIXME replace with your username@hostname
+        "matthias@hn601192" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [
+            # > Our main home-manager configuration file <
+            ./home-manager/home.nix
+          ];
+        };
+      };
     };
 }

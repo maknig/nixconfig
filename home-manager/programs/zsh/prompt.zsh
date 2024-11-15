@@ -10,9 +10,9 @@ need_push () {
   up=$(/usr/bin/git cherry -v @{upstream} 2>/dev/null) || return
   if [[ $up == "" ]]
   then
-    echo " 痢"
+    echo " "
   else
-    echo " %F{magenta}%B罹%b "
+    echo " %F{magenta}%B%b "
   fi
 }
 

@@ -35,6 +35,7 @@
     config = {
       # Disable if you don't want unfree packages
       allowUnfree = true;
+      #allowBroken = true;
     };
   };
 
@@ -84,8 +85,11 @@
 
   hardware.graphics.enable = true;
 
-  hardware.ipu6.enable = true;
-  hardware.ipu6.platform = "ipu6ep";
+  hardware.ipu6 = {
+    enable = true;
+    platform = "ipu6ep";
+    #platform = "ipu6";
+  };
 
   services.udev.extraRules = ''
     # If the system is not a video device, we skip these rules by jumping to the end
