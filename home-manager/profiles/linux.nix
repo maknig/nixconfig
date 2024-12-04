@@ -1,10 +1,14 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.dots.profiles.linux;
 
-  vpn_status = pkgs.writeScriptBin "vpn_status"
+  vpn_status =
+    pkgs.writeScriptBin "vpn_status"
     ''
       #!/usr/bin/env zsh
       set -eux -o pipefail
@@ -13,15 +17,17 @@ let
           echo "󱇱"
       else
           echo ""
-      fi 
+      fi
     '';
-  susp = pkgs.writeScriptBin "susp"
+  susp =
+    pkgs.writeScriptBin "susp"
     ''
       #!/usr/bin/env zsh
       hyprlock &
       systemctl suspend
     '';
-  lvm-overview = pkgs.writeScriptBin "lvm-overview"
+  lvm-overview =
+    pkgs.writeScriptBin "lvm-overview"
     ''
       ##!/usr/bin/python3
 
@@ -52,12 +58,10 @@ let
                           continue
                       print(f"      {pv_by_uuid[pvseg['pv_uuid']]['pv_name']}")
     '';
-in
-{
+in {
   options.dots.profiles.linux = {
     enable = mkEnableOption "linux profile";
   };
-
 
   config = mkIf cfg.enable {
     home.packages = [

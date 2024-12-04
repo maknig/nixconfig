@@ -1,16 +1,11 @@
-{ pkgs, ... }:
-
-let
-
-in
-{
-
+{pkgs, ...}: let
+in {
   programs.git = {
     enable = true;
     userName = "Matthias Koenig";
     userEmail = "matthias.koenig@gmail.com";
     #signing.key = "165AEDEB";
-    lfs.enable= true;
+    lfs.enable = true;
 
     extraConfig = {
       core = {

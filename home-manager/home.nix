@@ -1,11 +1,12 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
-{ inputs
-, outputs
-, lib
-, config
-, pkgs
-, ...
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  ...
 }: {
   # You can import other home-manager modules here
   imports = [
@@ -17,7 +18,7 @@
 
     # You can also split up your configuration and import pieces of it here:
     ./editor/nvim.nix
-    ./hosts/dell-notebook.nix
+    #./hosts/dell-notebook.nix
     ./programs/alacritty.nix
     ./programs/zsh.nix
     ./programs/git.nix
@@ -50,7 +51,7 @@
       # Disable if you don't want unfree packages
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
-      #allowUnfreePredicate = _: true; 
+      #allowUnfreePredicate = _: true;
     };
   };
 
@@ -58,7 +59,6 @@
   home = {
     username = "matthias";
     homeDirectory = "/home/matthias";
-
   };
 
   # Add stuff for your user as you see fit:
@@ -75,5 +75,5 @@
   systemd.user.startServices = "sd-switch";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "23.05";
+  home.stateVersion = "24.11";
 }

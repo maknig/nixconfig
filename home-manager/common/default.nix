@@ -1,8 +1,4 @@
-{ pkgs, ... }:
-
-{
-  home.stateVersion = "23.05";
-
+{pkgs, ...}: {
   # TODO: https://nix-community.github.io/home-manager/#sec-install-nixos-module
   # do we need to set?:
   # home-manager.useUserPackages = true;
@@ -28,11 +24,8 @@
     #pkgs.logseq
     # fonts
     pkgs.fontconfig
-    (pkgs.nerdfonts.override { fonts = [ "UbuntuMono" "Iosevka" "ZedMono" ]; })
+    (pkgs.nerdfonts.override {fonts = ["UbuntuMono" "Iosevka" "ZedMono"];})
   ];
-
-
-
 
   programs.direnv = {
     enable = true;
@@ -46,24 +39,20 @@
     # enableZshIntegration = true;
   };
 
-
-
-  home.file.".lesskey".text =
-    ''
-      #command
-      e forw-line
-      u back-line
-      n left-scroll
-      i right-scroll
-      h forw-screen
-      H forw-forever
-      ^h goto-end
-      k back-screen
-      ^k goto-line
-      r repaint
-      E repeat-search
-      U reverse-search
-      ff clear-search
-    '';
-
+  home.file.".lesskey".text = ''
+    #command
+    e forw-line
+    u back-line
+    n left-scroll
+    i right-scroll
+    h forw-screen
+    H forw-forever
+    ^h goto-end
+    k back-screen
+    ^k goto-line
+    r repaint
+    E repeat-search
+    U reverse-search
+    ff clear-search
+  '';
 }

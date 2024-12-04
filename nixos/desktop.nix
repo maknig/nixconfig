@@ -1,17 +1,20 @@
-{ config, lib, pkgs, inputs, ... }:
-
-with lib;
-let
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+with lib; let
   cfg = config.dots.profiles.desktop;
 
-  wmList = [ "hyprland" "sway" ];
-in
-{
+  wmList = ["hyprland" "sway"];
+in {
   options.dots.profiles.desktop = {
     enable = mkEnableOption "desktop profile";
     wm = mkOption {
       description = "window manager";
-      type = types.enum (wmList);
+      type = types.enum wmList;
       default = "hyprland";
     };
   };
@@ -35,28 +38,30 @@ in
     };
 
     services.dbus.enable = true;
-    services.dbus.packages = [ pkgs.gcr ];
+    services.dbus.packages = [pkgs.gcr];
 
     # hardware.bluetooth.enable = true;
     # services.blueman.enable = true;
 
-    environment.systemPackages = with pkgs; [
-      pamixer
-      pulsemixer
-    ] ++ lib.optionals (cfg.wm == "hyprland" || cfg.wm == "sway") [
-      xdg-utils
-      glib
-      dracula-theme
-      gnome3.adwaita-icon-theme
-      mako
-      wl-clipboard
-      wlr-randr
-      wayland
-      wayland-scanner
-      wayland-utils
-      # egl-wayland
-      wayland-protocols
-    ];
+    environment.systemPackages = with pkgs;
+      [
+        pamixer
+        pulsemixer
+      ]
+      ++ lib.optionals (cfg.wm == "hyprland" || cfg.wm == "sway") [
+        xdg-utils
+        glib
+        dracula-theme
+        gnome3.adwaita-icon-theme
+        mako
+        wl-clipboard
+        wlr-randr
+        wayland
+        wayland-scanner
+        wayland-utils
+        # egl-wayland
+        wayland-protocols
+      ];
 
     # fonts.fontconfig = {
     #   antialias = true;
@@ -79,11 +84,10 @@ in
     #hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
     #hardware.nvidia.powerManagement.enable = true;
 
-
     # wayland and hyprland setup below
 
     programs.xwayland.enable = mkIf (cfg.wm == "hyprland" || cfg.wm == "sway") true;
-    programs.hyprland =  {
+    programs.hyprland = {
       enable = true;
       #nvidiaPatches = true;
       xwayland.enable = true;
@@ -103,13 +107,12 @@ in
     xdg.portal = mkIf (cfg.wm == "hyprland" || cfg.wm == "sway") {
       enable = true;
       wlr.enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      extraPortals = [pkgs.xdg-desktop-portal-gtk];
       # gtkUsePortal = true;
     };
 
     security.pam.services = mkIf (cfg.wm == "hyprland" || cfg.wm == "sway") {
-      swaylock = { };
+      swaylock = {};
     };
-
   };
 }

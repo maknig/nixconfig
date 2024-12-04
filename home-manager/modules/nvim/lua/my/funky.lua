@@ -18,6 +18,7 @@ function mod.setup()
 			yaml = { command = { "prettier", "--parser", "yaml" } },
 			nix = { command = { "nixpkgs-fmt" } },
 			cpp = { command = { "clang-format" } },
+			proto = { command = { "clang-format" } },
 		},
 	})
 	vim.keymap.set("n", "==", funky_formatter.format, { desc = "funky formatter" })

@@ -1,5 +1,3 @@
-{ lib, ... }:
-
-{
-  imports = [ ./linux.nix ];
+{lib, ...}: {
+  imports = [./linux.nix];
 }

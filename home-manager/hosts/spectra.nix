@@ -1,8 +1,6 @@
-{ ... }:
-
-{
-  home.stateVersion = "23.05";
-  home.sessionPath = [ "$HOME/.nix-profile/bin" "$HOME/bin" ];
+{...}: {
+  home.stateVersion = "24.11";
+  home.sessionPath = ["$HOME/.nix-profile/bin" "$HOME/bin"];
 
   dots = {
     profiles = {
@@ -13,5 +11,5 @@
       font_normal = "UbuntuMono Nerd Font Mono";
       enable = true;
     };
-      };
-  }
+  };
+}

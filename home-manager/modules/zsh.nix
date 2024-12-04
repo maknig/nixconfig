@@ -1,19 +1,23 @@
-{ config, pkgs, lib, ... }: {
-
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   programs.zsh = lib.mkMerge [
-    ({
+    {
       initExtra = lib.optionalString pkgs.stdenv.isDarwin ''
         bindkey '^R' history-incremental-search-backward
       '';
-    })
-    ({
+    }
+    {
       # FIXME only on work machine
       initExtra = lib.optionalString pkgs.stdenv.isLinux ''
         ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
         ZSH_HIGHLIGHT_DIRS_BLACKLIST+=(/efs)
         ZSH_HIGHLIGHT_MAXLENGTH=2000
       '';
-    })
+    }
     {
       enable = true;
 
@@ -28,13 +32,14 @@
         dk = "docker kill $(docker ps -q)";
       };
 
-      initExtra = ''
-        eval "$(direnv hook zsh)"
-        path+="$HOME/.nix-profile/bin"
-      ''
-      + builtins.readFile ./zsh/config.zsh
-      + builtins.readFile ./zsh/prompt.zsh
-      + builtins.readFile ./zsh/completion.zsh;
+      initExtra =
+        ''
+          eval "$(direnv hook zsh)"
+          path+="$HOME/.nix-profile/bin"
+        ''
+        + builtins.readFile ./zsh/config.zsh
+        + builtins.readFile ./zsh/prompt.zsh
+        + builtins.readFile ./zsh/completion.zsh;
 
       plugins = [
         {
