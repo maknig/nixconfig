@@ -1,34 +1,30 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
+{ config
+, lib
+, pkgs
+, inputs
+, ...
 }:
 with lib; let
   cfg = config.dots.profiles.desktop;
-
-  wmList = ["hyprland" "sway"];
-in {
+in
+{
   options.dots.profiles.desktop = {
     enable = mkEnableOption "desktop profile";
-    wm = mkOption {
-      description = "window manager";
-      type = types.enum wmList;
-      default = "hyprland";
-    };
   };
 
   config = mkIf cfg.enable {
-    sound.enable = true;
 
-    hardware = {
-      pulseaudio = {
-        enable = true;
-        support32Bit = true;
-        package = pkgs.pulseaudioFull;
-      };
-    };
+
+    security.rtkit.enable = true;
+
+    hardware.pulseaudio.enable = false;
+    #hardware = {
+    #  pulseaudio = {
+    #    enable = true;
+    #    support32Bit = true;
+    #    package = pkgs.pulseaudioFull;
+    #  };
+    #};
 
     services.pipewire = {
       enable = true;
@@ -38,24 +34,31 @@ in {
     };
 
     services.dbus.enable = true;
-    services.dbus.packages = [pkgs.gcr];
+    services.dbus.packages = [ pkgs.gcr ];
 
     # hardware.bluetooth.enable = true;
     # services.blueman.enable = true;
+
+    xdg.portal = {
+      enable = true;
+      wlr.enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      # gtkUsePortal = true;
+    };
 
     environment.systemPackages = with pkgs;
       [
         pamixer
         pulsemixer
-      ]
-      ++ lib.optionals (cfg.wm == "hyprland" || cfg.wm == "sway") [
+        nautilus
+        gnome-calculator
         xdg-utils
         glib
-        dracula-theme
-        gnome3.adwaita-icon-theme
-        mako
-        wl-clipboard
+        #dracula-theme
+        #gnome3.adwaita-icon-theme
         wlr-randr
+        wlsunset
+        nwg-displays
         wayland
         wayland-scanner
         wayland-utils
@@ -63,56 +66,19 @@ in {
         wayland-protocols
       ];
 
-    # fonts.fontconfig = {
-    #   antialias = true;
-    #
-    #   # fixes antialiasing blur
-    #   hinting = {
-    #     enable = true;
-    #     style = "slight"; # no difference
-    #     autohint = true; # no difference
-    #   };
-    #
-    #   subpixel = {
-    #     rgba = "rgb";
-    #     lcdfilter = "default";
-    #   };
-    # };
+    hardware.graphics.enable = true;
 
-    hardware.opengl.enable = true;
-    #hardware.nvidia.modesetting.enable = true;
-    #hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-    #hardware.nvidia.powerManagement.enable = true;
-
-    # wayland and hyprland setup below
-
-    programs.xwayland.enable = mkIf (cfg.wm == "hyprland" || cfg.wm == "sway") true;
     programs.hyprland = {
       enable = true;
       #nvidiaPatches = true;
       xwayland.enable = true;
     };
 
-    # FIXME use home-manager to use on Ubuntu?
-    programs.sway = mkIf (cfg.wm == "sway") {
-      enable = true;
-      wrapperFeatures.gtk = true;
-    };
+    services.xserver.displayManager.gdm.enable = true;
+    services.displayManager.defaultSession = "hyprland";
+    services.gvfs.enable = true;
+    services.xserver.enable = true;
 
-    # FIXME only for homemananger sway
-    # security.polkit = mkIf (cfg.wm == "sway") {
-    #   enable = true;
-    # };
-
-    xdg.portal = mkIf (cfg.wm == "hyprland" || cfg.wm == "sway") {
-      enable = true;
-      wlr.enable = true;
-      extraPortals = [pkgs.xdg-desktop-portal-gtk];
-      # gtkUsePortal = true;
-    };
-
-    security.pam.services = mkIf (cfg.wm == "hyprland" || cfg.wm == "sway") {
-      swaylock = {};
-    };
+    environment.sessionVariables.NIXOS_OZONE_WL = "1";
   };
 }

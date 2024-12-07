@@ -1,63 +1,57 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
+{ config
+, lib
+, pkgs
+, inputs
+, ...
 }:
 with lib; let
-  sptfy =
-    pkgs.writeScriptBin "sptfy"
-    ''
-      spotify --enable-features=UseOzonePlatform --ozone-platform=wayland
-    '';
-  startw =
-    pkgs.writeScriptBin "startw"
-    ''
-      export HYPRSHOT_DIR=~/Pictures/screenshots
-      export XDG_SESSION_TYPE=wayland
-      export NIXOS_OZONE_WL=1
-      export MOZ_ENABLE_WAYLAND=1
-      export WLR_NO_HARDWARE_CURSORS=1
-      Hyprland
-    '';
+
+  cfg = config.dots.profiles.hyprland;
 
   powermenu =
     pkgs.writeScriptBin "powermenu"
-    ''
-      #entries="⇠\tLogout\n⏾\tSuspend\n⭮\tReboot\n⏻\tShutdown"
-      entries="⇠\n⏾\n⭮\n⏻"
+      ''
+        #entries="⇠\tLogout\n⏾\tSuspend\n⭮\tReboot\n⏻\tShutdown"
+        entries="⇠\n⏾\n⭮\n⏻"
 
-      selected=$(echo -e $entries | rofi -dmenu -i -theme $HOME/.config/rofi/powermenu.rasi | awk '{print tolower($2)}')
+        selected=$(echo -e $entries | rofi -dmenu -i -theme $HOME/.config/rofi/powermenu.rasi | awk '{print tolower($2)}')
 
-      case $selected in
-        ⇠
-        hyprctl dispatch exit
-        ;;
-        ⏾
-        exec systemctl suspend
-        ;;
-        ⭮
-        exec systemctl reboot
-        ;;
-        ⏻
-        exec systemctl poweroff
-        ;;
-        # it used to be poweroff -i
-      esac
-    '';
-in {
+        case $selected in
+          ⇠
+          hyprctl dispatch exit
+          ;;
+          ⏾
+          exec systemctl suspend
+          ;;
+          ⭮
+          exec systemctl reboot
+          ;;
+          ⏻
+          exec systemctl poweroff
+          ;;
+          # it used to be poweroff -i
+        esac
+      '';
+
+in
+{
+  options.dots.profiles.hyprland = {
+    enable = mkEnableOption "enable hyprland";
+
+  };
+  #config = mkIf cfg.enable {
   home.packages = [
     inputs.hypr-contrib.packages.${pkgs.system}.grimblast
     pkgs.hyprpaper
     pkgs.hyprlock
     pkgs.hyprshot
+    pkgs.hypridle
     pkgs.cliphist
+    pkgs.wl-clipboard
     pkgs.rofi-wayland
     pkgs.waybar-mpris
     powermenu
     # pkgs.swaylock-effects
-    startw
   ];
 
   services.wlsunset = {
@@ -70,15 +64,27 @@ in {
     };
   };
 
-  systemd.user.services.wlsunset.Install = {WantedBy = ["graphical.target"];};
+  systemd.user.services.wlsunset.Install = { WantedBy = [ "graphical.target" ]; };
 
   nixpkgs.overlays = [
     (final: prev: {
       waybar = prev.waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
+        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
       });
     })
   ];
+
+  services.mpd = {
+    enable = true;
+    musicDirectory = "/home/matthias/Music";
+    user = "matthias";
+    extraConfig = ''
+      audio_output {
+        type "pipewire"
+        name "My PipeWire Output"
+      }
+    '';
+  };
 
   services.mako = {
     enable = true;
@@ -112,7 +118,7 @@ in {
           "hyprland/workspaces"
           "mpris"
         ];
-        modules-center = ["clock"];
+        modules-center = [ "clock" ];
 
         modules-right = [
           "custom/vpn"
@@ -140,19 +146,19 @@ in {
           "status-icons" = {
             "paused" = "";
           };
-          "ignored-players" = []; #[ "firefox" ];
+          "ignored-players" = [ ]; #[ "firefox" ];
         };
 
         "backlight" = {
           "device" = "intel_backlight";
           "format" = "{icon}  {percent}%";
-          "format-icons" = ["" ""];
+          "format-icons" = [ "" "" ];
         };
 
         "custom/vpn" = {
           "interval" = 30;
           "format" = "{} ";
-          "format-icon" = ["󱇱" "󱇱"];
+          "format-icon" = [ "󱇱" "󱇱" ];
           "exec" = "vpn_status";
         };
         #"battery" = {
@@ -179,7 +185,7 @@ in {
           "full-at" = 96;
           # "format-good": "", // An empty format will hide the module
           #"format-full": "",
-          "format-icons" = ["" "" "" "" ""];
+          "format-icons" = [ "" "" "" "" "" ];
           "tooltip" = true;
           "tooltip-format" = "{timeTo}\nPWR:{power}W";
         };
@@ -200,7 +206,7 @@ in {
           "format" = "{icon} {volume}%";
           "format-muted" = "󰖁 Muted";
           "format-icons" = {
-            "default" = ["" "" ""];
+            "default" = [ "" "" "" ];
           };
           "states" = {
             "warning" = 0;
@@ -299,4 +305,5 @@ in {
   home.file.".config/hypr/hyprland.conf".source = ./hyprland/hyprland.conf;
   home.file.".config/rofi/config.rasi".source = ./rofi/config.rasi;
   home.file.".config/rofi/powermenu.rasi".source = ./rofi/powermenu.rasi;
+  #};
 }

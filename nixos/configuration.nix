@@ -1,46 +1,32 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
-{
-  inputs,
-  lib,
-  config,
-  pkgs,
-  ...
+{ inputs
+, lib
+, config
+, pkgs
+, ...
 }: {
   # You can import other NixOS modules here
   imports = [
-    # If you want to use modules from other flakes (such as nixos-hardware):
-    # inputs.hardware.nixosModules.common-cpu-amd
-    # inputs.hardware.nixosModules.common-ssd
-
-    #./desktop.nix
-    #./home-manager.nix
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
   ];
 
-  nixpkgs = {
-    # You can add overlays here
-    overlays = [
-      # If you want to use overlays exported from other flakes:
-      inputs.neovim-nightly-overlay.overlays.default
-    ];
-  };
 
   # This will add each flake input as a registry
   # To make nix3 commands consistent with your flake
-  nix.registry = (lib.mapAttrs (_: flake: {inherit flake;})) ((lib.filterAttrs (_: lib.isType "flake")) inputs);
+  nix.registry = (lib.mapAttrs (_: flake: { inherit flake; })) ((lib.filterAttrs (_: lib.isType "flake")) inputs);
 
   # This will additionally add your inputs to the system's legacy channels
   # Making legacy nix commands consistent as well, awesome!
-  nix.nixPath = ["/etc/nix/path"];
+  nix.nixPath = [ "/etc/nix/path" ];
   environment.etc =
     lib.mapAttrs'
-    (name: value: {
-      name = "nix/path/${name}";
-      value.source = value.flake;
-    })
-    config.nix.registry;
+      (name: value: {
+        name = "nix/path/${name}";
+        value.source = value.flake;
+      })
+      config.nix.registry;
 
   nix.settings = {
     # Enable flakes and new 'nix' command
@@ -76,7 +62,6 @@
   hardware.ipu6 = {
     enable = true;
     platform = "ipu6ep";
-    #platform = "ipu6";
   };
 
   #services.udev.extraRules = ''
@@ -133,7 +118,6 @@
 
   environment.systemPackages = [
     pkgs.wireplumber
-    pkgs.brightnessctl
     pkgs.openconnect_openssl
     pkgs.networkmanager-openconnect
     pkgs.mpd-mpris
@@ -146,7 +130,7 @@
 
   services.dbus = {
     enable = true;
-    packages = [pkgs.gcr];
+    packages = [ pkgs.gcr ];
   };
 
   # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
@@ -160,11 +144,7 @@
   users.users.matthias = {
     isNormalUser = true;
     description = "Matthias";
-    extraGroups = ["networkmanager" "wheel" "docker" "dialout" "video"];
-    #packages = with pkgs; [
-    #  firefox
-    #];
-    #shell = pkgs.zsh;
+    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" "video" ];
   };
 
   # This setups a SSH server. Very important if you're setting up a headless system.
@@ -178,6 +158,8 @@
       PasswordAuthentication = false;
     };
   };
+  services.blueman.enable = true;
+  hardware.bluetooth.enable = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.11";

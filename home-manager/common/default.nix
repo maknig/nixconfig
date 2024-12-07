@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   # TODO: https://nix-community.github.io/home-manager/#sec-install-nixos-module
   # do we need to set?:
   # home-manager.useUserPackages = true;
@@ -13,18 +13,21 @@
   home.packages = [
     pkgs.firefox
     pkgs.signal-desktop
+    pkgs.spotify
     pkgs.google-chrome
     pkgs.dua
     pkgs.eza
     pkgs.yazi
+    pkgs.htop
+    pkgs.btop
     pkgs.fd
     pkgs.jq
     pkgs.procs
-    pkgs.obsidian
+    #pkgs.obsidian
     #pkgs.logseq
     # fonts
     pkgs.fontconfig
-    (pkgs.nerdfonts.override {fonts = ["UbuntuMono" "Iosevka" "ZedMono"];})
+    (pkgs.nerdfonts.override { fonts = [ "UbuntuMono" "Iosevka" "ZedMono" ]; })
   ];
 
   programs.direnv = {
