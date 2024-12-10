@@ -231,8 +231,18 @@
         # NixOS configuration entrypoint
         # Available through 'nixos-rebuild --flake .#your-hostname'
         nixosConfigurations = mapAttrs' intoNixOs {
-          nixos = { };
           spectra = { };
         };
+        # CI build helper
+        top =
+          let
+            systems = genAttrs
+              (builtins.attrNames inputs.self.nixosConfigurations)
+              (attr: inputs.self.nixosConfigurations.${attr}.config.system.build.toplevel);
+            homes = genAttrs
+              (builtins.attrNames inputs.self.homeConfigurations)
+              (attr: inputs.self.homeConfigurations.${attr}.activationPackage);
+          in
+          systems // homes;
       };
 }

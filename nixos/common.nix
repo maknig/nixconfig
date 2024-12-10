@@ -23,47 +23,6 @@
   };
 
   networking.networkmanager.enable = true;
-  # Set your time zone.
-  time.timeZone = "Europe/Zurich";
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-
-
-  environment.systemPackages = [
-    pkgs.wireplumber
-    pkgs.openconnect_openssl
-    pkgs.networkmanager-openconnect
-    pkgs.mpd-mpris
-    pkgs.playerctl
-    pkgs.zsh
-    pkgs.nautilus
-    pkgs.sushi
-    pkgs.gnome-calculator
-  ];
-
-  services.dbus = {
-    enable = true;
-    packages = [ pkgs.gcr ];
-  };
-
-  # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
-
-  programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
-
-  virtualisation.docker.enable = true;
-
-  users.users.matthias = {
-    isNormalUser = true;
-    description = "Matthias";
-    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" "video" ];
-  };
-
   # This setups a SSH server. Very important if you're setting up a headless system.
   # Feel free to remove if you don't need it.
   services.openssh = {
@@ -75,4 +34,49 @@
       PasswordAuthentication = false;
     };
   };
+
+  virtualisation.docker.enable = true;
+
+  # Set your time zone.
+  time.timeZone = "Europe/Zurich";
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
+  #fonts.packages = with pkgs; [
+  #  nerd-fonts.ubuntu-mono
+  #  nerd-fonts.droid-sans-mono
+  #];
+
+  environment.systemPackages = [
+    pkgs.wireplumber
+    pkgs.openconnect_openssl
+    pkgs.networkmanager-openconnect
+    pkgs.mpd-mpris
+    pkgs.playerctl
+    pkgs.zsh
+  ];
+
+  programs.zsh.enable = true;
+
+  services.dbus = {
+    enable = true;
+    packages = [ pkgs.gcr ];
+  };
+
+  # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
+
+
+
+  users.defaultUserShell = pkgs.zsh;
+  users.users.matthias = {
+    isNormalUser = true;
+    description = "Matthias";
+    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" "video" ];
+  };
+
+
 }

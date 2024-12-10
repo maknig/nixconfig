@@ -3,7 +3,6 @@
   # do we need to set?:
   # home-manager.useUserPackages = true;
   # home-manager.useGlobalPkgs = true;
-
   programs.home-manager.enable = true;
   manual.manpages.enable = true; # home-manager man pages
   programs.man.enable = true; # nix pkgs man pages
@@ -27,8 +26,15 @@
     #pkgs.logseq
     # fonts
     pkgs.fontconfig
-    (pkgs.nerdfonts.override { fonts = [ "UbuntuMono" "Iosevka" "ZedMono" ]; })
+
+    pkgs.nerd-fonts.ubuntu-mono
+    #(pkgs.nerd-fonts.override { fonts = [ "UbuntuMono" "Iosevka" "ZedMono" ]; })
+
   ];
+
+  # Nicely reload system units when changing configs
+  systemd.user.startServices = "sd-switch";
+
 
   programs.direnv = {
     enable = true;

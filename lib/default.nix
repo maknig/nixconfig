@@ -141,16 +141,31 @@ rec {
           )
           (inputs.home-manager.nixosModules.home-manager)
           {
-            home-manager = {
-              useGlobalPkgs = true;
-              extraSpecialArgs =
-                let
-                  self = inputs.self;
-                  user = userConf;
-                in
-                # NOTE: Cannot pass name to home-manager as it passes `name` in to set the `hmModule`
-                { inherit inputs self system user; };
-            };
+            home-manager =
+              {
+                useGlobalPkgs = true;
+                extraSpecialArgs =
+                  let
+                    self = inputs.self;
+                    user = userConf;
+                  in
+                  # NOTE: Cannot pass name to home-manager as it passes `name` in to set the `hmModule`
+                  { inherit inputs self system user; };
+
+                # Define Home Manager configuration for the user
+                users =
+                  let
+                    userConf = strToFile config ../home-manager/hosts;
+                    home = mkUserHome {
+                      inherit system;
+                      config = userConf;
+                    };
+
+                  in
+                  {
+                    ${user} = home;
+                  };
+              };
           }
           (import (strToFile config ../nixos/hosts))
           (import ../nixos/desktop.nix)

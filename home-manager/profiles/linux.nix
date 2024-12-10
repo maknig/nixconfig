@@ -31,6 +31,7 @@ in
     enable = mkEnableOption "linux profile";
   };
 
+  #home.file.".config/hypr/hyprland.conf".source = ../modules/hyprland/hyprland.conf;
   config = mkIf cfg.enable {
     home.packages = [
       susp
