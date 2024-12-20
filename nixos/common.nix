@@ -21,6 +21,13 @@
     # Deduplicate and optimize nix store
     auto-optimise-store = true;
   };
+  nix.optimise.automatic = true;
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
 
   networking.networkmanager.enable = true;
   # This setups a SSH server. Very important if you're setting up a headless system.
@@ -45,11 +52,6 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  #fonts.packages = with pkgs; [
-  #  nerd-fonts.ubuntu-mono
-  #  nerd-fonts.droid-sans-mono
-  #];
 
   environment.systemPackages = [
     pkgs.wireplumber

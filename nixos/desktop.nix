@@ -70,11 +70,12 @@ in
 
     programs.hyprland = {
       enable = true;
-      #nvidiaPatches = true;
       xwayland.enable = true;
     };
 
     services.xserver.displayManager.gdm.enable = true;
+    #services.displayManager.sddm.enable = true;
+    #services.xserver.desktopManager.gnome.enable = true;
     services.displayManager.defaultSession = "hyprland";
     services.gvfs.enable = true;
     services.xserver.enable = true;
