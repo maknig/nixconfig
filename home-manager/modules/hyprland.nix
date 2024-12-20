@@ -14,19 +14,19 @@ with lib; let
         #entries="⇠\tLogout\n⏾\tSuspend\n⭮\tReboot\n⏻\tShutdown"
         entries="⇠\n⏾\n⭮\n⏻"
 
-        selected=$(echo -e $entries | rofi -dmenu -i -theme $HOME/.config/rofi/powermenu.rasi | awk '{print tolower($2)}')
+        selected=$(echo -e $entries | rofi -dmenu -i -theme $HOME/.config/rofi/powermenu.rasi)
 
         case $selected in
-          ⇠
+          ⇠)
           hyprctl dispatch exit
           ;;
-          ⏾
+          ⏾)
           exec systemctl suspend
           ;;
-          ⭮
+          ⭮)
           exec systemctl reboot
           ;;
-          ⏻
+          ⏻)
           exec systemctl poweroff
           ;;
           # it used to be poweroff -i
@@ -44,6 +44,7 @@ in
       inputs.hypr-contrib.packages.${pkgs.system}.grimblast
       pkgs.hyprpaper
       pkgs.hyprlock
+      pkgs.hypridle
       pkgs.hyprshot
       pkgs.hypridle
       pkgs.cliphist
@@ -304,6 +305,7 @@ in
     home.file.".config/waybar/macchiato.css".source = ./waybar/macchiato.css;
     home.file.".config/hypr/hyprpaper.conf".source = ./hyprland/hyprpaper.conf;
     home.file.".config/hypr/hyprlock.conf".source = ./hyprland/hyprlock.conf;
+    home.file.".config/hypr/hypridle.conf".source = ./hyprland/hypridle.conf;
     home.file.".config/hypr/hyprland.conf".source = ./hyprland/hyprland.conf;
     home.file.".config/rofi/config.rasi".source = ./rofi/config.rasi;
     home.file.".config/rofi/powermenu.rasi".source = ./rofi/powermenu.rasi;

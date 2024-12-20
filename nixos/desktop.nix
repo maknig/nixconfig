@@ -51,6 +51,7 @@ in
         pamixer
         pulsemixer
         nautilus
+        sushi
         gnome-calculator
         xdg-utils
         glib
@@ -72,10 +73,11 @@ in
       enable = true;
       #nvidiaPatches = true;
       xwayland.enable = true;
+      withUWSM = true;
     };
 
     services.xserver.displayManager.gdm.enable = true;
-    services.displayManager.defaultSession = "hyprland";
+    services.displayManager.defaultSession = "hyprland-uwsm";
     services.gvfs.enable = true;
     services.xserver.enable = true;
 

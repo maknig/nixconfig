@@ -11,6 +11,7 @@
     enable = true;
     platform = "ipu6ep";
   };
+
   hardware.bluetooth.enable = true;
 
   services.blueman.enable = true;

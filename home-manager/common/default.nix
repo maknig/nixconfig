@@ -22,11 +22,11 @@
     pkgs.fd
     pkgs.jq
     pkgs.procs
+    pkgs.uv
     #pkgs.obsidian
     #pkgs.logseq
     # fonts
     pkgs.fontconfig
-
     pkgs.nerd-fonts.ubuntu-mono
     #(pkgs.nerd-fonts.override { fonts = [ "UbuntuMono" "Iosevka" "ZedMono" ]; })
 
