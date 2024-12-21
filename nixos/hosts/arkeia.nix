@@ -40,23 +40,21 @@
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
+  hardware.nvidia-container-toolkit.enable = true;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  #boot.kernelModules = ["kvm-intel"];
   boot = {
 
     consoleLogLevel = 0;
 
     initrd = {
-      kernelModules = [ ];
+      kernelModules = [ "kvm-intel" ];
       availableKernelModules = [ "ata_generic" "ehci_pci" "ahci" "isci" "xhci_pci" "firewire_ohci" "usb_storage" "usbhid" "sd_mod" "sr_mod" ];
       verbose = false;
     };
     kernelModules = [ ];
     extraModulePackages = [ ];
-
-
     kernelParams = [
       "quiet"
       "splash"
