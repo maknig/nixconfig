@@ -35,6 +35,8 @@ in
     home.packages = [
       susp
       vpn_status
+      pkgs.firefox
+      pkgs.papers
       pkgs.gthumb
       pkgs.networkmanager-openconnect
       pkgs.networkmanagerapplet
@@ -45,23 +47,23 @@ in
       #pkgs.pamixer
     ];
 
-   # services = {
-   #   redshift = {
-   #     enable = false;
-   #     temperature = {
-   #       day = 5700;
-   #       night = 3200;
-   #     };
-   #     provider = "manual";
-   #     latitude = 47.4;
-   #     longitude = 8.5;
-   #     settings = {
-   #       redshift.adjustment-method = "wlr-randr";
-   #       redshift.transition = 1;
-   #       redshift.brightness-day = 1.0;
-   #       redshift.brightness-night = 0.7;
-   #     };
-   #   };
-   # };
+    # services = {
+    #   redshift = {
+    #     enable = false;
+    #     temperature = {
+    #       day = 5700;
+    #       night = 3200;
+    #     };
+    #     provider = "manual";
+    #     latitude = 47.4;
+    #     longitude = 8.5;
+    #     settings = {
+    #       redshift.adjustment-method = "wlr-randr";
+    #       redshift.transition = 1;
+    #       redshift.brightness-day = 1.0;
+    #       redshift.brightness-night = 0.7;
+    #     };
+    #   };
+    # };
   };
 }

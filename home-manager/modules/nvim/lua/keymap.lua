@@ -23,7 +23,8 @@ function M.general()
 	for i = 1, 9 do
 		vim.keymap.set("n", "," .. i, i .. "<c-w>w")
 	end
-
+	-- Lua
+	vim.keymap.set("n", "<leader>mr", require("micropython_nvim").run)
 	map("", ";", ":", {}) -- no shift for cmd mode
 	map("i", "jj", "<Esc>", {}) -- no shift for cmd mode
 	map("", "gp", "`[v`]", { noremap = true }) -- select last pasted lines
@@ -54,29 +55,6 @@ function M.get_maps()
 	-- consider https://colemakmods.github.io/mod-dh/model.html
 
 	local maps = {}
-
-	--maps['inverted T arrows'] = {
-	--    nv = {
-	--        { 'n', 'h' }, -- cursor left
-	--        { 'e', 'j' }, -- cursor down
-	--        { 'i', 'l' }, -- cursor right
-	--        { 'u', 'k' }, -- cursor up
-	--    },
-	--}
-
-	--maps['browse'] = {
-	--    nv = {
-	--        { '<c-u>', '1<c-u>' }, -- view and cursor up
-	--        { '<c-e>', '1<c-d>' }, -- view and cursor down
-	--        -- { '<c-u>', 'kzz' }, -- view and cursor up
-	--        -- { '<c-e>', 'jzz' }, -- view and cursor down
-	--        { 'zz', 'zz' }, -- center line in view
-	--        { 'ze', 'zb' }, -- line at top of view
-	--        { 'zu', 'zt' }, -- line at botton of view
-	--        { 'k', '<cmd>set scroll=0<enter><c-u><c-u>' }, -- view and cursor one page up
-	--        { 'h', '<cmd>set scroll=0<enter><c-d><c-d>' }, -- view and cursor one page down
-	--    },
-	--}
 
 	maps["undo"] = {
 		n = {

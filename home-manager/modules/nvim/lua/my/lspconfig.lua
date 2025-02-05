@@ -158,10 +158,12 @@ function M.on_attach(client, bufnr)
 
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	local b = vim.lsp.buf
-	-- TODO
+	-- definitionTODO
 	-- nmap('gD', b.declaration)
 	-- nmap('gi', b.implementation)
 	-- nmap('gtd', b.type_definition)
+
+	-- nmap("gi", lsp_jumper("textDocument/implementation"), "go to definition")
 
 	nmap("gd", lsp_jumper("textDocument/definition"), "go to definition")
 	nmap("gds", lsp_jumper("textDocument/definition", "tab split"), "go to definition in a new tab")

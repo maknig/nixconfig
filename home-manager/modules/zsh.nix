@@ -25,6 +25,7 @@
         reload = ". ~/.zshrc";
         la = "eza --long --header --all --icons --git";
         ll = "eza --long --header --icons --git";
+        tree = "eza --tree  --icons";
         md = "mkdir -p";
         man = "man --no-justification";
         k = "kubectl";

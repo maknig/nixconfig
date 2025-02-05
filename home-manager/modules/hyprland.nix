@@ -12,11 +12,14 @@ with lib; let
     pkgs.writeScriptBin "powermenu"
       ''
         #entries="⇠\tLogout\n⏾\tSuspend\n⭮\tReboot\n⏻\tShutdown"
-        entries="⇠\n⏾\n⭮\n⏻"
+        entries="\n⇠\n⏾\n⭮\n⏻"
 
         selected=$(echo -e $entries | rofi -dmenu -i -theme $HOME/.config/rofi/powermenu.rasi)
 
         case $selected in
+          )
+          hyprlock
+          ;;
           ⇠)
           hyprctl dispatch exit
           ;;
@@ -29,7 +32,6 @@ with lib; let
           ⏻)
           exec systemctl poweroff
           ;;
-          # it used to be poweroff -i
         esac
       '';
 

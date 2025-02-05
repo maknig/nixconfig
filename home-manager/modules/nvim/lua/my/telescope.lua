@@ -44,8 +44,8 @@ function mod.setup()
 	telescope.load_extension("fzf")
 
 	map("", ",,", ":Telescope git_files<cr>", { desc = "find git files" })
-	map("n", "ge", bi.lsp_document_symbols, { desc = "document symbols" })
-	map("n", "gi", bi.lsp_dynamic_workspace_symbols, { desc = "workspace symbols" })
+	map("n", "gds", bi.lsp_document_symbols, { desc = "document symbols" })
+	map("n", "gws", bi.lsp_dynamic_workspace_symbols, { desc = "workspace symbols" })
 	map("n", "gf", bi.find_files, { desc = "find files" })
 
 	-- map('n', 'gr', bi.live_grep, { desc = 'live grep' })

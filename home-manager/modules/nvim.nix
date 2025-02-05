@@ -1,23 +1,22 @@
-{
-  pkgs,
-  inputs,
-  lib,
-  ...
+{ pkgs
+, inputs
+, lib
+, ...
 }:
 with builtins; let
   pyformat =
     pkgs.writeScriptBin "pyformat"
-    ''
-      #!/usr/bin/env zsh
-      set -eu -o pipefail
+      ''
+        #!/usr/bin/env zsh
+        set -eu -o pipefail
 
-      if [[ -f ./.venv/bin/ruff ]]; then
-          ./.venv/bin/ruff check --fix-only --select 'I' -s - | ./.venv/bin/ruff format -s -
-          exit $?
-      fi
+        if [[ -f ./.venv/bin/ruff ]]; then
+            ./.venv/bin/ruff check --fix-only --select 'I' -s - | ./.venv/bin/ruff format -s -
+            exit $?
+        fi
 
-      ruff check --fix-only --select 'I' -s - | ruff format -s -
-    '';
+        ruff check --fix-only --select 'I' -s - | ruff format -s -
+      '';
 
   treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (p:
     with p; [
@@ -62,20 +61,46 @@ with builtins; let
           else ""
         }
       '';
+      dependencies = [
+        pkgs.vimPlugins.nvim-cmp
+        pkgs.vimPlugins.telescope-nvim
+        pkgs.vimPlugins.plenary-nvim
+        pkgs.vimPlugins.toggleterm-nvim
+        
+      ];
     };
-in {
+in
+{
   programs = {
     neovim = {
       enable = true;
       package = pkgs.neovim;
       withPython3 = true;
       withNodeJs = true;
-      extraPackages = [
-      ];
+
+      #extraPackages = with pkgs; [
+      #  imagemagick
+      #];
+
+      #extraLuaPackages = p: with p; [
+      #  magick # for image rendering
+      #];
+
+      #extraPython3Packages = ps: with ps; [
+      #  # ... other python packages
+      #  pynvim
+      #  jupyter-client
+      #  cairosvg # for image rendering
+      #  pnglatex # for image rendering
+      #  plotly # for image rendering
+      #  pyperclip
+      #];
+
       plugins = with pkgs.vimPlugins; [
         (plug "hop-nvim")
         (plug "fugitive-nvim")
-        (plug "gitsigns-nvim")
+        #(plug "gitsigns-nvim")
+        gitsigns-nvim
         (plug "lsp-indicator-nvim")
         (plug "funky-formatter-nvim")
         (plug "funky-contexts-nvim")
@@ -88,19 +113,25 @@ in {
 
         # lsp (minimal)
         (plug "nvim-lspconfig")
-        (plug "nvim-cmp")
+        #(plug "nvim-cmp")
+        nvim-cmp
         (plug "cmp-lsp-nvim")
-        (plug "luasnip-nvim")
 
-        # lsp (ext completion)
+        ## lsp (ext completion)
         (plug "cmp-buffer-nvim")
         (plug "cmp-path-nvim")
         (plug "cmp-luasnip-nvim")
         (plug "lsp-signature-nvim")
         (plug "lspkind-nvim")
 
+        #luasnip
+        #nvim-cmp
+        #cmp-path
+        #cmp_luasnip
+
         # telescope
-        (plug "plenary-nvim")
+        #(plug "plenary-nvim")
+        plenary-nvim
         (plug "telescope-nvim")
         (plug "telescope-fzf-native-nvim")
 
@@ -108,7 +139,8 @@ in {
 
         (plug "neodev-nvim")
         (plug "python-synt-nvim")
-        (plug "which-key")
+        (plug "micro-py-nvim")
+        (plug "toggelterm-nvim")
         #(plug "jukit-nvim")
 
         #(plug "jukit-nvim")

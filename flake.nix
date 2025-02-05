@@ -40,6 +40,14 @@
       flake = false;
     };
 
+    micro-py-nvim = {
+      url = github:jim-at-jibba/micropython.nvim;
+      flake = false;
+    };
+    toggelterm-nvim = {
+      url = github:akinsho/toggleterm.nvim;
+      flake = false;
+    };
     which-key = {
       url = github:folke/which-key.nvim;
       flake = false;
@@ -214,6 +222,11 @@
                   "nvidia-x11"
                   "spotify"
                 ];
+
+            # logseq still uses EOL electron 27
+            config.permittedInsecurePackages = [
+              "electron-27.3.11"
+            ];
           }
         );
       in
