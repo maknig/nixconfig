@@ -41,6 +41,7 @@ function M.setup()
 	--M.setup_rnix(capabilities)
 	M.setup_clangd(capabilities)
 	M.setup_yaml(capabilities)
+	M.setup_tex(capabilities)
 
 	vim.diagnostic.config({
 		-- underline = { severity = vim.diagnostic.severity.ERROR },
@@ -123,6 +124,7 @@ function M.setup_completion()
 		sources = cmp.config.sources({
 			{ name = "nvim_lsp" },
 			{ name = "nvim_lua" },
+			{ name = "spell" },
 		}),
 		formatting = {
 			format = require("lspkind").cmp_format({
@@ -291,6 +293,12 @@ end
 
 function M.setup_yaml(capabilities)
 	require("lspconfig").yamlls.setup({
+		capabilities = capabilities,
+	})
+end
+
+function M.setup_tex(capabilities)
+	require("lspconfig").texlab.setup({
 		capabilities = capabilities,
 	})
 end

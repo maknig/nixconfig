@@ -4,6 +4,15 @@
 , ...
 }:
 with builtins; let
+  nvim-spell-de-utf8-dictionary = builtins.fetchurl {
+    url = "https://ftp.nluug.nl/vim/runtime/spell/de.utf-8.spl";
+    sha256 = "1ld3hgv1kpdrl4fjc1wwxgk4v74k8lmbkpi1x7dnr19rldz11ivk";
+  };
+
+  nvim-spell-de-utf8-suggestions = builtins.fetchurl {
+    url = "https://ftp.nluug.nl/vim/runtime/spell/de.utf-8.sug";
+    sha256 = "0j592ibsias7prm1r3dsz7la04ss5bmsba6l1kv9xn3353wyrl0k";
+  };
   pyformat =
     pkgs.writeScriptBin "pyformat"
       ''
@@ -66,7 +75,7 @@ with builtins; let
         pkgs.vimPlugins.telescope-nvim
         pkgs.vimPlugins.plenary-nvim
         pkgs.vimPlugins.toggleterm-nvim
-        
+
       ];
     };
 in
@@ -77,6 +86,7 @@ in
       package = pkgs.neovim;
       withPython3 = true;
       withNodeJs = true;
+
 
       #extraPackages = with pkgs; [
       #  imagemagick
@@ -115,6 +125,7 @@ in
         (plug "nvim-lspconfig")
         #(plug "nvim-cmp")
         nvim-cmp
+        cmp-spell
         (plug "cmp-lsp-nvim")
 
         ## lsp (ext completion)
@@ -165,6 +176,7 @@ in
       rust-analyzer
       sumneko-lua-language-server
       yaml-language-server
+      texlab
       # formatters
       black
       nixpkgs-fmt
@@ -173,8 +185,12 @@ in
       rustfmt
       stylua
       ruff
+      tex-fmt
     ];
   };
+
+  xdg.configFile."nvim/spell/de.utf-8.spl".source = nvim-spell-de-utf8-dictionary;
+  xdg.configFile."nvim/spell/de.utf-8.sug".source = nvim-spell-de-utf8-suggestions;
 
   home.file.".config/nvim/init.lua".source = ./nvim/init.lua;
   home.file.".config/nvim/lua".source = ./nvim/lua;

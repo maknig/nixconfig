@@ -19,19 +19,22 @@
   environment.systemPackages = [
     pkgs.brightnessctl
   ];
+
   # fix ipu6 build failure
-  boot.kernelPackages = pkgs.linuxPackages_latest.extend (_: prev: {
-    ipu6-drivers = prev.ipu6-drivers.overrideAttrs (_: _: {
-      src = pkgs.fetchFromGitHub {
-        owner = "intel";
-        repo = "ipu6-drivers";
-        rev = "e2136ae84dac25d6e0be071bda460d852bb975d1";
-        hash = "sha256-HLo3gC61+nRUMzonc3d5uwy+OmWQMQkLAGj15Ynbcoc=";
-      };
-    });
-  });
+  #boot.kernelPackages = pkgs.linuxPackages_6_12.extend (_: prev: {
+  #  ipu6-drivers = prev.ipu6-drivers.overrideAttrs (_: _: {
+  #    src = pkgs.fetchFromGitHub {
+  #      owner = "intel";
+  #      repo = "ipu6-drivers";
+  #      rev = "e2136ae84dac25d6e0be071bda460d852bb975d1";
+  #      #rev = "19c1deddd2274016ed0b8b5eed804bb1e2f6fee7";
+  #      hash = "sha256-HLo3gC61+nRUMzonc3d5uwy+OmWQMQkLAGj15Ynbcoc=";
+  #    };
+  #  });
+  #});
 
   #boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_12;
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "thunderbolt" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];

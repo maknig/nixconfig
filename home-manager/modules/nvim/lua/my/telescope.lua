@@ -43,6 +43,18 @@ function mod.setup()
 	})
 	telescope.load_extension("fzf")
 
+	-- Function to show spell suggestions
+	function SpellSuggestions()
+		local current_word = vim.fn.expand("<cword>")
+		bi.spell_suggest({
+			initial_mode = "insert",
+			prompt_title = "Spell Suggestions for: " .. current_word,
+			search = current_word,
+		})
+	end
+
+	map("n", ",ss", ":lua SpellSuggestions()<CR>", { desc = "Spell suggestions" })
+
 	map("", ",,", ":Telescope git_files<cr>", { desc = "find git files" })
 	map("n", "gds", bi.lsp_document_symbols, { desc = "document symbols" })
 	map("n", "gws", bi.lsp_dynamic_workspace_symbols, { desc = "workspace symbols" })

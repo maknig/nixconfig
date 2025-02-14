@@ -19,6 +19,7 @@ function mod.setup()
 			nix = { command = { "nixpkgs-fmt" } },
 			cpp = { command = { "clang-format" } },
 			proto = { command = { "clang-format" } },
+			tex = { command = { "tex-fmt", "--stdin", "--quiet" } },
 		},
 	})
 	vim.keymap.set("n", "==", funky_formatter.format, { desc = "funky formatter" })
