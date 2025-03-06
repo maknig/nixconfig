@@ -17,8 +17,8 @@ in
 
     security.rtkit.enable = true;
 
-    #services.pulseaudio.enable = false;
-    hardware.pulseaudio.enable = false;
+    services.pulseaudio.enable = false;
+    #hardware.pulseaudio.enable = false;
     #hardware = {
     #  pulseaudio = {
     #    enable = true;
@@ -49,7 +49,7 @@ in
 
     environment.systemPackages = with pkgs;
       [
-        pamixer
+        #pamixer
         pulsemixer
         nautilus
         sushi
