@@ -87,7 +87,7 @@ rec {
     nameValuePair name (
       let
         pkgs = inputs.self.pkgsBySystem."${system}";
-        userConf = import (strToFile user ../user);
+        #userConf = import (strToFile user ../user);
       in
       nixosSystem {
         inherit system;
@@ -175,9 +175,9 @@ rec {
         specialArgs =
           let
             self = inputs.self;
-            user = userConf;
+            #user = userConf;
           in
-          { inherit inputs name self system user; };
+          { inherit inputs name self system; }; #user; };
       }
     );
 }

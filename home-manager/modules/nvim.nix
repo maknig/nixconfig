@@ -155,8 +155,11 @@ in
         (plug "micro-py-nvim")
         (plug "toggelterm-nvim")
         #(plug "jukit-nvim")
-        molten-nvim
-        avant-nvim
+        #molten-nvim
+
+        avante-nvim
+        markview-nvim
+        img-clip-nvim
 
         #(plug "jukit-nvim")
         #(plug "semshi-nvim")
