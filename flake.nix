@@ -241,6 +241,7 @@
         homeConfigurations = mapAttrs' intoHomeManager {
           spectra = { user = "matthias"; };
           arkeia = { user = "matthias"; };
+          aurora = { system = "aarch64-darwin";  };
         };
 
         # NixOS configuration entrypoint

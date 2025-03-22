@@ -10,9 +10,10 @@
   fonts.fontconfig.enable = true;
 
   home.packages = [
-    pkgs.signal-desktop
+    #pkgs.firefox
+    #pkgs.signal-desktop
     pkgs.spotify
-    pkgs.google-chrome
+    #pkgs.google-chrome
     pkgs.dua
     pkgs.eza
     pkgs.yazi
@@ -27,6 +28,7 @@
     # fonts
     pkgs.fontconfig
     pkgs.nerd-fonts.ubuntu-mono
+    #pkgs.nerd-fonts.ubuntu-mono
     #pkgs.nerdfonts
     #(pkgs.nerd-fonts.override { fonts = [ "UbuntuMono" "Iosevka" "ZedMono" ]; })
 
