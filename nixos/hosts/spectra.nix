@@ -15,13 +15,14 @@
   hardware.bluetooth.enable = true;
 
   services.blueman.enable = true;
+  services.fwupd.enable = true;
 
   environment.systemPackages = [
     pkgs.brightnessctl
   ];
 
   # fix ipu6 build failure
-  #boot.kernelPackages = pkgs.linuxPackages_6_12.extend (_: prev: {
+  #boot.kernelPackages = pkgs.linuxPackages_latest.extend (_: prev: {
   #  ipu6-drivers = prev.ipu6-drivers.overrideAttrs (_: _: {
   #    src = pkgs.fetchFromGitHub {
   #      owner = "intel";
@@ -33,8 +34,8 @@
   #  });
   #});
 
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages_6_12;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_6_12;
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "thunderbolt" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];

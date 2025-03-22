@@ -39,6 +39,10 @@
       url = github:numirias/semshi;
       flake = false;
     };
+    avante-nvim = {
+      url = github:yetone/avante.nvim;
+      flake = false;
+    };
 
     micro-py-nvim = {
       url = github:jim-at-jibba/micropython.nvim;

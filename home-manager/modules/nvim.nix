@@ -13,6 +13,7 @@ with builtins; let
     url = "https://ftp.nluug.nl/vim/runtime/spell/de.utf-8.sug";
     sha256 = "0j592ibsias7prm1r3dsz7la04ss5bmsba6l1kv9xn3353wyrl0k";
   };
+
   pyformat =
     pkgs.writeScriptBin "pyformat"
       ''
@@ -100,6 +101,7 @@ in
       #  # ... other python packages
       #  pynvim
       #  jupyter-client
+      #  jupyterlab
       #  cairosvg # for image rendering
       #  pnglatex # for image rendering
       #  plotly # for image rendering
@@ -146,13 +148,18 @@ in
         (plug "telescope-nvim")
         (plug "telescope-fzf-native-nvim")
 
-        (plug "rustacean-nvim")
+        #(plug "rustacean-nvim")
 
         (plug "neodev-nvim")
         (plug "python-synt-nvim")
         (plug "micro-py-nvim")
         (plug "toggelterm-nvim")
         #(plug "jukit-nvim")
+        #molten-nvim
+
+        avante-nvim
+        markview-nvim
+        img-clip-nvim
 
         #(plug "jukit-nvim")
         #(plug "semshi-nvim")
