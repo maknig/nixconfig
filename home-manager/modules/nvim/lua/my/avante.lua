@@ -27,18 +27,20 @@ function M.setup()
 		vendors = {
 			llmhub = {
 				__inherited_from = "openai",
-				disable_tools = { "python" },
+				disable_tools = true, -- { "python" },
 				endpoint = "https://api.llmhub.infs.ch/v1",
 				api_key_name = "LLMHUB_API_KEY",
 				model = "llama3.2:3b",
-                -- model = "qwen2.5-coder:32b",
+				-- model = "qwq:32b",
 			},
 			openrouter = {
 				__inherited_from = "openai",
 				disable_tools = true,
 				endpoint = "https://openrouter.ai/api/v1",
 				api_key_name = "OPENROUTER_API_KEY",
-				model = "meta-llama/llama-3.2-1b-instruct:free",
+				-- model = "google/gemma-3-12b-it:free",
+				-- model = "mistralai/mistral-small-3.1-24b-instruct:free",
+				model = "mistralai/mistral-small-3.1-24b-instruct:free",
 			},
 		},
 
@@ -50,7 +52,7 @@ function M.setup()
 			support_paste_from_clipboard = false,
 			minimize_diff = true, -- Whether to remove unchanged lines when applying a code block
 			enable_token_counting = true, -- Whether to enable token counting. Default to true.
-			enable_cursor_planning_mode = false, -- Whether to enable Cursor Planning Mode. Default to false.
+			enable_cursor_planning_mode = true, -- Whether to enable Cursor Planning Mode. Default to false.
 		},
 		mappings = {
 			--- @class AvanteConflictMappings

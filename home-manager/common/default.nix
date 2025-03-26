@@ -10,6 +10,7 @@
   fonts.fontconfig.enable = true;
 
   home.packages = [
+    pkgs.home-manager
     pkgs.signal-desktop
     pkgs.spotify
     pkgs.google-chrome
@@ -23,7 +24,7 @@
     pkgs.procs
     #pkgs.uv
     #pkgs.obsidian
-    pkgs.logseq
+    #pkgs.logseq
     # fonts
     pkgs.fontconfig
     pkgs.nerd-fonts.ubuntu-mono

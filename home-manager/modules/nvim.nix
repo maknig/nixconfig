@@ -157,9 +157,14 @@ in
         #(plug "jukit-nvim")
         #molten-nvim
 
-        avante-nvim
+
+        render-markdown-nvim
         markview-nvim
         img-clip-nvim
+        dressing-nvim
+        nui-nvim
+        avante-nvim
+        #(plug "avante-nvim")
 
         #(plug "jukit-nvim")
         #(plug "semshi-nvim")

@@ -58,6 +58,7 @@ local options = function()
 	set.modeline = false
 	set.modelines = 0
 	set.wildmode = "longest:full"
+	set.laststatus = 3 --avante.nvim recommendation
 
 	-- Better completion?
 	-- menuone: popup even when there's only one match
@@ -101,10 +102,12 @@ local load = function()
 
 	require("my/avante").setup()
 
-	local markview = require("markview")
-	markview.setup({
+	--require("render-markdown").setup({
+	--	file_types = { "markdown", "Avante" },
+	--})
+	require("markview").setup({
 		preview = {
-		    enable = true,
+			enable = true,
 			filetypes = { "markdown", "norg", "rmd", "org", "vimwiki", "Avante" },
 			ignore_buftypes = {},
 		},
