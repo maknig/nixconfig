@@ -13,7 +13,7 @@
     pkgs.home-manager
     pkgs.signal-desktop
     pkgs.spotify
-    pkgs.google-chrome
+    #pkgs.google-chrome
     pkgs.dua
     pkgs.eza
     pkgs.yazi
@@ -23,11 +23,12 @@
     pkgs.jq
     pkgs.procs
     #pkgs.uv
-    #pkgs.obsidian
+    pkgs.obsidian
     #pkgs.logseq
     # fonts
     pkgs.fontconfig
     pkgs.nerd-fonts.ubuntu-mono
+    #pkgs.nerd-fonts.ubuntu-mono
     #pkgs.nerdfonts
     #(pkgs.nerd-fonts.override { fonts = [ "UbuntuMono" "Iosevka" "ZedMono" ]; })
 
