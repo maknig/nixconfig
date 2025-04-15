@@ -23,7 +23,7 @@
     pkgs.jq
     pkgs.procs
     #pkgs.uv
-    pkgs.obsidian
+    #pkgs.obsidian
     #pkgs.logseq
     # fonts
     pkgs.fontconfig
