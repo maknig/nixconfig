@@ -78,19 +78,19 @@ function M.get_maps()
 		},
 	}
 
-	maps["copy"] = {
-		nv = {
-			{ "w", "y" },
-			{ "wa", '"+y' }, -- put into system clipboard
-		},
-		n = {
-			{ "wf", "p" },
-			{ "WF", "P" },
-			{ "ww", "yy" },
-			{ "wp", "`[v`]" }, -- select last pasted lines
-			-- { 'wa', '[["+Y]]' }, -- put into system clipboard
-		},
-	}
+	--maps["copy"] = {
+	--	nv = {
+	--		{ "w", "y" },
+	--		{ "wa", '"+y' }, -- put into system clipboard
+	--	},
+	--	n = {
+	--		{ "wf", "p" },
+	--		{ "WF", "P" },
+	--		{ "ww", "yy" },
+	--		{ "wp", "`[v`]" }, -- select last pasted lines
+	--		-- { 'wa', '[["+Y]]' }, -- put into system clipboard
+	--	},
+	--}
 
 	maps["search"] = {
 		n = {
