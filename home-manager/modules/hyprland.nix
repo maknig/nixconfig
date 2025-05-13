@@ -91,18 +91,17 @@ in
 
     services.mako = {
       enable = true;
-      defaultTimeout = 0;
-      ignoreTimeout = true;
-      extraConfig = ''
-        max-history=5
-        sort=-time
-        layer=overlay
-        border-radius=4
-        background-color=#666666
-        border-color=#1a1a1a
-        font=UbuntuMono Nerd Font Light 12
-        default-timeout=0
-      '';
+      settings = {
+        ignoreTimeout = true;
+        defaultTimeout = 0;
+        sort = "-time";
+        maxHistory = 5;
+        layer = "overlay";
+        border-radius = 4;
+        background-color = "#666666";
+        border-color = "#1a1a1a";
+        font = "UbuntuMono Nerd Font Light 12";
+      };
     };
 
     programs.waybar = {

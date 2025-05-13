@@ -6,13 +6,13 @@
 }: {
   programs.zsh = lib.mkMerge [
     {
-      initExtra = lib.optionalString pkgs.stdenv.isDarwin ''
+      initContent = lib.optionalString pkgs.stdenv.isDarwin ''
         bindkey '^R' history-incremental-search-backward
       '';
     }
     {
       # FIXME only on work machine
-      initExtra = lib.optionalString pkgs.stdenv.isLinux ''
+      initContent = lib.optionalString pkgs.stdenv.isLinux ''
         ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
         ZSH_HIGHLIGHT_DIRS_BLACKLIST+=(/efs)
         ZSH_HIGHLIGHT_MAXLENGTH=2000
@@ -33,7 +33,7 @@
         dk = "docker kill $(docker ps -q)";
       };
 
-      initExtra =
+      initContent=
         ''
           eval "$(direnv hook zsh)"
           path+="$HOME/.nix-profile/bin"

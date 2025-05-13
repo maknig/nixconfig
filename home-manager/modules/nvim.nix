@@ -158,7 +158,8 @@ in
         #molten-nvim
 
 
-        render-markdown-nvim
+        #render-markdown-nvim
+        nui-nvim
         markview-nvim
         img-clip-nvim
         dressing-nvim
@@ -182,6 +183,7 @@ in
 
   home = {
     packages = with pkgs; [
+      ripgrep
       pyformat
       clang-tools
       pyright

@@ -40,7 +40,8 @@ function M.setup()
 				api_key_name = "OPENROUTER_API_KEY",
 				-- model = "google/gemma-3-12b-it:free",
 				-- model = "mistralai/mistral-small-3.1-24b-instruct:free",
-				model = "mistralai/mistral-small-3.1-24b-instruct:free",
+				-- model = "mistralai/mistral-small-3.1-24b-instruct:free",
+				model = "meta-llama/llama-4-maverick:free",
 			},
 		},
 
