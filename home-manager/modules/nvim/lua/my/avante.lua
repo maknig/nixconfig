@@ -38,10 +38,10 @@ function M.setup()
 				disable_tools = true,
 				endpoint = "https://openrouter.ai/api/v1",
 				api_key_name = "OPENROUTER_API_KEY",
-				-- model = "google/gemma-3-12b-it:free",
+				model = "google/gemma-3-12b-it:free",
 				-- model = "mistralai/mistral-small-3.1-24b-instruct:free",
 				-- model = "mistralai/mistral-small-3.1-24b-instruct:free",
-				model = "meta-llama/llama-4-maverick:free",
+				-- model = "meta-llama/llama-4-maverick:free",
 			},
 		},
 
@@ -92,7 +92,7 @@ function M.setup()
 			---@type "right" | "left" | "top" | "bottom"
 			position = "right", -- the position of the sidebar
 			wrap = true, -- similar to vim.o.wrap
-			width = 30, -- default % based on available width
+			width = 40, -- default % based on available width
 			sidebar_header = {
 				enabled = true, -- true, false to enable/disable the header
 				align = "center", -- left, center, right for title

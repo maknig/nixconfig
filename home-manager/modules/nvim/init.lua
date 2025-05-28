@@ -102,17 +102,17 @@ local load = function()
 
 	require("my/avante").setup()
 
-	--require("render-markdown").setup({
-	--	file_types = { "markdown", "Avante" },
-	--})
-	require("markview").setup({
-		preview = {
-			enable = true,
-			filetypes = { "markdown", "norg", "rmd", "org", "vimwiki", "Avante" },
-			ignore_buftypes = {},
-		},
-		max_length = 99999,
+	require("render-markdown").setup({
+		file_types = { "markdown", "Avante" },
 	})
+	--	require("markview").setup({
+	--		preview = {
+	--			enable = true,
+	--			filetypes = { "markdown", "norg", "rmd", "org", "vimwiki", "Avante" },
+	--			ignore_buftypes = {},
+	--		},
+	--		max_length = 99999,
+	--	})
 	-- local hfcc = require('hfcc')
 	--
 	-- hfcc.setup({

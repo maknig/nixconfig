@@ -92,14 +92,17 @@ in
     services.mako = {
       enable = true;
       settings = {
-        ignoreTimeout = true;
-        defaultTimeout = 0;
+        ignore-timeout = "true";
+        default-timeout = 0;
         sort = "-time";
-        maxHistory = 5;
-        layer = "overlay";
+        max-history = 5;
         border-radius = 4;
+        layer = "overlay";
         background-color = "#666666";
         border-color = "#1a1a1a";
+        height = "100";
+        width = "300";
+        icons = "true";
         font = "UbuntuMono Nerd Font Light 12";
       };
     };

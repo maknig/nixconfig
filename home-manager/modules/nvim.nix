@@ -158,9 +158,9 @@ in
         #molten-nvim
 
 
-        #render-markdown-nvim
+        render-markdown-nvim
         nui-nvim
-        markview-nvim
+        #markview-nvim
         img-clip-nvim
         dressing-nvim
         nui-nvim
