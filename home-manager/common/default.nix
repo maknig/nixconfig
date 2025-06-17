@@ -24,7 +24,7 @@
     pkgs.procs
     #pkgs.uv
     #pkgs.obsidian
-    #pkgs.logseq
+    pkgs.logseq
     # fonts
     pkgs.fontconfig
     pkgs.nerd-fonts.ubuntu-mono

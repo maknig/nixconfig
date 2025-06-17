@@ -35,11 +35,11 @@ function M.setup()
 			},
 			openrouter = {
 				__inherited_from = "openai",
-				disable_tools = true,
+				disable_tools = true, --{ "python" },
 				endpoint = "https://openrouter.ai/api/v1",
 				api_key_name = "OPENROUTER_API_KEY",
 				model = "google/gemma-3-12b-it:free",
-				-- model = "mistralai/mistral-small-3.1-24b-instruct:free",
+				--model = "mistralai/mistral-small-3.1-24b-instruct:free",
 				-- model = "mistralai/mistral-small-3.1-24b-instruct:free",
 				-- model = "meta-llama/llama-4-maverick:free",
 			},
@@ -53,7 +53,10 @@ function M.setup()
 			support_paste_from_clipboard = false,
 			minimize_diff = true, -- Whether to remove unchanged lines when applying a code block
 			enable_token_counting = true, -- Whether to enable token counting. Default to true.
-			enable_cursor_planning_mode = true, -- Whether to enable Cursor Planning Mode. Default to false.
+			auto_approve_tool_permissions = false, -- Default: show permission prompts for all tools
+			-- Examples:
+			-- auto_approve_tool_permissions = true,                -- Auto-approve all tools (no prompts)
+			-- auto_approve_tool_permissions = {"bash", "replace_in_file"}, -- Auto-approve specific tools only
 		},
 		mappings = {
 			--- @class AvanteConflictMappings
@@ -80,11 +83,21 @@ function M.setup()
 				normal = "<CR>",
 				insert = "<C-s>",
 			},
+			cancel = {
+				normal = { "<C-c>", "<Esc>", "q" },
+				insert = { "<C-c>" },
+			},
 			sidebar = {
 				apply_all = "A",
 				apply_cursor = "a",
+				retry_user_request = "r",
+				edit_user_request = "e",
 				switch_windows = "<Tab>",
 				reverse_switch_windows = "<S-Tab>",
+				remove_file = "d",
+				add_file = "@",
+				close = { "<Esc>", "q" },
+				close_from_input = nil, -- e.g., { normal = "<Esc>", insert = "<C-d>" }
 			},
 		},
 		hints = { enabled = true },
@@ -92,7 +105,7 @@ function M.setup()
 			---@type "right" | "left" | "top" | "bottom"
 			position = "right", -- the position of the sidebar
 			wrap = true, -- similar to vim.o.wrap
-			width = 40, -- default % based on available width
+			width = 30, -- default % based on available width
 			sidebar_header = {
 				enabled = true, -- true, false to enable/disable the header
 				align = "center", -- left, center, right for title
