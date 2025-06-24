@@ -32,6 +32,7 @@ function M.setup()
 			ollama = {
 				endpoint = "http://152.96.151.56:11434", -- Note that there is no /v1 at the end.
 				model = "qwen3:1.7b",
+				-- model = "gemma3:4b",
 			},
 			openrouter = {
 				__inherited_from = "openai",
