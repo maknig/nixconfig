@@ -79,6 +79,41 @@ with builtins; let
 
       ];
     };
+
+  plugAvante = name:
+    pkgs.vimUtils.buildVimPlugin {
+      pname = name;
+      version = "master";
+      src = builtins.getAttr name inputs;
+      buildPhase = ''
+        ${
+          if name == "telescope-fzf-native-nvim"
+          then "make"
+          else ""
+        }
+      '';
+      dependencies = [
+        pkgs.vimPlugins.nvim-cmp
+        pkgs.vimPlugins.telescope-nvim
+        pkgs.vimPlugins.plenary-nvim
+        pkgs.vimPlugins.toggleterm-nvim
+        pkgs.vimPlugins.render-markdown-nvim
+        pkgs.vimPlugins.nui-nvim
+        pkgs.vimPlugins.img-clip-nvim
+        pkgs.vimPlugins.dressing-nvim
+
+
+      ];
+      nvimSkipModules = [
+        # Requires setup with corresponding provider
+        "avante.providers.azure"
+        "avante.providers.copilot"
+        "avante.providers.gemini"
+        "avante.providers.ollama"
+        "avante.providers.vertex"
+        "avante.providers.vertex_claude"
+      ];
+    };
 in
 {
   programs = {
@@ -164,8 +199,8 @@ in
         img-clip-nvim
         dressing-nvim
         nui-nvim
-        avante-nvim
-        #(plug "avante-nvim")
+        #avante-nvim
+        (plugAvante "avante-nvim")
 
         #(plug "jukit-nvim")
         #(plug "semshi-nvim")

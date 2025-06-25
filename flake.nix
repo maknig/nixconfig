@@ -245,6 +245,7 @@
         homeConfigurations = mapAttrs' intoHomeManager {
           spectra = { user = "matthias"; };
           arkeia = { user = "matthias"; };
+          nebula = { user = "matthias"; };
           aurora = { system = "aarch64-darwin";  };
         };
 
