@@ -20,6 +20,7 @@ function M.setup()
 		-- currently designating it as `copilot` provider is dangerous because: https://github.com/yetone/avante.nvim/issues/1048
 		-- Of course, you can reduce the request frequency by increasing `suggestion.debounce`.
 		auto_suggestions_provider = "claude",
+		cursor_applying_provider = 'ollama',
 		providers = {
 			claude = {
 				endpoint = "https://api.anthropic.com",
@@ -32,6 +33,11 @@ function M.setup()
 			ollama = {
 				endpoint = "http://152.96.151.56:11434", -- Note that there is no /v1 at the end.
 				model = "qwen3:1.7b",
+				--model = "deepseek-r1:1.5b",
+				thinking = {
+					type = "disabled",
+				},
+				disable_tools = false,
 			},
 			openrouter = {
 				__inherited_from = "openai",
@@ -75,6 +81,7 @@ function M.setup()
 			minimize_diff = true, -- Whether to remove unchanged lines when applying a code block
 			enable_token_counting = true, -- Whether to enable token counting. Default to true.
 			auto_approve_tool_permissions = false, -- Default: show permission prompts for all tools
+			enable_cursor_planning_mode = true,
 			-- Examples:
 			-- auto_approve_tool_permissions = true,                -- Auto-approve all tools (no prompts)
 			-- auto_approve_tool_permissions = {"bash", "replace_in_file"}, -- Auto-approve specific tools only
