@@ -33,15 +33,9 @@ function M.setup()
 			ollama = {
 				endpoint = "http://152.96.151.56:11434", -- Note that there is no /v1 at the end.
 				model = "qwen3:1.7b",
-<<<<<<< HEAD
 				--model = "deepseek-r1:1.5b",
-				thinking = {
-					type = "disabled",
-				},
-				disable_tools = false,
-=======
+				disable_tools = true,
 				-- model = "gemma3:4b",
->>>>>>> 3a8ffd7844e72f901c73bef7acf1458de84caa99
 			},
 			openrouter = {
 				__inherited_from = "openai",
