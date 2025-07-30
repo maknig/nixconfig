@@ -40,7 +40,8 @@ in
       pkgs.gthumb
       pkgs.networkmanager-openconnect
       pkgs.networkmanagerapplet
-      pkgs.openconnect_openssl
+      #pkgs.openconnect_openssl
+      pkgs.openconnect
       pkgs.libnotify
       pkgs.teams-for-linux
       pkgs.pavucontrol

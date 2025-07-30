@@ -51,15 +51,15 @@ zle -N edit-command-line
 
 # vim insert mode for colemak as default
 bindkey -A viins main
-bindkey -M viins '^u' up-line-or-beginning-search
-bindkey -M viins '^e' down-line-or-beginning-search
+bindkey -M viins '^k' up-line-or-beginning-search
+bindkey -M viins '^j' down-line-or-beginning-search
 # TODO this is really cool, start using it
 # TODO ctrl-something does not know shift or not
 # TODO ^f is mapped later for fzf stuff, need one place to know what is what?
 # bindkey -M viins '^f' insert-files
-bindkey -M viins '^xf' insert-files
-bindkey -M viins '^xe' edit-command-line
-bindkey -M viins '^xh' run-help
+bindkey -M viins '^f' insert-files
+bindkey -M viins '^e' edit-command-line
+bindkey -M viins '^h' run-help
 # TODO currently used by osh, but not for colemak
 # shift-enter would be nice ... not sure we can detect it
 # alternatively vim-style: \e-se
@@ -105,23 +105,23 @@ function {
     local binds=(
 
         # navigate
-        L vi-backward-blank-word
-        n vi-backward-char
-        l vi-backward-word
-        '^m' vi-beginning-of-line
-        o vi-end-of-line
+        b vi-backward-blank-word
+        h vi-backward-char
+        b vi-backward-word
+        '0' vi-beginning-of-line
+        $ vi-end-of-line
         Y vi-forward-blank-word
-        i vi-forward-char
+        l vi-forward-char
         m vi-first-non-blank
-        y vi-forward-word
+        w vi-forward-word
         # TODO should I use the vi-* versions here?
         # or make history handling completely separate
         # left hand here is often a better flow
         # no vi-* versions for plain line moves
         # u up-line-or-beginning-search
         # e down-line-or-beginning-search
-        u up-line
-        e down-line
+        k up-line
+        j down-line
         # TODO any way to just start from an empty mapping anyway?
         # consider options: -m, -rp to remove based on prefix
         # ok I think we make an empty one and bind it to main: bindkey -A mymap main
@@ -240,7 +240,7 @@ function __fzf_branch () {
     zle reset-prompt
 }
 zle -N __fzf_branch
-bindkey '^fb' __fzf_branch
+bindkey '^b' __fzf_branch
 
 
 # items from git status
@@ -253,7 +253,7 @@ function __fzf_git () {
     zle reset-prompt
 }
 zle -N __fzf_git
-bindkey '^fg' __fzf_git
+bindkey '^g' __fzf_git
 
 
 # insert files and folders
@@ -275,4 +275,4 @@ function __fzf_cd {
     zle reset-prompt
 }
 zle -N __fzf_cd
-bindkey '^g' __fzf_cd
+bindkey '^f' __fzf_cd

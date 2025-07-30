@@ -36,6 +36,7 @@ function M.setup()
 	M.setup_completion()
 
 	M.setup_lua(capabilities)
+	-- M.setup_python_basedpyright(capabilities)
 	M.setup_python(capabilities)
 	M.setup_typescript(capabilities)
 	--M.setup_rnix(capabilities)
@@ -268,6 +269,35 @@ function M.setup_python(capabilities)
 					diagnosticMode = "workspace",
 					useLibraryCodeForTypes = true,
 				},
+			},
+		},
+	})
+end
+function M.setup_python_basedpyright(capabilities)
+	require("lspconfig").basedpyright.setup({
+		on_attach = M.on_attach,
+		capabilities = capabilities,
+		settings = {
+			pyright = {
+				disableOrganizeImports = true,
+			},
+			python = {
+				analysis = {
+					autoImportCompletions = true,
+					diagnosticMode = "workspace",
+					useLibraryCodeForTypes = true,
+				},
+			},
+		},
+	})
+end
+
+function M.setup_python_ruff(capabilities)
+	require("lspconfig").ruff.setup({
+		init_options = {
+			settings = {
+				-- Any extra CLI arguments for `ruff` go here.
+				args = {},
 			},
 		},
 	})

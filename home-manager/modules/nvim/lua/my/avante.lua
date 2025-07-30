@@ -20,7 +20,7 @@ function M.setup()
 		-- currently designating it as `copilot` provider is dangerous because: https://github.com/yetone/avante.nvim/issues/1048
 		-- Of course, you can reduce the request frequency by increasing `suggestion.debounce`.
 		auto_suggestions_provider = "claude",
-		cursor_applying_provider = 'ollama',
+		cursor_applying_provider = "ollama",
 		providers = {
 			claude = {
 				endpoint = "https://api.anthropic.com",
@@ -32,14 +32,24 @@ function M.setup()
 			},
 			ollama = {
 				endpoint = "http://152.96.151.56:11434", -- Note that there is no /v1 at the end.
-				model = "qwen3:1.7b",
+				--model = "qwen2.5-coder:latest",
+				model = "gemma3:12b",
 				--model = "deepseek-r1:1.5b",
-				disable_tools = true,
+				--model = "qwen2.5-coder:latest",
+				--timeout = 30000,
+				--extra_request_body = {
+				--	options = {
+				--		num_ctx = 32768,
+				--		temperature = 0,
+				--		keep_alive = "5m",
+				--	},
+				--},
+				stream = true,
 				-- model = "gemma3:4b",
 			},
 			openrouter = {
 				__inherited_from = "openai",
-				disable_tools = true, --{ "python" },
+				disable_tools = false, --{ "python" },
 				endpoint = "https://openrouter.ai/api/v1",
 				api_key_name = "OPENROUTER_API_KEY",
 				--model = "google/gemma-3-12b-it:free",
@@ -82,8 +92,23 @@ function M.setup()
 			enable_cursor_planning_mode = true,
 			-- Examples:
 			-- auto_approve_tool_permissions = true,                -- Auto-approve all tools (no prompts)
-			-- auto_approve_tool_permissions = {"bash", "replace_in_file"}, -- Auto-approve specific tools only
+            --auto_approve_tool_permissions = { "bash", "replace_in_file" }, -- Auto-approve specific tools only
 		},
+		--behaviour = {
+		--	enable_cursor_planning_mode = false,
+		--	auto_focus_sidebar = true,
+		--	auto_suggestions = true,
+		--	auto_suggestions_respect_ignore = false,
+		--	auto_set_highlight_group = true,
+		--	auto_set_keymaps = true,
+		--	auto_apply_diff_after_generation = true,
+		--	jump_result_buffer_on_finish = false,
+		--	support_paste_from_clipboard = false,
+		--	minimize_diff = true,
+		--	enable_token_counting = true,
+		--	use_cwd_as_project_root = false,
+		--	auto_focus_on_diff_view = false,
+		--},
 		mappings = {
 			--- @class AvanteConflictMappings
 			diff = {

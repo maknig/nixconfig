@@ -53,10 +53,11 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  networking.networkmanager.plugins = [ pkgs.networkmanager-openconnect ];
+
   environment.systemPackages = [
     pkgs.wireplumber
     pkgs.openconnect_openssl
-    pkgs.networkmanager-openconnect
     pkgs.mpd-mpris
     pkgs.playerctl
     pkgs.zsh

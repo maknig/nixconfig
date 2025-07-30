@@ -124,24 +124,24 @@ in
       withNodeJs = true;
 
 
-      #extraPackages = with pkgs; [
-      #  imagemagick
-      #];
+      extraPackages = with pkgs; [
+        imagemagick
+      ];
 
-      #extraLuaPackages = p: with p; [
-      #  magick # for image rendering
-      #];
+      extraLuaPackages = p: with p; [
+        magick # for image rendering
+      ];
 
-      #extraPython3Packages = ps: with ps; [
-      #  # ... other python packages
-      #  pynvim
-      #  jupyter-client
-      #  jupyterlab
-      #  cairosvg # for image rendering
-      #  pnglatex # for image rendering
-      #  plotly # for image rendering
-      #  pyperclip
-      #];
+      extraPython3Packages = ps: with ps; [
+        # ... other python packages
+        pynvim
+        jupyter-client
+        jupyterlab
+        cairosvg # for image rendering
+        pnglatex # for image rendering
+        plotly # for image rendering
+        pyperclip
+      ];
 
       plugins = with pkgs.vimPlugins; [
         (plug "hop-nvim")
@@ -195,12 +195,14 @@ in
 
         render-markdown-nvim
         nui-nvim
+        molten-nvim
+        image-nvim
         #markview-nvim
         img-clip-nvim
         dressing-nvim
         nui-nvim
-        #avante-nvim
-        (plugAvante "avante-nvim")
+        avante-nvim
+        #(plugAvante "avante-nvim")
 
         #(plug "jukit-nvim")
         #(plug "semshi-nvim")
@@ -222,6 +224,7 @@ in
       pyformat
       clang-tools
       pyright
+      basedpyright
       rust-analyzer
       sumneko-lua-language-server
       yaml-language-server
