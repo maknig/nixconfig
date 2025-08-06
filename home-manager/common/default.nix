@@ -13,7 +13,6 @@
     pkgs.home-manager
     pkgs.signal-desktop
     pkgs.spotify
-    #pkgs.google-chrome
     pkgs.dua
     pkgs.eza
     pkgs.yazi
@@ -22,8 +21,6 @@
     pkgs.fd
     pkgs.jq
     pkgs.procs
-    #pkgs.uv
-    #pkgs.obsidian
     pkgs.logseq
     # fonts
     pkgs.fontconfig

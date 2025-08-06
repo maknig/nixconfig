@@ -224,13 +224,16 @@
                   "google-chrome"
                   "nvidia-settings"
                   "nvidia-x11"
+
                   "spotify"
                 ];
 
-            # logseq still uses EOL electron 27
-            config.permittedInsecurePackages = [
-              "electron-27.3.11"
-            ];
+            config.allowUnfree = true;
+
+            ## logseq still uses EOL electron 27
+            #config.permittedInsecurePackages = [
+            #  "electron-27.3.11"
+            #];
           }
         );
       in

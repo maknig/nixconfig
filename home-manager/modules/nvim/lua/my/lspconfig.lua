@@ -36,8 +36,8 @@ function M.setup()
 	M.setup_completion()
 
 	M.setup_lua(capabilities)
-	-- M.setup_python_basedpyright(capabilities)
-	M.setup_python(capabilities)
+	M.setup_python_basedpyright(capabilities)
+	-- M.setup_python(capabilities)
 	M.setup_typescript(capabilities)
 	--M.setup_rnix(capabilities)
 	M.setup_clangd(capabilities)
@@ -278,14 +278,25 @@ function M.setup_python_basedpyright(capabilities)
 		on_attach = M.on_attach,
 		capabilities = capabilities,
 		settings = {
-			pyright = {
+			basedpyright = {
+				-- NOTE consider
+				-- pyright.disableLanguageServices if we want to use basedpyright?
+				-- pyright.disableTaggedHints
 				disableOrganizeImports = true,
-			},
-			python = {
+				disableTaggedHints = false, -- graying out stuff or striking through
 				analysis = {
 					autoImportCompletions = true,
+					-- TODO what marks a workspace?
 					diagnosticMode = "workspace",
 					useLibraryCodeForTypes = true,
+					-- only basedpyright
+					inlayHints = {
+						-- TODO setting to false doesnt seem to change anything. wrong setting path?
+						variableTypes = true,
+						callArgumentNames = true,
+						functionReturnTypes = true,
+						genericTypes = true,
+					},
 				},
 			},
 		},

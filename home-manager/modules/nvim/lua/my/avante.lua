@@ -33,7 +33,9 @@ function M.setup()
 			ollama = {
 				endpoint = "http://152.96.151.56:11434", -- Note that there is no /v1 at the end.
 				--model = "qwen2.5-coder:latest",
-				model = "gemma3:12b",
+				--model = "gemma3:12b",
+				--model = "llama3.1:8b",
+				--disable_tools = true, --{ "python" },
 				--model = "deepseek-r1:1.5b",
 				--model = "qwen2.5-coder:latest",
 				--timeout = 30000,
@@ -44,8 +46,8 @@ function M.setup()
 				--		keep_alive = "5m",
 				--	},
 				--},
+				model = "qwen3:4b",
 				stream = true,
-				-- model = "gemma3:4b",
 			},
 			openrouter = {
 				__inherited_from = "openai",
@@ -92,7 +94,7 @@ function M.setup()
 			enable_cursor_planning_mode = true,
 			-- Examples:
 			-- auto_approve_tool_permissions = true,                -- Auto-approve all tools (no prompts)
-            --auto_approve_tool_permissions = { "bash", "replace_in_file" }, -- Auto-approve specific tools only
+			--auto_approve_tool_permissions = { "bash", "replace_in_file" }, -- Auto-approve specific tools only
 		},
 		--behaviour = {
 		--	enable_cursor_planning_mode = false,

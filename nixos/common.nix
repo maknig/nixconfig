@@ -56,10 +56,10 @@
   networking.networkmanager.plugins = [ pkgs.networkmanager-openconnect ];
 
   environment.systemPackages = [
-    pkgs.wireplumber
+    #pkgs.wireplumber
     pkgs.openconnect_openssl
-    pkgs.mpd-mpris
-    pkgs.playerctl
+    #pkgs.mpd-mpris
+    #pkgs.playerctl
     pkgs.zsh
   ];
 

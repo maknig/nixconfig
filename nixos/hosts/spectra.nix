@@ -17,6 +17,9 @@
   services.blueman.enable = true;
   services.fwupd.enable = true;
 
+  hardware.enableAllFirmware = true;
+  hardware.enableRedistributableFirmware = true;
+
   environment.systemPackages = [
     pkgs.brightnessctl
   ];

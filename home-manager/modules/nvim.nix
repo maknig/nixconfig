@@ -202,6 +202,7 @@ in
         dressing-nvim
         nui-nvim
         avante-nvim
+        codecompanion-nvim
         #(plugAvante "avante-nvim")
 
         #(plug "jukit-nvim")

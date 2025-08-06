@@ -101,9 +101,10 @@ local load = function()
 	require("my/funky").setup()
 
 	require("my/avante").setup()
+	require("my/codecompanion").setup()
 
 	require("render-markdown").setup({
-		file_types = { "markdown", "Avante" },
+		file_types = { "markdown", "Avante", "codecompanion" },
 	})
 	--	require("markview").setup({
 	--		preview = {
