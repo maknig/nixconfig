@@ -39,10 +39,6 @@
       url = github:numirias/semshi;
       flake = false;
     };
-    avante-nvim = {
-      url = github:yetone/avante.nvim;
-      flake = false;
-    };
 
     micro-py-nvim = {
       url = github:jim-at-jibba/micropython.nvim;
@@ -69,11 +65,6 @@
 
     fugitive-nvim = {
       url = github:tpope/vim-fugitive;
-      flake = false;
-    };
-
-    jukit-nvim = {
-      url = github:luk400/vim-jukit;
       flake = false;
     };
 
@@ -236,9 +227,18 @@
             #];
           }
         );
+        pkgsStableBySystem = forEachSystem (
+          system:
+          import inputs.nixpkgs-stable {
+            inherit system;
+
+          config.allowUnfree = true;
+          }
+        );
+
       in
       rec {
-        inherit pkgsBySystem;
+        inherit pkgsBySystem pkgsStableBySystem;
         lib = import ./lib { inherit inputs; } // inputs.nixpkgs.lib;
 
         # Formatter for your nix files, available through 'nix fmt'
@@ -249,7 +249,7 @@
           spectra = { user = "matthias"; };
           arkeia = { user = "matthias"; };
           nebula = { user = "matthias"; };
-          aurora = { system = "aarch64-darwin";  };
+          aurora = { system = "aarch64-darwin"; };
         };
 
         # NixOS configuration entrypoint
