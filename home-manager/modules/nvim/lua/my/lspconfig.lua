@@ -33,6 +33,7 @@ end
 
 function M.setup()
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
+	M.setup_luasnip()
 	M.setup_completion()
 
 	M.setup_lua(capabilities)
@@ -43,35 +44,44 @@ function M.setup()
 	M.setup_clangd(capabilities)
 	M.setup_yaml(capabilities)
 	M.setup_tex(capabilities)
+	M.setup_rust(capabilities)
 
-	vim.diagnostic.config({
-		-- underline = { severity = vim.diagnostic.severity.ERROR },
-		virtual_text = {
-			-- TODO https://neovim.io/doc/user/diagnostic.html#diagnostic-severity
-			severity = { min = vim.diagnostic.severity.WARN },
-			prefix = "", -- alternatives ﲑﲒﲕﲖ
-			format = function(diagnostic)
-				local icons = { "E", "W", "I", "H" }
-				if diagnostic.code == nil then
-					return icons[diagnostic.severity] .. " " .. diagnostic.message
-				else
-					return icons[diagnostic.severity] .. "/" .. diagnostic.code
-				end
-			end,
-			-- TODO doesnt seem to disable, which signs are they? I want to change them
-			-- signs = false,
-			-- TODO doesnt seem to apply to open_float ...
-			-- float = {
-			--     prefix = function(diagnostics, i, total)
-			--         return "somee: "
-			--     end,
-			-- },
-			-- TODO not sure I see an effect either way, with false it was maybe flickery and out of date?
-			update_in_insert = true,
-			severity_sort = true,
-			spacing = 0,
-		},
-	})
+	--vim.diagnostic.config({
+	--	-- underline = { severity = vim.diagnostic.severity.ERROR },
+	--	virtual_text = {
+	--		-- TODO https://neovim.io/doc/user/diagnostic.html#diagnostic-severity
+	--		severity = { min = vim.diagnostic.severity.WARN },
+	--		prefix = "", -- alternatives ﲑﲒﲕﲖ
+	--		format = function(diagnostic)
+	--			local icons = { "E", "W", "I", "H" }
+	--			if diagnostic.code == nil then
+	--				return icons[diagnostic.severity] .. " " .. diagnostic.message
+	--			else
+	--				return icons[diagnostic.severity] .. "/" .. diagnostic.code
+	--			end
+	--		end,
+	--		-- TODO doesnt seem to disable, which signs are they? I want to change them
+	--		-- signs = false,
+	--		-- TODO doesnt seem to apply to open_float ...
+	--		-- float = {
+	--		--     prefix = function(diagnostics, i, total)
+	--		--         return "somee: "
+	--		--     end,
+	--		-- },
+	--		-- TODO not sure I see an effect either way, with false it was maybe flickery and out of date?
+	--		update_in_insert = true,
+	--		severity_sort = true,
+	--		spacing = 0,
+	--	},
+	--})
+end
+
+function M.setup_luasnip()
+	-- see https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md
+	local ls = require("luasnip")
+	local s = ls.snippet
+	local t = ls.text_node
+	ls.add_snippets("all", { s("!class", { t("class") }) })
 end
 
 function M.setup_completion()
@@ -126,6 +136,7 @@ function M.setup_completion()
 			{ name = "nvim_lsp" },
 			{ name = "nvim_lua" },
 			{ name = "spell" },
+			{ name = "luasnip" },
 		}),
 		formatting = {
 			format = require("lspkind").cmp_format({
@@ -342,6 +353,23 @@ function M.setup_tex(capabilities)
 	require("lspconfig").texlab.setup({
 		capabilities = capabilities,
 	})
+end
+function M.on_attach_rust(client, bufnr)
+	local function nmap(lhs, rhs, desc)
+		vim.keymap.set("n", lhs, rhs, { buffer = bufnr, desc = desc })
+	end
+
+	M.on_attach(client, bufnr)
+	nmap("td", ":RustLsp openDocs<CR>", "go to docs")
+end
+
+function M.setup_rust(capabilities)
+	vim.g.rustaceanvim = {
+		server = {
+			on_attach = M.on_attach_rust,
+			capabilities = capabilities,
+		},
+	}
 end
 
 return M

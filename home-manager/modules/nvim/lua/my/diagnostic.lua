@@ -5,7 +5,7 @@ local function format_short(diagnostic)
 	if diagnostic.code == nil then
 		return icons[diagnostic.severity] .. " «" .. diagnostic.message .. "»"
 	else
-		return icons[diagnostic.severity] .. "=" .. diagnostic.code
+		return icons[diagnostic.severity] .. " " .. diagnostic.code
 	end
 end
 
@@ -14,7 +14,7 @@ local function format_long(diagnostic)
 	if diagnostic.code == nil then
 		return icons[diagnostic.severity] .. " «" .. diagnostic.message .. "»"
 	else
-		return icons[diagnostic.severity] .. "=" .. diagnostic.code .. " «" .. diagnostic.message .. "»"
+		return icons[diagnostic.severity] .. " " .. diagnostic.code .. " «" .. diagnostic.message .. "»"
 	end
 end
 
@@ -26,7 +26,8 @@ function M.setup()
 		},
 		virtual_text = {
 			severity = filter,
-			prefix = "",
+			--prefix = "",
+			prefix = "", -- alternatives ﲑﲒﲕﲖ
 			format = format_short,
 		},
 		-- TODO this is cool for some other stuff for parentheses?
@@ -59,7 +60,8 @@ function M.setup()
 					return "  [" .. icons[diagnostic.severity] .. "=" .. diagnostic.code .. "]"
 				end
 			end,
-			border = "double",
+			border = "rounded",
+
 			anchor_bias = "below",
 		},
 	})

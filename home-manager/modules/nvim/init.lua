@@ -84,59 +84,30 @@ local load = function()
 	disable_distribution_plugins()
 	leader_map()
 
-	require("theme").setup()
+	require("my/theme").setup()
 
 	options()
 
-	require("keymap").setup()
-
 	require("Comment").setup()
+
+	require("my/keymap").setup()
 	require("my/hop").setup()
 	require("my/autosave").setup()
 	require("my/git").setup()
 
 	require("my/telescope").setup()
 	require("my/lspconfig").setup()
+	require("my/diagnostic").setup()
 	require("my/treesitter").setup()
-	require("my/funky").setup()
+	-- require("my/funky").setup()
+	require("my/formatter").setup()
 
-	require("my/avante").setup()
+	-- require("my/avante").setup()
 	require("my/codecompanion").setup()
 
 	require("render-markdown").setup({
 		file_types = { "markdown", "Avante", "codecompanion" },
 	})
-	--	require("markview").setup({
-	--		preview = {
-	--			enable = true,
-	--			filetypes = { "markdown", "norg", "rmd", "org", "vimwiki", "Avante" },
-	--			ignore_buftypes = {},
-	--		},
-	--		max_length = 99999,
-	--	})
-	-- local hfcc = require('hfcc')
-	--
-	-- hfcc.setup({
-	--     -- api_token = '', -- cf Install paragraph
-	--     model = 'bigcode/starcoder', -- can be a model ID or an http(s) endpoint
-	--     -- parameters that are added to the request body
-	--     query_params = {
-	--         max_new_tokens = 60,
-	--         temperature = 0.2,
-	--         top_p = 0.95,
-	--         stop_token = '<|endoftext|>',
-	--     },
-	--     -- set this if the model supports fill in the middle
-	--     fim = {
-	--         enabled = true,
-	--         prefix = '<fim_prefix>',
-	--         middle = '<fim_middle>',
-	--         suffix = '<fim_suffix>',
-	--     },
-	--     debounce_ms = 80,
-	--     accept_keymap = '<Tab>',
-	--     dismiss_keymap = '<S-Tab>',
-	-- })
 end
 
 load()

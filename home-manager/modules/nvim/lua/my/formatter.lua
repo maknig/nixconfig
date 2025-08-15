@@ -6,7 +6,7 @@ function M.setup()
 		formatters_by_ft = {
 			lua = { "stylua" },
 			-- Conform will run multiple formatters sequentially
-			python = { "pyformat" },
+			python = { "ruff_check", "ruff_format" },
 			-- You can customize some of the format options for the filetype (:help conform.format)
 			rust = { "rustfmt", lsp_format = "fallback" },
 			-- Conform will run the first available formatter

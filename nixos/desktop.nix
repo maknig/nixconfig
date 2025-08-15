@@ -6,6 +6,12 @@
 }:
 with lib; let
   cfg = config.dots.profiles.desktop;
+
+  stablePkgs = import inputs.nixpkgs-stable {
+    inherit (pkgs) system;
+    config.allowUnfree = true;
+  };
+
 in
 {
   options.dots.profiles.desktop = {
@@ -18,7 +24,6 @@ in
     security.rtkit.enable = true;
 
     services.pulseaudio.enable = false;
-    #hardware.pulseaudio.enable = false;
     #hardware = {
     #  pulseaudio = {
     #    enable = true;
@@ -32,6 +37,8 @@ in
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
+      wireplumber.package = stablePkgs.wireplumber;
+      package = stablePkgs.pipewire;
     };
 
     services.dbus.enable = true;
