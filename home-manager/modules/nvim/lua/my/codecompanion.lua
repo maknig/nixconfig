@@ -5,7 +5,7 @@ function mod.setup()
 	require("codecompanion").setup({
 		strategies = {
 			chat = {
-				adapter = "ollama",
+				adapter = "openrouter",
 				keymaps = {
 					send = {
 						modes = { n = "<C-s>", i = "<C-s>" },
@@ -39,10 +39,12 @@ function mod.setup()
 				},
 			},
 			inline = {
-				adapter = "ollama",
+				-- adapter = "ollama",
+				adapter = "openrouter",
 			},
 			cmd = {
-				adapter = "ollama",
+				--adapter = "ollama",
+				adapter = "openrouter",
 			},
 		},
 		adapters = {
@@ -72,6 +74,21 @@ function mod.setup()
 						},
 						num_ctx = {
 							default = 20000,
+						},
+					},
+				})
+			end,
+
+			openrouter = function()
+				return require("codecompanion.adapters").extend("openai_compatible", {
+					env = {
+						url = "https://openrouter.ai/api",
+						api_key = "OPENROUTER_API_KEY",
+						chat_url = "/v1/chat/completions",
+					},
+					schema = {
+						model = {
+							default = "qwen/qwen3-4b:free",
 						},
 					},
 				})
