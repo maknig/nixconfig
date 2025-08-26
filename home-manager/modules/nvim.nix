@@ -101,7 +101,8 @@ in
         (plug "funky-contexts-nvim")
         (plug "comment-nvim")
 
-        conform-nvim
+        #conform-nvim
+        formatter-nvim
 
         # theme
         (plug "nightfox-nvim")
@@ -155,6 +156,8 @@ in
 
         #(plug "semshi-nvim")
 
+        nvim-dap-ui
+        nvim-dap
         # letting Nix manage treesitter: https://nixos.wiki/wiki/Treesitter
         treesitter
       ];

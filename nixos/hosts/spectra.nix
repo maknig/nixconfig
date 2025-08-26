@@ -5,8 +5,44 @@
 , ...
 }: {
 
-  dots.profiles.desktop.enable = true;
+ services.udev.extraRules = ''
+    ACTION!="add|change", GOTO="probe_rs_rules_end"
 
+    SUBSYSTEM=="gpio", MODE="0660", TAG+="uaccess"
+
+    SUBSYSTEM!="usb|tty|hidraw", GOTO="probe_rs_rules_end"
+
+    # STMicroelectronics ST-LINK V1
+    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3744", TAG+="uaccess"
+
+    # STMicroelectronics ST-LINK/V2
+    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", TAG+="uaccess"
+
+    # STMicroelectronics ST-LINK/V2.1
+    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", TAG+="uaccess"
+    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3752", TAG+="uaccess"
+
+    # STMicroelectronics STLINK-V3
+    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374d", TAG+="uaccess"
+    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374e", TAG+="uaccess"
+    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374f", TAG+="uaccess"
+    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3753", TAG+="uaccess"
+    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3754", TAG+="uaccess"
+
+    # SEGGER J-Link
+    ATTRS{idVendor}=="1366", ATTRS{idProduct}=="0101", TAG+="uaccess"
+    ATTRS{idVendor}=="1366", ATTRS{idProduct}=="0102", TAG+="uaccess"
+    ATTRS{idVendor}=="1366", ATTRS{idProduct}=="0103", TAG+="uaccess"
+
+    ATTRS{idVendor}=="1366", ATTRS{idProduct}=="106f", TAG+="uaccess"
+
+    # CMSIS-DAP compatible adapters
+    ATTRS{product}=="*CMSIS-DAP*", TAG+="uaccess"
+
+    LABEL="probe_rs_rules_end"
+  '';
+    
+  dots.profiles.desktop.enable = true;
   hardware.ipu6 = {
     enable = true;
     platform = "ipu6ep";
@@ -17,8 +53,8 @@
   services.blueman.enable = true;
   services.fwupd.enable = true;
 
-  hardware.enableAllFirmware = true;
-  hardware.enableRedistributableFirmware = true;
+  #hardware.enableAllFirmware = true;
+  #hardware.enableRedistributableFirmware = true;
 
   environment.systemPackages = [
     pkgs.brightnessctl

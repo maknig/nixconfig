@@ -24,34 +24,26 @@ in
     security.rtkit.enable = true;
 
     services.pulseaudio.enable = false;
-    #hardware = {
-    #  pulseaudio = {
-    #    enable = true;
-    #    support32Bit = true;
-    #    package = pkgs.pulseaudioFull;
-    #  };
-    #};
-
+    
     services.pipewire = {
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      wireplumber.package = stablePkgs.wireplumber;
+      #audio.enable = true;
       package = stablePkgs.pipewire;
+      wireplumber.package = stablePkgs.wireplumber;
+      #package = pkgs.pipewire;
+      #wireplumber.package = pkgs.wireplumber;
     };
 
     services.dbus.enable = true;
     services.dbus.packages = [ pkgs.gcr ];
 
-    # hardware.bluetooth.enable = true;
-    # services.blueman.enable = true;
-
     xdg.portal = {
       enable = true;
       wlr.enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-      # gtkUsePortal = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-hyprland ];
     };
 
     environment.systemPackages = with pkgs;

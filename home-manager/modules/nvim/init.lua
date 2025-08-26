@@ -99,11 +99,12 @@ local load = function()
 	require("my/lspconfig").setup()
 	require("my/diagnostic").setup()
 	require("my/treesitter").setup()
-	-- require("my/funky").setup()
+    --require("my/funky").setup()
 	require("my/formatter").setup()
 
 	-- require("my/avante").setup()
 	require("my/codecompanion").setup()
+	require("my/dap").setup()
 
 	require("render-markdown").setup({
 		file_types = { "markdown", "Avante", "codecompanion" },

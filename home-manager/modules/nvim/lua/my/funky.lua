@@ -69,7 +69,7 @@ function M.setup()
 		end,
 	})
 
-	vim.keymap.set("n", "--", M.format_buffer, { desc = "funky formatter" })
+	vim.keymap.set("n", "==", formatter.format, { desc = "funky formatter" })
 end
 
 return M
