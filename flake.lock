@@ -335,11 +335,11 @@
     "funky-formatter-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1753902510,
-        "narHash": "sha256-AVwSRC/NQsBp7iBDPQuaG8MNEVo9fBUzKqeNpi/vif0=",
+        "lastModified": 1755897222,
+        "narHash": "sha256-n3gRAQTP7F6QMaOq9iC/ReCB2m0H2SmEWYzYit51Wv0=",
         "owner": "dkuettel",
         "repo": "funky-formatter.nvim",
-        "rev": "d69fb4eb62cfe85e4842c7104b61449d1a9a5683",
+        "rev": "4a00d71d2eff4f42a03cad6e86b415c8444e5608",
         "type": "github"
       },
       "original": {

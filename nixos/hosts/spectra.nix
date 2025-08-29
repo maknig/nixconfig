@@ -73,11 +73,12 @@
   #  });
   #});
 
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelPackages = pkgs.linuxPackages_6_15;
   #boot.kernelPackages = pkgs.linuxPackages_6_12;
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "thunderbolt" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ "kvm-intel"  "v4l2loopback"  ];
   boot.extraModulePackages = [ ];
   boot.kernelParams = [ ];
 

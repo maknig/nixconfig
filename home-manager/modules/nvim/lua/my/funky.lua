@@ -36,7 +36,7 @@ function M.setup()
 			return { "prettier", "--parser", "graphql", path }
 		end,
 		javascript = function(path)
-			return { "prettier", "--parser", "typescript", path }
+			return { "prettier", "--parser", "typescript", "--write", path }
 		end,
 		typescript = function(path)
 			return { "prettier", "--parser", "typescript", path }

@@ -30,7 +30,7 @@ in
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      #audio.enable = true;
+      audio.enable = true;
       package = stablePkgs.pipewire;
       wireplumber.package = stablePkgs.wireplumber;
       #package = pkgs.pipewire;
@@ -54,12 +54,14 @@ in
         sushi
         gnome-calculator
         xdg-utils
+        xdg-desktop-portal
+        xdg-desktop-portal-wlr
         glib
         #dracula-theme
         #gnome3.adwaita-icon-theme
         wlr-randr
         wlsunset
-        nwg-displays
+        #nwg-displays
         wayland
         wayland-scanner
         wayland-utils

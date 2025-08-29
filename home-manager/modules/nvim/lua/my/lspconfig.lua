@@ -369,6 +369,11 @@ function M.setup_rust(capabilities)
 			on_attach = M.on_attach_rust,
 			capabilities = capabilities,
 		},
+		default_settings = {
+			["rust-analyzer"] = {
+				checkOnSave = false,
+			},
+		},
 	}
 end
 
