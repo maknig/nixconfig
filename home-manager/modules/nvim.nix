@@ -158,6 +158,7 @@ in
 
         nvim-dap-ui
         nvim-dap
+        which-key-nvim
         # letting Nix manage treesitter: https://nixos.wiki/wiki/Treesitter
         treesitter
       ];

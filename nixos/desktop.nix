@@ -31,10 +31,10 @@ in
       alsa.support32Bit = true;
       pulse.enable = true;
       audio.enable = true;
-      package = stablePkgs.pipewire;
-      wireplumber.package = stablePkgs.wireplumber;
-      #package = pkgs.pipewire;
-      #wireplumber.package = pkgs.wireplumber;
+      #package = stablePkgs.pipewire;
+      #wireplumber.package = stablePkgs.wireplumber;
+      package = pkgs.pipewire;
+      wireplumber.package = pkgs.wireplumber;
     };
 
     services.dbus.enable = true;

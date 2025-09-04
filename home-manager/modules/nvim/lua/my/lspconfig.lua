@@ -201,25 +201,6 @@ function M.on_attach(client, bufnr)
 	nmap("rn", b.rename, "rename symbol")
 
 	-- See `:help vim.diagnostic.*` for documentation on any of the below functions
-	local D = vim.diagnostic
-	nmap("d,", function()
-		D.open_float({
-			prefix = function(d, i, t)
-				return vim.diagnostic.severity[d.severity] .. ": "
-			end,
-		})
-	end, "diagnostics float")
-	nmap("tk", function()
-		D.goto_prev()
-		vim.cmd("normal! zz")
-	end, "diagnostics previous")
-	nmap("th", function()
-		D.goto_next()
-		vim.cmd("normal! zz")
-	end, "diagnostics next")
-	nmap("tK", D.setqflist, "diagnostics global qflist")
-	nmap("tH", D.setloclist, "diagnostics buffer loclist")
-
 	-- get signatures (and _only_ signatures) when in argument lists
 	require("lsp_signature").on_attach({
 		doc_lines = 0,

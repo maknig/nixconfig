@@ -39,16 +39,16 @@ function M.setup()
 			return { "prettier", "--parser", "typescript", "--write", path }
 		end,
 		typescript = function(path)
-			return { "prettier", "--parser", "typescript", path }
+			return { "prettier", "--parser", "typescript", "--write", path }
 		end,
 		typescriptreact = function(path)
-			return { "prettier", "--parser", "typescript", path }
+			return { "prettier", "--parser", "typescript", "--write", path }
 		end,
 		rust = function(path)
 			return { "rustfmt", path }
 		end,
 		markdown = function(path)
-			return { "prettier", "--parser", "markdown", path }
+			return { "prettier", "--parser", "markdown", "--write", path }
 		end,
 		gitignore = function(path)
 			return { "env", "-", "LC_ALL=C", "sort", "--unique", path }
