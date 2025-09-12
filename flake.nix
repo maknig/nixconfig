@@ -25,7 +25,6 @@
       url = "github:hyprwm/hyprpaper";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     hypr-contrib = {
       url = "github:hyprwm/contrib";
     };
@@ -245,7 +244,8 @@
         homeConfigurations = mapAttrs' intoHomeManager {
           spectra = { user = "matthias"; };
           arkeia = { user = "matthias"; };
-          aurora = { system = "aarch64-darwin";  };
+          hitachi = { user = "matthias"; };
+          aurora = { system = "aarch64-darwin"; };
         };
 
         # NixOS configuration entrypoint
