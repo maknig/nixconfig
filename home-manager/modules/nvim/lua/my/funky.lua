@@ -1,28 +1,75 @@
-local mod = {}
+local M = {}
 
-function mod.setup()
-	local funky_formatter = require("funky-formatter")
-	funky_formatter.setup({
-		formatters = {
-			python = { command = { "pyformat" } },
-			--lua = { command = { 'stylua', '--config-path', '.stylua.toml', '-' } },
-			lua = { command = { "stylua", "-" } },
-			json = { command = { "jq" } },
-			rust = { command = { "rustfmt" } },
-			css = { command = { "prettier", "--parser", "css" } },
-			graphql = { command = { "prettier", "--parser", "graphql" } },
-			javascript = { command = { "prettier", "--parser", "typescript" } },
-			markdown = { command = { "prettier", "--parser", "markdown" } },
-			typescript = { command = { "prettier", "--parser", "typescript" } },
-			typescriptreact = { command = { "prettier", "--parser", "typescript" } },
-			yaml = { command = { "prettier", "--parser", "yaml" } },
-			nix = { command = { "nixpkgs-fmt" } },
-			cpp = { command = { "clang-format" } },
-			proto = { command = { "clang-format" } },
-			tex = { command = { "tex-fmt", "--stdin", "--quiet" } },
-		},
-	})
-	vim.keymap.set("n", "==", funky_formatter.format, { desc = "funky formatter" })
+function M.format_buffer()
+	local formatter = require("funky-formatter")
+	formatter.format()
 end
 
-return mod
+function M.setup()
+	local formatter = require("funky-formatter")
+	formatter.setup({
+		-- TODO was pyformat
+		python = function(path)
+			path = vim.fn.shellescape(path)
+			return {
+				"zsh",
+				"-c",
+				"ruff check --fix-only --select I --silent " .. path .. " | ruff format " .. path,
+			}
+		end,
+		lua = function(path)
+			return { "stylua", "--search-parent-directories", path }
+		end,
+		json = function(path)
+			return { "jq", ".", path }
+		end,
+		yaml = function(path)
+			return { "prettier", "--parser", "yaml", path }
+		end,
+		html = function(path)
+			return { "prettier", "--parser", "html", path }
+		end,
+		css = function(path)
+			return { "prettier", "--parser", "css", path }
+		end,
+		graphql = function(path)
+			return { "prettier", "--parser", "graphql", path }
+		end,
+		javascript = function(path)
+			return { "prettier", "--parser", "typescript", "--write", path }
+		end,
+		typescript = function(path)
+			return { "prettier", "--parser", "typescript", "--write", path }
+		end,
+		typescriptreact = function(path)
+			return { "prettier", "--parser", "typescript", "--write", path }
+		end,
+		rust = function(path)
+			return { "rustfmt", path }
+		end,
+		markdown = function(path)
+			return { "prettier", "--parser", "markdown", "--write", path }
+		end,
+		gitignore = function(path)
+			return { "env", "-", "LC_ALL=C", "sort", "--unique", path }
+		end,
+		["requirements.in"] = function(path)
+			return { "env", "-", "LC_ALL=C", "sort", "--unique", path }
+		end,
+		["requirements-dev.in"] = function(path)
+			return { "env", "-", "LC_ALL=C", "sort", "--unique", path }
+		end,
+		nix = function(path)
+			return { "nixpkgs-fmt", path }
+		end,
+		toml = function(path)
+			-- TODO taplo also has an lsp, nice if we use it for papers notes?
+			-- TODO different defaults for non-nn stuff?
+			return { "taplo", "fmt", "--option", "indent_string=    ", path }
+		end,
+	})
+
+	vim.keymap.set("n", "==", formatter.format, { desc = "funky formatter" })
+end
+
+return M

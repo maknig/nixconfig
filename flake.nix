@@ -21,6 +21,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+
     hyprpaper = {
       url = "github:hyprwm/hyprpaper";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,10 +37,6 @@
 
     semshi-nvim = {
       url = github:numirias/semshi;
-      flake = false;
-    };
-    avante-nvim = {
-      url = github:yetone/avante.nvim;
       flake = false;
     };
 
@@ -68,11 +65,6 @@
 
     fugitive-nvim = {
       url = github:tpope/vim-fugitive;
-      flake = false;
-    };
-
-    jukit-nvim = {
-      url = github:luk400/vim-jukit;
       flake = false;
     };
 
@@ -223,18 +215,30 @@
                   "google-chrome"
                   "nvidia-settings"
                   "nvidia-x11"
+
                   "spotify"
                 ];
 
-            # logseq still uses EOL electron 27
-            config.permittedInsecurePackages = [
-              "electron-27.3.11"
-            ];
+            config.allowUnfree = true;
+
+            ## logseq still uses EOL electron 27
+            #config.permittedInsecurePackages = [
+            #  "electron-27.3.11"
+            #];
           }
         );
+        pkgsStableBySystem = forEachSystem (
+          system:
+          import inputs.nixpkgs-stable {
+            inherit system;
+
+          config.allowUnfree = true;
+          }
+        );
+
       in
       rec {
-        inherit pkgsBySystem;
+        inherit pkgsBySystem pkgsStableBySystem;
         lib = import ./lib { inherit inputs; } // inputs.nixpkgs.lib;
 
         # Formatter for your nix files, available through 'nix fmt'
@@ -245,6 +249,7 @@
           spectra = { user = "matthias"; };
           arkeia = { user = "matthias"; };
           hitachi = { user = "matthias"; };
+          nebula = { user = "matthias"; };
           aurora = { system = "aarch64-darwin"; };
         };
 

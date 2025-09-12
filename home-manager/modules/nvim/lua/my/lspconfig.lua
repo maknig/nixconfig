@@ -33,44 +33,55 @@ end
 
 function M.setup()
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
+	M.setup_luasnip()
 	M.setup_completion()
 
 	M.setup_lua(capabilities)
-	M.setup_python(capabilities)
+	M.setup_python_basedpyright(capabilities)
+	-- M.setup_python(capabilities)
 	M.setup_typescript(capabilities)
 	--M.setup_rnix(capabilities)
 	M.setup_clangd(capabilities)
 	M.setup_yaml(capabilities)
 	M.setup_tex(capabilities)
+	M.setup_rust(capabilities)
 
-	vim.diagnostic.config({
-		-- underline = { severity = vim.diagnostic.severity.ERROR },
-		virtual_text = {
-			-- TODO https://neovim.io/doc/user/diagnostic.html#diagnostic-severity
-			severity = { min = vim.diagnostic.severity.WARN },
-			prefix = "", -- alternatives ﲑﲒﲕﲖ
-			format = function(diagnostic)
-				local icons = { "E", "W", "I", "H" }
-				if diagnostic.code == nil then
-					return icons[diagnostic.severity] .. " " .. diagnostic.message
-				else
-					return icons[diagnostic.severity] .. "/" .. diagnostic.code
-				end
-			end,
-			-- TODO doesnt seem to disable, which signs are they? I want to change them
-			-- signs = false,
-			-- TODO doesnt seem to apply to open_float ...
-			-- float = {
-			--     prefix = function(diagnostics, i, total)
-			--         return "somee: "
-			--     end,
-			-- },
-			-- TODO not sure I see an effect either way, with false it was maybe flickery and out of date?
-			update_in_insert = true,
-			severity_sort = true,
-			spacing = 0,
-		},
-	})
+	--vim.diagnostic.config({
+	--	-- underline = { severity = vim.diagnostic.severity.ERROR },
+	--	virtual_text = {
+	--		-- TODO https://neovim.io/doc/user/diagnostic.html#diagnostic-severity
+	--		severity = { min = vim.diagnostic.severity.WARN },
+	--		prefix = "", -- alternatives ﲑﲒﲕﲖ
+	--		format = function(diagnostic)
+	--			local icons = { "E", "W", "I", "H" }
+	--			if diagnostic.code == nil then
+	--				return icons[diagnostic.severity] .. " " .. diagnostic.message
+	--			else
+	--				return icons[diagnostic.severity] .. "/" .. diagnostic.code
+	--			end
+	--		end,
+	--		-- TODO doesnt seem to disable, which signs are they? I want to change them
+	--		-- signs = false,
+	--		-- TODO doesnt seem to apply to open_float ...
+	--		-- float = {
+	--		--     prefix = function(diagnostics, i, total)
+	--		--         return "somee: "
+	--		--     end,
+	--		-- },
+	--		-- TODO not sure I see an effect either way, with false it was maybe flickery and out of date?
+	--		update_in_insert = true,
+	--		severity_sort = true,
+	--		spacing = 0,
+	--	},
+	--})
+end
+
+function M.setup_luasnip()
+	-- see https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md
+	local ls = require("luasnip")
+	local s = ls.snippet
+	local t = ls.text_node
+	ls.add_snippets("all", { s("!class", { t("class") }) })
 end
 
 function M.setup_completion()
@@ -125,6 +136,7 @@ function M.setup_completion()
 			{ name = "nvim_lsp" },
 			{ name = "nvim_lua" },
 			{ name = "spell" },
+			{ name = "luasnip" },
 		}),
 		formatting = {
 			format = require("lspkind").cmp_format({
@@ -189,25 +201,6 @@ function M.on_attach(client, bufnr)
 	nmap("rn", b.rename, "rename symbol")
 
 	-- See `:help vim.diagnostic.*` for documentation on any of the below functions
-	local D = vim.diagnostic
-	nmap("d,", function()
-		D.open_float({
-			prefix = function(d, i, t)
-				return vim.diagnostic.severity[d.severity] .. ": "
-			end,
-		})
-	end, "diagnostics float")
-	nmap("tk", function()
-		D.goto_prev()
-		vim.cmd("normal! zz")
-	end, "diagnostics previous")
-	nmap("th", function()
-		D.goto_next()
-		vim.cmd("normal! zz")
-	end, "diagnostics next")
-	nmap("tK", D.setqflist, "diagnostics global qflist")
-	nmap("tH", D.setloclist, "diagnostics buffer loclist")
-
 	-- get signatures (and _only_ signatures) when in argument lists
 	require("lsp_signature").on_attach({
 		doc_lines = 0,
@@ -272,6 +265,46 @@ function M.setup_python(capabilities)
 		},
 	})
 end
+function M.setup_python_basedpyright(capabilities)
+	require("lspconfig").basedpyright.setup({
+		on_attach = M.on_attach,
+		capabilities = capabilities,
+		settings = {
+			basedpyright = {
+				-- NOTE consider
+				-- pyright.disableLanguageServices if we want to use basedpyright?
+				-- pyright.disableTaggedHints
+				disableOrganizeImports = true,
+				disableTaggedHints = false, -- graying out stuff or striking through
+				analysis = {
+					autoImportCompletions = true,
+					-- TODO what marks a workspace?
+					diagnosticMode = "workspace",
+					useLibraryCodeForTypes = true,
+					-- only basedpyright
+					inlayHints = {
+						-- TODO setting to false doesnt seem to change anything. wrong setting path?
+						variableTypes = true,
+						callArgumentNames = true,
+						functionReturnTypes = true,
+						genericTypes = true,
+					},
+				},
+			},
+		},
+	})
+end
+
+function M.setup_python_ruff(capabilities)
+	require("lspconfig").ruff.setup({
+		init_options = {
+			settings = {
+				-- Any extra CLI arguments for `ruff` go here.
+				args = {},
+			},
+		},
+	})
+end
 
 function M.setup_typescript(capabilities)
 	require("lspconfig").ts_ls.setup({
@@ -301,6 +334,28 @@ function M.setup_tex(capabilities)
 	require("lspconfig").texlab.setup({
 		capabilities = capabilities,
 	})
+end
+function M.on_attach_rust(client, bufnr)
+	local function nmap(lhs, rhs, desc)
+		vim.keymap.set("n", lhs, rhs, { buffer = bufnr, desc = desc })
+	end
+
+	M.on_attach(client, bufnr)
+	nmap("td", ":RustLsp openDocs<CR>", "go to docs")
+end
+
+function M.setup_rust(capabilities)
+	vim.g.rustaceanvim = {
+		server = {
+			on_attach = M.on_attach_rust,
+			capabilities = capabilities,
+		},
+		default_settings = {
+			["rust-analyzer"] = {
+				checkOnSave = false,
+			},
+		},
+	}
 end
 
 return M

@@ -71,6 +71,7 @@ with builtins; let
           else ""
         }
       '';
+      doCheck = false;
       dependencies = [
         pkgs.vimPlugins.nvim-cmp
         pkgs.vimPlugins.telescope-nvim
@@ -79,6 +80,8 @@ with builtins; let
 
       ];
     };
+
+
 in
 {
   programs = {
@@ -87,26 +90,6 @@ in
       package = pkgs.neovim;
       withPython3 = true;
       withNodeJs = true;
-
-
-      #extraPackages = with pkgs; [
-      #  imagemagick
-      #];
-
-      #extraLuaPackages = p: with p; [
-      #  magick # for image rendering
-      #];
-
-      #extraPython3Packages = ps: with ps; [
-      #  # ... other python packages
-      #  pynvim
-      #  jupyter-client
-      #  jupyterlab
-      #  cairosvg # for image rendering
-      #  pnglatex # for image rendering
-      #  plotly # for image rendering
-      #  pyperclip
-      #];
 
       plugins = with pkgs.vimPlugins; [
         (plug "hop-nvim")
@@ -117,6 +100,9 @@ in
         (plug "funky-formatter-nvim")
         (plug "funky-contexts-nvim")
         (plug "comment-nvim")
+
+        #conform-nvim
+        formatter-nvim
 
         # theme
         (plug "nightfox-nvim")
@@ -137,7 +123,7 @@ in
         (plug "lsp-signature-nvim")
         (plug "lspkind-nvim")
 
-        #luasnip
+        luasnip
         #nvim-cmp
         #cmp-path
         #cmp_luasnip
@@ -149,32 +135,30 @@ in
         (plug "telescope-fzf-native-nvim")
 
         #(plug "rustacean-nvim")
+        (plug "rustacean-nvim")
 
         (plug "neodev-nvim")
         (plug "python-synt-nvim")
         (plug "micro-py-nvim")
         (plug "toggelterm-nvim")
-        #(plug "jukit-nvim")
-        #molten-nvim
 
+        #(plug "jukit-nvim")
 
         render-markdown-nvim
-        nui-nvim
+        molten-nvim
+        image-nvim
         #markview-nvim
         img-clip-nvim
         dressing-nvim
         nui-nvim
-        avante-nvim
-        #(plug "avante-nvim")
+        codecompanion-nvim
+        #(plugAvante "avante-nvim")
 
-        #(plug "jukit-nvim")
         #(plug "semshi-nvim")
 
-        # interesting navigation and term/tmux commands: https://github.com/ThePrimeagen/harpoon/tree/harpoon2
-
-        # hugging face code completion
-        # (plug "hfcc")
-
+        nvim-dap-ui
+        nvim-dap
+        which-key-nvim
         # letting Nix manage treesitter: https://nixos.wiki/wiki/Treesitter
         treesitter
       ];
@@ -187,6 +171,7 @@ in
       pyformat
       clang-tools
       pyright
+      basedpyright
       rust-analyzer
       sumneko-lua-language-server
       yaml-language-server
@@ -199,6 +184,7 @@ in
       rustfmt
       stylua
       ruff
+      taplo
       tex-fmt
     ];
   };
