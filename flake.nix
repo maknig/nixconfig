@@ -216,11 +216,12 @@
                   "google-chrome"
                   "nvidia-settings"
                   "nvidia-x11"
-
                   "spotify"
                 ];
 
             config.allowUnfree = true;
+
+            overlays = [ inputs.neovim-nightly-overlay.overlays.default ];
 
             ## logseq still uses EOL electron 27
             #config.permittedInsecurePackages = [
@@ -233,7 +234,7 @@
           import inputs.nixpkgs-stable {
             inherit system;
 
-          config.allowUnfree = true;
+            config.allowUnfree = true;
           }
         );
 

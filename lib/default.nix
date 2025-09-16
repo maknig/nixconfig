@@ -66,9 +66,9 @@ rec {
               extraOptions = "experimental-features = nix-command flakes";
             };
 
-            nixpkgs = {
-              overlays = [ inputs.neovim-nightly-overlay.overlays.default ];
-            };
+            #nixpkgs = {
+            #  overlays = [ inputs.neovim-nightly-overlay.overlays.default ];
+            #};
           }
         ];
         extraSpecialArgs =
@@ -101,7 +101,7 @@ rec {
             { inputs, ... }: {
               nixpkgs = {
                 inherit pkgs;
-                overlays = [ inputs.neovim-nightly-overlay.overlays.default ];
+                #overlays = [ inputs.neovim-nightly-overlay.overlays.default ];
               };
 
               environment.etc.nixpkgs.source = inputs.nixpkgs;
