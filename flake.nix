@@ -26,7 +26,6 @@
       url = "github:hyprwm/hyprpaper";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     hypr-contrib = {
       url = "github:hyprwm/contrib";
     };
@@ -250,6 +249,7 @@
         homeConfigurations = mapAttrs' intoHomeManager {
           spectra = { user = "matthias"; };
           arkeia = { user = "matthias"; };
+          hitachi = { user = "matthias"; };
           nebula = { user = "matthias"; };
           aurora = { system = "aarch64-darwin"; };
         };

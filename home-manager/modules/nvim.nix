@@ -151,7 +151,6 @@ in
         img-clip-nvim
         dressing-nvim
         nui-nvim
-        avante-nvim
         #codecompanion-nvim
         #(plugAvante "avante-nvim")
 

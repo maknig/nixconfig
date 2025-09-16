@@ -3,7 +3,7 @@
   # do we need to set?:
   # home-manager.useUserPackages = true;
   # home-manager.useGlobalPkgs = true;
-  programs.home-manager.enable = true;
+  #programs.home-manager.enable = true;
   manual.manpages.enable = true; # home-manager man pages
   programs.man.enable = true; # nix pkgs man pages
 
