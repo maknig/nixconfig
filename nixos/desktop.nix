@@ -24,7 +24,7 @@ in
     security.rtkit.enable = true;
 
     services.pulseaudio.enable = false;
-    
+
     services.pipewire = {
       enable = true;
       alsa.enable = true;
@@ -37,25 +37,28 @@ in
       wireplumber.package = pkgs.wireplumber;
     };
 
-    services.dbus.enable = true;
-    services.dbus.packages = [ pkgs.gcr ];
+
 
     xdg.portal = {
       enable = true;
       wlr.enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-hyprland ];
+      extraPortals = [ pkgs.xdg-desktop-portal pkgs.xdg-desktop-portal-wlr pkgs.xdg-desktop-portal-hyprland ];
     };
+
+    services.dbus.enable = true;
+    services.dbus.packages = [ pkgs.gcr ];
 
     environment.systemPackages = with pkgs;
       [
         #pamixer
         pulsemixer
+        pavucontrol
         nautilus
         sushi
         gnome-calculator
         xdg-utils
-        xdg-desktop-portal
-        xdg-desktop-portal-wlr
+        #xdg-desktop-portal
+        #xdg-desktop-portal-wlr
         glib
         #dracula-theme
         #gnome3.adwaita-icon-theme
@@ -76,6 +79,7 @@ in
       xwayland.enable = true;
       withUWSM = true;
     };
+
     services.displayManager.gdm.enable = true;
     services.displayManager.defaultSession = "hyprland-uwsm";
     services.gvfs.enable = true;

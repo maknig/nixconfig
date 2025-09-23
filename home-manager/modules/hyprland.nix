@@ -51,7 +51,7 @@ in
       pkgs.hypridle
       pkgs.cliphist
       pkgs.wl-clipboard
-      pkgs.rofi-wayland
+      pkgs.rofi
       pkgs.waybar-mpris
       powermenu
       # pkgs.swaylock-effects
