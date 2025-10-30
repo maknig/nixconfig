@@ -259,6 +259,7 @@
         nixosConfigurations = mapAttrs' intoNixOs {
           spectra = { };
           arkeia = { };
+          nebula = { };
         };
         # CI build helper
         top =
