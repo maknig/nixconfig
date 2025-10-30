@@ -173,7 +173,7 @@ in
       pyright
       basedpyright
       rust-analyzer
-      sumneko-lua-language-server
+      lua-language-server
       yaml-language-server
       texlab
       # formatters

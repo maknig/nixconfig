@@ -5,7 +5,7 @@
 , ...
 }: {
 
-  dots.profiles.desktop.enable = true;
+  dots.profiles.desktop.enable = false;
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -49,11 +49,13 @@
     consoleLogLevel = 0;
 
     initrd = {
-      kernelModules = [ "kvm-intel" ];
-      availableKernelModules = [ "ata_generic" "ehci_pci" "ahci" "isci" "xhci_pci" "firewire_ohci" "usb_storage" "usbhid" "sd_mod" "sr_mod" ];
+      #kernelModules = [ "kvm-intel" ];
+      kernelModules = [ ];
+      availableKernelModules = [ "vmd" "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+      #availableKernelModules = [ "nvme" "ata_generic" "ehci_pci" "ahci" "isci" "xhci_pci" "firewire_ohci" "usb_storage" "usbhid" "sd_mod" "sr_mod" ];
       verbose = false;
     };
-    kernelModules = [ ];
+    kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
     kernelParams = [
       "quiet"
@@ -74,17 +76,17 @@
 
   fileSystems."/" =
     {
-      device = "/dev/disk/by-label/nixos";
+      device = "/dev/disk/by-uuid/a6a61820-3055-4991-8699-9772cc4c0ef6";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
     {
-      device = "/dev/disk/by-label/BOOT";
+      device = "/dev/disk/by-uuid/2ED5-BF65";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
   swapDevices =
-    [{ device = "/dev/disk/by-label/swap"; }];
+    [{ device = "/dev/disk/by-uuid/516bcc6f-7327-430e-bf9d-930a83bf2e7c"; }];
 }
