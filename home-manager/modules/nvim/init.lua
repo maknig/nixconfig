@@ -103,7 +103,7 @@ local load = function()
 	--require("my/formatter").setup()
 
 	-- require("my/avante").setup()
-	-- require("my/codecompanion").setup()
+	require("my/codecompanion").setup()
 	require("my/dap").setup()
 
 	require("render-markdown").setup({
