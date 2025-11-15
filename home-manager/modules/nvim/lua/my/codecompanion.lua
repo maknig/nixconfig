@@ -5,7 +5,7 @@ function mod.setup()
 	require("codecompanion").setup({
 		strategies = {
 			chat = {
-				adapter = "openrouter",
+				adapter = "llmhub",
 				keymaps = {
 					send = {
 						modes = { n = "<C-s>", i = "<C-s>" },
@@ -48,52 +48,70 @@ function mod.setup()
 			},
 		},
 		adapters = {
-			anthropic = function()
-				return require("codecompanion.adapters").extend("anthropic", {
-					env = {
-						api_key = "cmd:op read op://personal/anthropic/credential --no-newline",
-					},
-				})
-			end,
-			ollama = function()
-				return require("codecompanion.adapters").extend("ollama", {
-					env = {
-						url = "http://152.96.151.56:11434",
-						api_key = "OLLAMA_API_KEY",
-					},
-					headers = {
-						["Content-Type"] = "application/json",
-						["Authorization"] = "Bearer ${api_key}",
-					},
-					parameters = {
-						sync = true,
-					},
-					schema = {
-						model = {
-							default = "qwen3:latest",
+			http = {
+				anthropic = function()
+					return require("codecompanion.adapters").extend("anthropic", {
+						env = {
+							api_key = "cmd:op read op://personal/anthropic/credential --no-newline",
 						},
-						num_ctx = {
-							default = 20000,
+					})
+				end,
+				ollama = function()
+					return require("codecompanion.adapters").extend("ollama", {
+						env = {
+							url = "http://152.96.151.56:11434",
+							api_key = "OLLAMA_API_KEY",
 						},
-					},
-				})
-			end,
+						headers = {
+							["Content-Type"] = "application/json",
+							["Authorization"] = "Bearer ${api_key}",
+						},
+						parameters = {
+							sync = true,
+						},
+						schema = {
+							model = {
+								default = "qwen3:latest",
+							},
+							num_ctx = {
+								default = 20000,
+							},
+						},
+					})
+				end,
 
-			openrouter = function()
-				return require("codecompanion.adapters").extend("openai_compatible", {
-					env = {
-						url = "https://openrouter.ai/api",
-						api_key = "OPENROUTER_API_KEY",
-						chat_url = "/v1/chat/completions",
-					},
-					schema = {
-						model = {
-							--default = "qwen/qwen3-4b:free",
-							default = "openai/gpt-oss-20b:free",
+				openrouter = function()
+					return require("codecompanion.adapters").extend("openai_compatible", {
+						env = {
+							url = "https://openrouter.ai/api",
+							api_key = "OPENROUTER_API_KEY",
+							chat_url = "/v1/chat/completions",
 						},
-					},
-				})
-			end,
+						schema = {
+							model = {
+								--default = "qwen/qwen3-4b:free",
+								default = "openai/gpt-oss-20b:free",
+							},
+						},
+					})
+				end,
+				llmhub = function()
+					return require("codecompanion.adapters").extend("openai_compatible", {
+						env = {
+							url = "https://api.llmhub.infs.ai",
+							api_key = "LLMHUB_API_KEY",
+							chat_url = "/v1/chat/completions",
+						},
+						schema = {
+							model = {
+								--default = "qwen/qwen3-4b:free",
+								-- default = "openai/gpt-oss-20b:free",
+								default = "qwen/qwen3-coder-30b",
+							},
+						},
+					})
+				end,
+			},
 		},
 	})
 end
