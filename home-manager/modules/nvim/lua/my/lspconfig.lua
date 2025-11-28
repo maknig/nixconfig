@@ -40,7 +40,7 @@ function M.setup()
 	M.setup_python_basedpyright(capabilities)
 	-- M.setup_python(capabilities)
 	M.setup_typescript(capabilities)
-	--M.setup_rnix(capabilities)
+	M.setup_nix(capabilities)
 	M.setup_clangd(capabilities)
 	M.setup_yaml(capabilities)
 	M.setup_tex(capabilities)
@@ -89,6 +89,7 @@ function M.setup_completion()
 
 	cmp.setup({
 		view = { entries = { name = "wildmenu", separator = " | " }, docs = { auto_open = true } },
+		--view = { entries = { name = "menuone", separator = " | " }, docs = { auto_open = true } },
 		--completion = {
 		--	autocomplete = true,
 		--	--completeopt = "menu,menuone",
@@ -211,62 +212,34 @@ function M.on_attach(client, bufnr)
 end
 
 function M.setup_lua(capabilities)
-	local runtime_path = vim.split(package.path, ";")
-	table.insert(runtime_path, "lua/?.lua")
-	table.insert(runtime_path, "lua/?/init.lua")
-	-- TODO does this the right thing? vim seems to resolve last match, but lua originally does first match?
-
-	require("neodev").setup({})
-
-	-- from https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
-	require("lspconfig").lua_ls.setup({
-		settings = {
-			Lua = {
-				runtime = {
-					-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-					version = "LuaJIT",
-					-- Setup your lua path
-					path = runtime_path,
-				},
-				diagnostics = {
-					-- Get the language server to recognize the `vim` global
-					globals = { "vim" },
-				},
-				workspace = {
-					-- Make the server aware of Neovim runtime files
-					library = vim.api.nvim_get_runtime_file("", true),
-					checkThirdParty = false,
-				},
-				telemetry = {
-					enable = false,
-				},
-			},
-		},
-		on_attach = M.on_attach,
+	vim.lsp.config("lua_ls", {
 		capabilities = capabilities,
 	})
+
+	vim.lsp.enable("lua_ls")
 end
 
 function M.setup_python(capabilities)
-	require("lspconfig").pyright.setup({
-		on_attach = M.on_attach,
-		capabilities = capabilities,
-		settings = {
-			pyright = {
-				disableOrganizeImports = true,
-			},
-			python = {
-				analysis = {
-					autoImportCompletions = true,
-					diagnosticMode = "workspace",
-					useLibraryCodeForTypes = true,
-				},
-			},
-		},
-	})
+	-- vim.lsp.config("ty", {
+	-- 	capabilities = capabilities,
+	-- 	inlayHints = {
+	-- 		variableTypes = true,
+	-- 		callArgumentNames = true,
+	-- 	},
+	-- 	experimental = {
+	-- 		rename = true,
+	-- 	},
+	-- 	settings = {
+	-- 		ty = {
+	-- 			diagnosticMode = "workspace",
+	-- 		},
+	-- 	},
+	-- })
+	vim.lsp.enable("ty")
 end
+
 function M.setup_python_basedpyright(capabilities)
-	require("lspconfig").basedpyright.setup({
+	vim.lsp.config("basedpyright", {
 		on_attach = M.on_attach,
 		capabilities = capabilities,
 		settings = {
@@ -293,48 +266,74 @@ function M.setup_python_basedpyright(capabilities)
 			},
 		},
 	})
-end
 
-function M.setup_python_ruff(capabilities)
-	require("lspconfig").ruff.setup({
-		init_options = {
-			settings = {
-				-- Any extra CLI arguments for `ruff` go here.
-				args = {},
-			},
-		},
-	})
+	vim.lsp.enable("basedpyright")
 end
 
 function M.setup_typescript(capabilities)
-	require("lspconfig").ts_ls.setup({
+	vim.lsp.config("ts_ls", {
 		capabilities = capabilities,
 	})
+
+	vim.lsp.enable("ts_ls")
 end
 
-function M.setup_rnix(capabilities)
-	require("lspconfig").rnix.setup({
+function M.setup_nix(capabilities)
+	vim.lsp.config("nil_ls", {
 		capabilities = capabilities,
+		settings = { -- https://github.com/oxalica/nil/blob/main/docs/configuration.md
+
+			["nil"] = {
+				nix = {
+					maxMemoryMB = 10000,
+					flake = {
+						autoArchive = true,
+						-- TODO this could be dangerous?
+						autoEvalInputs = true,
+						nixpkgsInputName = "nixpkgs",
+					},
+				},
+			},
+		},
 	})
+
+	vim.lsp.enable("nil_ls")
 end
 
 function M.setup_clangd(capabilities)
-	require("lspconfig").clangd.setup({
+	vim.lsp.config("clangd", {
 		capabilities = capabilities,
 	})
+
+	vim.lsp.enable("clangd")
 end
 
 function M.setup_yaml(capabilities)
-	require("lspconfig").yamlls.setup({
+	vim.lsp.config("yamlls", {
 		capabilities = capabilities,
+		cmd = { "yaml-language-server", "--stdio" },
+		filetypes = { "yaml" },
+		root_markers = { ".git" },
+		settings = {
+			redhat = {
+				telemetry = {
+					enabled = false,
+				},
+			},
+		},
 	})
+
+	vim.lsp.enable("yamlls")
 end
 
 function M.setup_tex(capabilities)
-	require("lspconfig").texlab.setup({
+	vim.lsp.config("texlab", {
 		capabilities = capabilities,
 	})
+
+	vim.lsp.enable("texlab")
 end
+
 function M.on_attach_rust(client, bufnr)
 	local function nmap(lhs, rhs, desc)
 		vim.keymap.set("n", lhs, rhs, { buffer = bufnr, desc = desc })

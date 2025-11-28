@@ -168,10 +168,12 @@ in
   home = {
     packages = with pkgs; [
       ripgrep
+      ty
       pyformat
       clang-tools
       pyright
       basedpyright
+      nil
       rust-analyzer
       lua-language-server
       yaml-language-server
