@@ -177,11 +177,13 @@ in
       rust-analyzer
       lua-language-server
       yaml-language-server
+      libxml2
       texlab
       # formatters
       black
       nixpkgs-fmt
       nodePackages.prettier
+      xmlformat
       nodePackages.typescript-language-server
       rustfmt
       stylua
