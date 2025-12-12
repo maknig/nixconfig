@@ -38,7 +38,7 @@ function M.setup()
 
 	M.setup_lua(capabilities)
 	M.setup_python_basedpyright(capabilities)
-	-- M.setup_python(capabilities)
+	--M.setup_python(capabilities)
 	M.setup_typescript(capabilities)
 	M.setup_nix(capabilities)
 	M.setup_clangd(capabilities)
@@ -235,6 +235,24 @@ function M.setup_python(capabilities)
 	-- 		},
 	-- 	},
 	-- })
+	vim.lsp.config("ty", {
+		capabilities = capabilities,
+		settings = {
+			ty = {
+				inlayHints = {
+					callArgumentNames = true,
+					variableTypes = true,
+				},
+				experimental = {
+					rename = true,
+				},
+
+				diagnosticMode = "workspace",
+			},
+		},
+	})
+
+	-- Required: Enable the language server
 	vim.lsp.enable("ty")
 end
 
