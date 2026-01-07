@@ -16,27 +16,27 @@ function mod.setup()
 						opts = {},
 					},
 				},
-				variables = {
-					["buffer"] = {
-						callback = "strategies.chat.variables.buffer",
-						description = "Share the current buffer with the LLM",
-						opts = {
-							contains_code = true,
-							default_params = "watch",
-							has_params = true,
-						},
-					},
-				},
-				slash_commands = {
-					["file"] = {
-						callback = "strategies.chat.slash_commands.file",
-						description = "Select a file using Telescope",
-						opts = {
-							provider = "telescope",
-							contains_code = true,
-						},
-					},
-				},
+				-- variables = {
+				-- 	["buffer"] = {
+				-- 		callback = "strategies.chat.variables.buffer",
+				-- 		description = "Share the current buffer with the LLM",
+				-- 		opts = {
+				-- 			contains_code = true,
+				-- 			default_params = "watch",
+				-- 			has_params = true,
+				-- 		},
+				-- 	},
+				-- },
+				-- slash_commands = {
+				-- 	["file"] = {
+				-- 		callback = "strategies.chat.slash_commands.file",
+				-- 		description = "Select a file using Telescope",
+				-- 		opts = {
+				-- 			provider = "telescope",
+				-- 			contains_code = true,
+				-- 		},
+				-- 	},
+				-- },
 			},
 			inline = {
 				-- adapter = "ollama",
@@ -106,7 +106,8 @@ function mod.setup()
 							model = {
 								--default = "qwen/qwen3-4b:free",
 								-- default = "openai/gpt-oss-20b:free",
-								default = "qwen/qwen3-coder-30b",
+								-- default = "qwen/qwen3-coder-30b",
+								default = "best-code",
 							},
 						},
 					})
