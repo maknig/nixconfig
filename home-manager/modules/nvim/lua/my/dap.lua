@@ -49,26 +49,22 @@ function M.setup()
 		{
 			name = "Launch with probe-rs",
 			type = "probe-rs-debug",
-			request = "launch",	
+			request = "launch",
 			cwd = "${workspaceFolder}",
 			stopOnEntry = true,
-            chip = "stm32l431cc",
-		    coreConfigs = function()
-      -- we must provide program-binary for the core
-      local elf = vim.fn.input(
-        "Path to ELF for core 0: ",
-        vim.fn.getcwd() .. "/build2/re-leva.elf",
-        "file"
-      )
-      return {
-        {
-          core = 0,              -- target core index
-          run = true,            -- start running after reset
-          programBinary = elf,   -- <-- THIS IS REQUIRED
-		stopOnEntry = true,
-        }
-      }
-    end,	
+			chip = "stm32l431cc",
+			coreConfigs = function()
+				-- we must provide program-binary for the core
+				local elf = vim.fn.input("Path to ELF for core 0: ", vim.fn.getcwd() .. "/build2/re-leva.elf", "file")
+				return {
+					{
+						core = 0, -- target core index
+						run = true, -- start running after reset
+						programBinary = elf, -- <-- THIS IS REQUIRED
+						stopOnEntry = true,
+					},
+				}
+			end,
 		},
 	}
 	-- Handle RTT events (optional, but useful)
@@ -87,17 +83,33 @@ function M.setup()
 		local msg = "probe-rs: " .. body.message
 		require("dap.repl").append(msg)
 	end
-	vim.keymap.set("n", "<F5>", function() dap.continue() end)
-vim.keymap.set("n", "<F10>", function() dap.step_over() end)
-vim.keymap.set("n", "<F11>", function() dap.step_into() end)
-vim.keymap.set("n", "<F12>", function() dap.step_out() end)
-vim.keymap.set("n", "<Leader>b", function() dap.toggle_breakpoint() end)
-vim.keymap.set("n", "<Leader>B", function()
-  dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
-end)
-vim.keymap.set("n", "<Leader>dr", function() dap.repl.open() end)
-vim.keymap.set("n", "<Leader>dl", function() dap.run_last() end)
-vim.keymap.set("n", "<Leader>du", function() dapui.toggle() end)
+	vim.keymap.set("n", "<F5>", function()
+		dap.continue()
+	end)
+	vim.keymap.set("n", "<F10>", function()
+		dap.step_over()
+	end)
+	vim.keymap.set("n", "<F11>", function()
+		dap.step_into()
+	end)
+	vim.keymap.set("n", "<F12>", function()
+		dap.step_out()
+	end)
+	vim.keymap.set("n", "<Leader>b", function()
+		dap.toggle_breakpoint()
+	end)
+	vim.keymap.set("n", "<Leader>B", function()
+		dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
+	end)
+	vim.keymap.set("n", "<Leader>dr", function()
+		dap.repl.open()
+	end)
+	vim.keymap.set("n", "<Leader>dl", function()
+		dap.run_last()
+	end)
+	vim.keymap.set("n", "<Leader>du", function()
+		dapui.toggle()
+	end)
 end
 
 return M

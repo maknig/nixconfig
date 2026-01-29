@@ -82,9 +82,9 @@ function mod.setup()
 						schema = {
 							model = {
 								--default = "qwen/qwen3-4b:free",
-								-- default = "openai/gpt-oss-20b:free",
+								--default = "openai/gpt-oss-20b:free",
 								-- default = "qwen/qwen3-coder-30b",
-								default = "best-code",
+								default = "best-chat",
 							},
 						},
 					})

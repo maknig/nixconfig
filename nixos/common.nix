@@ -52,6 +52,7 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.tailscale.enable = true;
 
   networking.networkmanager.plugins = [ pkgs.networkmanager-openconnect ];
 
