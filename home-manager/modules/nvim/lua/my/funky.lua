@@ -22,6 +22,7 @@ function M.setup()
 		nix = c.nix_nixpkgsfmt,
 		toml = c.toml_taplo,
 		css = from_stdout({ "prettier", "--parser", "css", path_token }),
+		html = from_stdout({ "prettier", "--parser", "html", path_token }),
 		graphql = from_stdout({ "prettier", "--parser", "graphql", path_token }),
 		javascript = from_stdout({
 			"prettier",
