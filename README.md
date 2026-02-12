@@ -15,9 +15,8 @@ nixos/              # NixOS
 
 ## Prerequisites
 
-- **Nix** ≥ 2.20 with flakes enabled (`experimental-features = nix-command flakes` in `/etc/nix/nix.conf`).
-- A recent **NixOS** installation (targets `aarch64-linux`, `x86_64-linux`,
-  `aarch64-darwin`).
+- Nix ≥ 2.20 with flakes enabled (`experimental-features = nix-command flakes` in `/etc/nix/nix.conf`).
+- NixOS or Home Manager
 
 ## Clone the repository
 
@@ -45,7 +44,6 @@ sudo nixos-rebuild switch --flake .#<host>
 ```bash
 home-manager switch --flake .#<host>
 ```
-
 
 ## Resources
 
