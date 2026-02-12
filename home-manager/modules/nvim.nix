@@ -181,6 +181,8 @@ in
       texlab
       # formatters
       black
+      typstyle
+      tinymist
       nixpkgs-fmt
       nodePackages.prettier
       xmlformat

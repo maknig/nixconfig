@@ -29,7 +29,7 @@ in {
         tool = "nvim";
       };
 
-      aliases = {
+      alias = {
         s = "status";
         b = "branch";
         ba = "branch -a -v -v";

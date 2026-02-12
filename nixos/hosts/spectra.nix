@@ -5,43 +5,37 @@
 , ...
 }: {
 
- services.udev.extraRules = ''
+  services.udev.extraRules = ''
     ACTION!="add|change", GOTO="probe_rs_rules_end"
 
-    SUBSYSTEM=="gpio", MODE="0660", TAG+="uaccess"
+    SUBSYSTEM=="gpio", MODE="0660", GROUP="plugdev", TAG+="uaccess"
 
     SUBSYSTEM!="usb|tty|hidraw", GOTO="probe_rs_rules_end"
 
+    # Please keep this list sorted by VID:PID
+
     # STMicroelectronics ST-LINK V1
-    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3744", TAG+="uaccess"
+    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3744", MODE="660", GROUP="plugdev", TAG+="uaccess"
 
     # STMicroelectronics ST-LINK/V2
-    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", TAG+="uaccess"
+    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", MODE="660", GROUP="plugdev", TAG+="uaccess"
 
     # STMicroelectronics ST-LINK/V2.1
-    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", TAG+="uaccess"
-    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3752", TAG+="uaccess"
+    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE="660", GROUP="plugdev", TAG+="uaccess"
+    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3752", MODE="660", GROUP="plugdev", TAG+="uaccess"
 
     # STMicroelectronics STLINK-V3
-    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374d", TAG+="uaccess"
-    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374e", TAG+="uaccess"
-    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374f", TAG+="uaccess"
-    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3753", TAG+="uaccess"
-    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3754", TAG+="uaccess"
+    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374d", MODE="660", GROUP="plugdev", TAG+="uaccess"
+    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374e", MODE="660", GROUP="plugdev", TAG+="uaccess"
+    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374f", MODE="660", GROUP="plugdev", TAG+="uaccess"
+    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3753", MODE="660", GROUP="plugdev", TAG+="uaccess"
+    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3754", MODE="660", GROUP="plugdev", TAG+="uaccess"
 
-    # SEGGER J-Link
-    ATTRS{idVendor}=="1366", ATTRS{idProduct}=="0101", TAG+="uaccess"
-    ATTRS{idVendor}=="1366", ATTRS{idProduct}=="0102", TAG+="uaccess"
-    ATTRS{idVendor}=="1366", ATTRS{idProduct}=="0103", TAG+="uaccess"
 
-    ATTRS{idVendor}=="1366", ATTRS{idProduct}=="106f", TAG+="uaccess"
-
-    # CMSIS-DAP compatible adapters
-    ATTRS{product}=="*CMSIS-DAP*", TAG+="uaccess"
-
-    LABEL="probe_rs_rules_end"
+        LABEL="probe_rs_rules_end"
   '';
-    
+
+
   dots.profiles.desktop.enable = true;
   hardware.ipu6 = {
     enable = true;
@@ -78,7 +72,7 @@
   #boot.kernelPackages = pkgs.linuxPackages_6_12;
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "thunderbolt" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel"  "v4l2loopback"  ];
+  boot.kernelModules = [ "kvm-intel" "v4l2loopback" ];
   boot.extraModulePackages = [ ];
   boot.kernelParams = [ ];
 

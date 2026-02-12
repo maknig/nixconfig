@@ -20,9 +20,9 @@ function M.setup()
 		rust = c.rust_rustfmt,
 		gitignore = c.gitignore_sort,
 		nix = c.nix_nixpkgsfmt,
+		typst = from_stdout({ "typstyle", path_token }),
 		toml = c.toml_taplo,
 		css = from_stdout({ "prettier", "--parser", "css", path_token }),
-		html = from_stdout({ "prettier", "--parser", "html", path_token }),
 		graphql = from_stdout({ "prettier", "--parser", "graphql", path_token }),
 		javascript = from_stdout({
 			"prettier",
