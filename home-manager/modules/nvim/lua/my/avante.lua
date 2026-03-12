@@ -8,19 +8,19 @@ function M.setup()
 		},
 		use_absolute_path = false,
 	})
-
+    require("avante_lib").load()
 	require("avante").setup({
 		---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
 		---@type Provider
-		provider = "ollama", -- The provider used in Aider mode or in the planning phase of Cursor Planning Mode
+		provider = "llmhub", -- The provider used in Aider mode or in the planning phase of Cursor Planning Mode
 		---@alias Mode "agentic" | "legacy"
 		---@type Mode
 		mode = "agentic", -- The default mode for interaction. "agentic" uses tools to automatically generate code, "legacy" uses the old planning method to generate code.
 		-- WARNING: Since auto-suggestions are a high-frequency operation and therefore expensive,
 		-- currently designating it as `copilot` provider is dangerous because: https://github.com/yetone/avante.nvim/issues/1048
 		-- Of course, you can reduce the request frequency by increasing `suggestion.debounce`.
-		auto_suggestions_provider = "claude",
-		cursor_applying_provider = "ollama",
+		auto_suggestions_provider = "llmhub",
+		cursor_applying_provider = "llmhub",
 		providers = {
 			claude = {
 				endpoint = "https://api.anthropic.com",
@@ -64,6 +64,12 @@ function M.setup()
 				--model = "mistralai/mistral-small-3.1-24b-instruct:free",
 				-- model = "mistralai/mistral-small-3.1-24b-instruct:free",
 				-- model = "meta-llama/llama-4-maverick:free",
+			},
+			llmhub = {
+				__inherited_from = "openai",
+				endpoint = "https://api.llmhub.infs.ai/api/v1/completions",
+				api_key_name = "LLMHUB_API_KEY",
+				model = "best-chat",
 			},
 		},
 		---Specify the special dual_boost mode

@@ -141,6 +141,7 @@ in
         (plug "python-synt-nvim")
         (plug "micro-py-nvim")
         (plug "toggelterm-nvim")
+        (plug "ltex-utils-nvim")
 
         #(plug "jukit-nvim")
 
@@ -152,6 +153,7 @@ in
         dressing-nvim
         nui-nvim
         codecompanion-nvim
+        avante-nvim
         #(plugAvante "avante-nvim")
 
         #(plug "semshi-nvim")
@@ -177,6 +179,8 @@ in
       rust-analyzer
       lua-language-server
       yaml-language-server
+      marksman
+      ltex-ls-plus
       libxml2
       texlab
       # formatters

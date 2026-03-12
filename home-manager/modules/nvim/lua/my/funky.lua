@@ -40,7 +40,7 @@ function M.setup()
 			"typescript",
 			path_token,
 		}),
-		markdown = from_stdout({ "prettier", "--parser", "markdown", path_token }),
+		markdown = from_stdout({ "prettier", "--parser", "markdown", "--print-width", "80", path_token }),
 		xml = from_stdout({ "xmlformat", path_token }),
 	})
 	vim.keymap.set("n", "==", formatter.format, { desc = "funky formatter" })

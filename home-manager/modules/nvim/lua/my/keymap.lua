@@ -96,13 +96,6 @@ function M.general()
 
 	-- Expand 'cc' into 'CodeCompanion' in the command line
 	vim.cmd([[cab cc CodeCompanion]])
-
-	-- Search results centered please
-	-- map('', 'n', 'nzz', {})
-	-- map('', 'N', 'Nzz', {})
-	-- map('', '*', '*zz', {})
-	-- map('', '#', '#zz', {})
-	-- map('', 'g*', 'g*zz', {})
 end
 
 return M

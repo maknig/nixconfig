@@ -3,9 +3,9 @@ local mod = {}
 function mod.setup()
 	---@diagnostic disable-next-line: redundant-parameter
 	require("codecompanion").setup({
-		strategies = {
+		interactions = {
 			chat = {
-				adapter = "llmhub",
+				adapter = "ollama",
 				keymaps = {
 					send = {
 						modes = { n = "<C-s>", i = "<C-s>" },
@@ -26,17 +26,10 @@ function mod.setup()
 		},
 		adapters = {
 			http = {
-				anthropic = function()
-					return require("codecompanion.adapters").extend("anthropic", {
-						env = {
-							api_key = "cmd:op read op://personal/anthropic/credential --no-newline",
-						},
-					})
-				end,
 				ollama = function()
 					return require("codecompanion.adapters").extend("ollama", {
 						env = {
-							url = "http://152.96.151.56:11434",
+							url = "http://nebula:11434",
 							api_key = "OLLAMA_API_KEY",
 						},
 						headers = {
@@ -48,7 +41,7 @@ function mod.setup()
 						},
 						schema = {
 							model = {
-								default = "qwen3:latest",
+								default = "qwen3-coder-next:latest",
 							},
 							num_ctx = {
 								default = 20000,
@@ -67,6 +60,7 @@ function mod.setup()
 						schema = {
 							model = {
 								--default = "qwen/qwen3-4b:free",
+								-- default = "openai/gpt-oss-20b:free",
 								default = "openai/gpt-oss-20b:free",
 							},
 						},

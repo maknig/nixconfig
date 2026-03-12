@@ -12,7 +12,7 @@
   home.packages = [
     pkgs.home-manager
     pkgs.signal-desktop
-    pkgs.spotify
+    #pkgs.spotify
     pkgs.dua
     pkgs.eza
     pkgs.yazi

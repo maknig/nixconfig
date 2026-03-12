@@ -26,6 +26,7 @@
       url = "github:hyprwm/hyprpaper";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     hypr-contrib = {
       url = "github:hyprwm/contrib";
     };
@@ -176,6 +177,12 @@
     neodev-nvim = {
       url = github:folke/neodev.nvim;
       flake = false;
+    };
+
+    ltex-utils-nvim = {
+      url = github:jhofscheier/ltex-utils.nvim;
+      flake = false;
+
     };
   };
 
