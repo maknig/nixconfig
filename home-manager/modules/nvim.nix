@@ -154,6 +154,8 @@ in
         nui-nvim
         codecompanion-nvim
         avante-nvim
+        copilot-lua
+        copilot-lsp
         #(plugAvante "avante-nvim")
 
         #(plug "semshi-nvim")

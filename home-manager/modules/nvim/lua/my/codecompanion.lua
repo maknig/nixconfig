@@ -41,7 +41,8 @@ function mod.setup()
 						},
 						schema = {
 							model = {
-								default = "qwen3-coder-next:latest",
+								--default = "qwen3-coder-next:latest",
+								default = "qwen3.5:9b",
 							},
 							num_ctx = {
 								default = 20000,
@@ -49,7 +50,6 @@ function mod.setup()
 						},
 					})
 				end,
-
 				openrouter = function()
 					return require("codecompanion.adapters").extend("openai_compatible", {
 						env = {

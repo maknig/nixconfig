@@ -104,8 +104,8 @@ local load = function()
 
 	-- require("my/avante").setup()
 	require("my/codecompanion").setup()
+	require("copilot").setup()
 	require("my/dap").setup()
-	
 
 	require("render-markdown").setup({
 		file_types = { "Avante", "codecompanion" },

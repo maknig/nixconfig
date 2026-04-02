@@ -18,6 +18,7 @@ function M.setup()
 		yaml = c.yaml_prettier,
 		html = c.html_prettier,
 		rust = c.rust_rustfmt,
+		cpp = from_stdout { "clang-format", path_token },
 		gitignore = c.gitignore_sort,
 		nix = c.nix_nixpkgsfmt,
 		typst = from_stdout({ "typstyle", path_token }),
