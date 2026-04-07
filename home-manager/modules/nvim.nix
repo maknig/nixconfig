@@ -160,8 +160,8 @@ in
 
         #(plug "semshi-nvim")
 
-        nvim-dap-ui
-        nvim-dap
+        #nvim-dap-ui
+        #nvim-dap
         which-key-nvim
         # letting Nix manage treesitter: https://nixos.wiki/wiki/Treesitter
         treesitter
@@ -190,9 +190,7 @@ in
       typstyle
       tinymist
       nixpkgs-fmt
-      nodePackages.prettier
       xmlformat
-      nodePackages.typescript-language-server
       rustfmt
       stylua
       ruff
@@ -204,7 +202,8 @@ in
   xdg.configFile."nvim/spell/de.utf-8.spl".source = nvim-spell-de-utf8-dictionary;
   xdg.configFile."nvim/spell/de.utf-8.sug".source = nvim-spell-de-utf8-suggestions;
 
-  home.file.".config/nvim/init.lua".source = ./nvim/init.lua;
+  #home.file.".config/nvim/init.lua".source = ./nvim/init.lua;
+  programs.neovim.initLua = builtins.readFile ./nvim/init.lua;
   home.file.".config/nvim/lua".source = ./nvim/lua;
   home.file.".config/nvim/ftplugin/help.vim".text = ''
     " see also /usr/local/share/nvim/runtime/ftplugin/help.vim
