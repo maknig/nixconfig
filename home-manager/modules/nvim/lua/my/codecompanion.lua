@@ -18,10 +18,10 @@ function mod.setup()
 				},
 			},
 			inline = {
-				adapter = "llmhub",
+				adapter = "ollama",
 			},
 			cmd = {
-				adapter = "llmhub",
+				adapter = "ollama",
 			},
 		},
 		adapters = {

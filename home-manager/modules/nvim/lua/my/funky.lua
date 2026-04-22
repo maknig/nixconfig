@@ -21,7 +21,7 @@ function M.setup()
 		cpp = from_stdout { "clang-format", path_token },
 		gitignore = c.gitignore_sort,
 		nix = c.nix_nixpkgsfmt,
-		typst = from_stdout({ "typstyle", path_token }),
+		typst = from_stdout({ "typstyle", "--wrap-text", path_token }),
 		toml = c.toml_taplo,
 		css = from_stdout({ "prettier", "--parser", "css", path_token }),
 		graphql = from_stdout({ "prettier", "--parser", "graphql", path_token }),

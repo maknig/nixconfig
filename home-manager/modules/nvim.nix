@@ -180,12 +180,14 @@ in
       nil
       rust-analyzer
       lua-language-server
+      typescript-language-server
       yaml-language-server
       marksman
       ltex-ls-plus
       libxml2
       texlab
       # formatters
+      prettier
       black
       typstyle
       tinymist

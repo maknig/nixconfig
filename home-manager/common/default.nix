@@ -13,6 +13,7 @@
     pkgs.home-manager
     pkgs.signal-desktop
     #pkgs.spotify
+    pkgs.opencode
     pkgs.dua
     pkgs.eza
     pkgs.yazi

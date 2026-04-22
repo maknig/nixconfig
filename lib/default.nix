@@ -32,7 +32,7 @@ rec {
       home.sessionVariables."NIX_PATH" = "nixpkgs=$HOME/.nixpkgs\${NIX_PATH:+:}$NIX_PATH";
 
       # set in host? fallback
-      home.stateVersion = "24.11";
+      home.stateVersion = "25.11";
     };
 
   intoHomeManager = name: { config ? name, user ? "matthias", system ? "x86_64-linux" }:
@@ -151,7 +151,7 @@ rec {
           )
           (
             { ... }: {
-              system.stateVersion = "24.11";
+              system.stateVersion = "25.11";
             }
           )
           (inputs.home-manager.nixosModules.home-manager)

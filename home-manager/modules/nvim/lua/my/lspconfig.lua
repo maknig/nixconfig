@@ -166,7 +166,7 @@ function M.on_attach(client, bufnr)
 		"go to definition in split up"
 	)
 
-	nmap("t.", b.hover, "hover symbol")
+	nmap("K", b.hover, "hover symbol")
 	imap("<c-k>", b.signature_help, "signature help")
 	nmap("tl", b.references, "find references")
 	nmap("ca", b.code_action, "code action")

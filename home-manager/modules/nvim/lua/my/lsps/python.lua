@@ -2,7 +2,7 @@ local M = {}
 
 function M.setup(capabilities)
 	vim.lsp.config("basedpyright", {
-		on_attach = require('my.lsp').on_attach,
+		on_attach = require("my.lspconfig").on_attach,
 		capabilities = capabilities,
 		settings = {
 			basedpyright = {
@@ -30,6 +30,28 @@ function M.setup(capabilities)
 	})
 
 	vim.lsp.enable("basedpyright")
+end
+
+function M.setup_ty(capabilities)
+	-- Optional: Only required if you need to update the language server settings
+	vim.lsp.config("ty", {
+		on_attach = require("my.lspconfig").on_attach,
+		capabilities = capabilities,
+		settings = {
+			ty = {
+				inlayHints = {
+					callArgumentNames = true,
+					variableTypes = true,
+				},
+
+				diagnosticMode = "workspace",
+				-- ty language server settings go here
+			},
+		},
+	})
+
+	-- Required: Enable the language server
+	vim.lsp.enable("ty")
 end
 
 return M
