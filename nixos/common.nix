@@ -62,6 +62,7 @@
     #pkgs.mpd-mpris
     #pkgs.playerctl
     pkgs.zsh
+    pkgs.nushell
   ];
 
   programs.zsh.enable = true;

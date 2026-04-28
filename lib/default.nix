@@ -32,7 +32,7 @@ rec {
       home.sessionVariables."NIX_PATH" = "nixpkgs=$HOME/.nixpkgs\${NIX_PATH:+:}$NIX_PATH";
 
       # set in host? fallback
-      home.stateVersion = "25.11";
+      home.stateVersion = "24.05";
     };
 
   intoHomeManager = name: { config ? name, user ? "matthias", system ? "x86_64-linux" }:
@@ -90,7 +90,7 @@ rec {
         #userConf = import (strToFile user ../user);
       in
       nixosSystem {
-        inherit system;
+        #inherit system;
         modules = [
           ({ config, pkgs, ... }: {
             # Add Cachix cache configuration
@@ -106,6 +106,8 @@ rec {
               "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
             ];
           })
+
+          ({ nixpkgs.hostPlatform = system; })
 
           (
             { name, ... }: {
@@ -151,7 +153,7 @@ rec {
           )
           (
             { ... }: {
-              system.stateVersion = "25.11";
+              system.stateVersion = "24.05";
             }
           )
           (inputs.home-manager.nixosModules.home-manager)

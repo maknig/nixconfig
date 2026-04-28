@@ -109,6 +109,10 @@ local load = function()
 
 	require("render-markdown").setup({
 		file_types = { "Avante", "codecompanion" },
+		completions = { lsp = { enabled = true } },
+		lang_aliases = {
+			typescriptreact = "typescript",
+		},
 	})
 end
 

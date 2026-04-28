@@ -43,7 +43,7 @@ in
   };
   config = mkIf cfg.enable {
     home.packages = [
-      inputs.hypr-contrib.packages.${pkgs.system}.grimblast
+      inputs.hypr-contrib.packages.${pkgs.stdenv.hostPlatform.system}.grimblast
       pkgs.hyprpaper
       pkgs.hyprlock
       pkgs.hypridle
@@ -69,13 +69,13 @@ in
 
     systemd.user.services.wlsunset.Install = { WantedBy = [ "graphical.target" ]; };
 
-    nixpkgs.overlays = [
-      (final: prev: {
-        waybar = prev.waybar.overrideAttrs (oldAttrs: {
-          mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-        });
-      })
-    ];
+    #nixpkgs.overlays = [
+    #  (final: prev: {
+    #    waybar = prev.waybar.overrideAttrs (oldAttrs: {
+    #      mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+    #    });
+    #  })
+    #];
 
     services.mpd = {
       enable = true;
@@ -111,7 +111,7 @@ in
       enable = true;
       systemd = {
         enable = false;
-        target = "graphical-session.target";
+        targets = ["graphical-session.target"];
       };
       settings = [
         {

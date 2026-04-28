@@ -13,10 +13,14 @@ in {
           name = "Matthias Koenig";
           email = "matthias.koenig@gmail.com";
         };
+      init.defaultBranch = "main";
       core = {
         pager = "less -FRSX";
         editor = "nvim";
       };
+      commit = { gpgsign = false; };
+      signing = { format = "openpgp"; };
+
       color = {
         ui = "true";
         diff = "auto";

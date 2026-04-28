@@ -90,6 +90,7 @@ in
       package = pkgs.neovim;
       withPython3 = true;
       withNodeJs = true;
+      withRuby= true;
 
       plugins = with pkgs.vimPlugins; [
         (plug "hop-nvim")
@@ -192,6 +193,7 @@ in
       typstyle
       tinymist
       nixpkgs-fmt
+      nixfmt
       xmlformat
       rustfmt
       stylua
