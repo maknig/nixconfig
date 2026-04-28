@@ -225,14 +225,10 @@
                   "spotify"
                 ];
 
-            config.allowUnfree = true;
+            config.allowUnfree = false;
 
             overlays = [ inputs.neovim-nightly-overlay.overlays.default ];
 
-            ## logseq still uses EOL electron 27
-            #config.permittedInsecurePackages = [
-            #  "electron-27.3.11"
-            #];
           }
         );
         pkgsStableBySystem = forEachSystem (
@@ -240,7 +236,7 @@
           import inputs.nixpkgs-stable {
             inherit system;
 
-            config.allowUnfree = true;
+            config.allowUnfree = false;
           }
         );
 
