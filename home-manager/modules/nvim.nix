@@ -93,7 +93,8 @@ in
       withRuby= true;
 
       plugins = with pkgs.vimPlugins; [
-        (plug "hop-nvim")
+        # (plug "hop-nvim")
+        hop-nvim
         (plug "fugitive-nvim")
         #(plug "gitsigns-nvim")
         gitsigns-nvim

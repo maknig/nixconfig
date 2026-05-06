@@ -59,11 +59,11 @@
       flake = false;
     };
 
-    hop-nvim = {
-      url = github:phaazon/hop.nvim;
-      flake = false;
-    };
-
+    # hop-nvim = {
+    #   url = github:phaazon/hop.nvim;
+    #   flake = false;
+    # };
+    #
     fugitive-nvim = {
       url = github:tpope/vim-fugitive;
       flake = false;
@@ -223,6 +223,9 @@
                   "nvidia-settings"
                   "nvidia-x11"
                   "spotify"
+                  "cmp-spell"
+                  "wezterm.nvim"
+                  "nvidia-kernel-modules"
                 ];
 
             config.allowUnfree = false;
