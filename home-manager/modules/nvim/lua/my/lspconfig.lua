@@ -43,7 +43,7 @@ function M.setup()
 	require("my.lsps.nix").setup(capabilities)
 	require("my.lsps.python").setup(capabilities)
 	-- require("my.lsps.ltex").setup(capabilities)
-	--	require("my.lsps.rust").setup(capabilities)
+	require("my.lsps.rust").setup(capabilities)
 	require("my.lsps.typescript").setup(capabilities)
 	require("my.lsps.yaml").setup(capabilities)
 end

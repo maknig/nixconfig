@@ -5,7 +5,7 @@ function mod.setup()
 	require("codecompanion").setup({
 		interactions = {
 			chat = {
-				adapter = "ollama",
+				adapter = "copilot",
 				keymaps = {
 					send = {
 						modes = { n = "<C-s>", i = "<C-s>" },
@@ -80,6 +80,18 @@ function mod.setup()
 								-- default = "qwen/qwen3-coder-30b",
 								default = "best-chat",
 							},
+						},
+					})
+				end,
+				copilot_ilt = function()
+					local adapter = require("codecompanion.adapters.http.copilot_enterprise")
+					adapter.opts.provider_url = "https://ilt-ost.ghe.com/" -- 'https://' can be removed but doesn't hurt.
+					return adapter
+				end,
+				copilot_ilt2 = function()
+					return require("codecompanion.adapters.http.copilot_enterprise").extend("copilot", {
+						env = {
+							url = "https://ilt-ost.ghe.com/",
 						},
 					})
 				end,

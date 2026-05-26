@@ -104,7 +104,21 @@ local load = function()
 
 	-- require("my/avante").setup()
 	require("my/codecompanion").setup()
-	require("copilot").setup()
+
+	require("copilot").setup({
+
+		-- auth_provider_url = "https://ilt-ost.ghe.com/",
+		-- server_opts_overrides = {
+		-- 	settings = {
+		-- 		advanced = {
+		-- 			-- Points the Copilot LSP to your enterprise API endpoints
+		-- 			serverUrl = "https://ilt-ost.ghe.com/",
+		-- 			-- Specify a proxy if your corporate network requires it
+		-- 			-- proxy = "http://your-proxy-server:port",
+		-- 		},
+		-- 	},
+		-- },
+	})
 	--require("my/dap").setup()
 
 	require("render-markdown").setup({

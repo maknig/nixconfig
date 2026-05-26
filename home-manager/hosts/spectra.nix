@@ -7,6 +7,7 @@
       linux.enable = true;
       hyprland.enable = true;
     };
+      helix.enable = true;
     alacritty = {
       font_size = 14.0;
       font_normal = "UbuntuMono Nerd Font Mono";

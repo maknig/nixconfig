@@ -1,5 +1,9 @@
 local M = {}
 
+function M.palette()
+	return require("nightfox.palette").load(vim.g.colors_name or "nordfox")
+end
+
 function M.setup()
 	vim.cmd("syntax enable")
 
@@ -69,6 +73,40 @@ function M.setup()
 		return icon .. autosave .. " " .. protocol .. "%t"
 	end
 
+	local function diagnostic(bufnr)
+		if vim.lsp.get_clients({ bufnr = bufnr }) == 0 then
+			return ""
+		end
+
+		local function num(severity)
+			return vim.diagnostic.get(bufnr, { severity = severity })
+		end
+
+		local s = vim.diagnostic.severity
+		return num(s.ERROR) .. "e " .. num(s.WARN) .. "w"
+	end
+	local function lsp_clients_as_string()
+		local clients = vim.lsp.get_clients()
+		if not clients or vim.tbl_isempty(clients) then
+			return ""
+		end
+		local names = {}
+		for _, client in ipairs(clients) do
+			table.insert(names, client.name or tostring(client.id or "unknown"))
+		end
+		return table.concat(names, ", ")
+	end
+	local function lsp_busy()
+		if vim.lsp.get_clients({ bufnr = nil }) == 0 then
+			return ""
+		else
+			if vim.lsp.status() == 0 then
+				return "idle"
+			end
+			return lsp_clients_as_string()
+		end
+	end
+
 	require("lualine").setup({
 		options = {
 			theme = "nightfox",
@@ -119,13 +157,13 @@ function M.setup()
 			},
 			lualine_y = {
 				function()
-					return lsp_indicator.get_diagnostics()
+					return diagnostic(nil)
 				end,
 			},
 			lualine_z = {
 				-- TODO because documentation doesnt say what those params are that it passes ...
 				function()
-					return lsp_indicator.get_named_progress()
+					return lsp_busy()
 				end,
 			},
 		},

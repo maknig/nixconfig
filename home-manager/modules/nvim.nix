@@ -160,6 +160,7 @@ in
         copilot-lsp
         #(plugAvante "avante-nvim")
 
+        (plug "copilot-enterpries-nvim")
         #(plug "semshi-nvim")
 
         #nvim-dap-ui
