@@ -35,7 +35,10 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    copilot-enterpries-nvim = {
+      url = github:dyamon/codecompanion-copilot-enterprise.nvim;
+      flake = false;
+    };
     semshi-nvim = {
       url = github:numirias/semshi;
       flake = false;
