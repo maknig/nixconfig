@@ -232,6 +232,9 @@
                 ];
 
             config.allowUnfree = false;
+            config.permittedInsecurePackages = [
+              "electron-39.8.10"
+            ];
 
             overlays = [ inputs.neovim-nightly-overlay.overlays.default ];
 

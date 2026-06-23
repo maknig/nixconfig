@@ -7,11 +7,66 @@ local M = {}
 -- all the lsp jumps are done async, but I need it sync
 -- and there is no option to control this
 -- I want: sync, optional splits or tabs before, move target line to the top (like "zt")
+--
+function M.get_one_lsp_client()
+	local clients = vim.lsp.get_clients({ bufnr = 0 })
+	if #clients == 0 then
+		vim.cmd.echomsg([["no lsp on this buffer"]])
+		return nil
+	elseif #clients == 1 then
+		return clients[1]
+	else
+		vim.cmd.echomsg([["more than one lsp on this buffer"]])
+		return clients[1]
+	end
+end
+
+function M.op(method)
+	local function fn(make)
+		local client = M.get_one_lsp_client()
+		if not client then
+			return
+		end
+
+		local params = vim.lsp.util.make_position_params(0, client.offset_encoding)
+		local replies, error = client:request_sync(method, params, 2000, 0)
+
+		if error or not replies or replies.err then
+			vim.print({ replies = replies, error = error })
+			vim.cmd.echomsg([["lsp error"]])
+			return
+		end
+
+		if not replies.result or #replies.result == 0 then
+			vim.cmd.echomsg([["no candidates"]])
+			return
+		end
+
+		if #replies.result > 1 then
+			local builtin = require("telescope.builtin")
+			builtin.lsp_definitions()
+			return
+		end
+
+		local selected = replies.result[1]
+
+		make()
+		vim.lsp.util.show_document(selected, client.offset_encoding)
+		vim.cmd("normal! zt")
+	end
+	return fn
+end
+
 local function lsp_jumper(method, before)
 	-- methods
 	--   textDocument/definition
+	local client = M.get_one_lsp_client()
+	if not client then
+		return
+	end
 	return function()
-		local params = vim.lsp.util.make_position_params()
+		local params = vim.lsp.util.make_position_params(0, client.offset_encoding)
+
 		local function handler(_, result, ctx, _)
 			-- full signature: err, result, ctx, config
 			local offset_encoding = vim.lsp.get_client_by_id(ctx.client_id).offset_encoding
@@ -132,6 +187,11 @@ function M.setup_completion()
 	})
 end
 
+function M.definition()
+	vim.cmd("vsplit")
+	vim.lsp.buf.definition()
+end
+
 function M.on_attach(client, bufnr)
 	vim.api.nvim_set_option_value("signcolumn", "yes", {})
 
@@ -151,7 +211,7 @@ function M.on_attach(client, bufnr)
 
 	nmap("gi", lsp_jumper("textDocument/implementation"), "go to implementation")
 
-	nmap("gd", lsp_jumper("textDocument/definition"), "go to definition")
+	nmap("gd", M.definition, "go to definition")
 	nmap("gds", lsp_jumper("textDocument/definition", "tab split"), "go to definition in a new tab")
 	nmap(
 		"gdr",

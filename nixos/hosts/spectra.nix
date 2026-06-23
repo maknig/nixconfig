@@ -6,6 +6,9 @@
 }: {
 
   services.udev.extraRules = ''
+  # 1. Raspberry Pi Pico Rules (for picotool and serial boot)
+  SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="0003", MODE="0666"
+  SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="000a", MODE="0666"
     ACTION!="add|change", GOTO="probe_rs_rules_end"
 
     SUBSYSTEM=="gpio", MODE="0660", GROUP="plugdev", TAG+="uaccess"
@@ -30,6 +33,8 @@
     ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374f", MODE="660", GROUP="plugdev", TAG+="uaccess"
     ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3753", MODE="660", GROUP="plugdev", TAG+="uaccess"
     ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3754", MODE="660", GROUP="plugdev", TAG+="uaccess"
+
+      
 
 
         LABEL="probe_rs_rules_end"
