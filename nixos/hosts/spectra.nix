@@ -6,38 +6,39 @@
 }: {
 
   services.udev.extraRules = ''
-  # 1. Raspberry Pi Pico Rules (for picotool and serial boot)
-  SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="0003", MODE="0666"
-  SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="000a", MODE="0666"
-    ACTION!="add|change", GOTO="probe_rs_rules_end"
+    ACTION=="add", ATTR{idVendor}=="1443", GROUP="plugdev", TAG+="uaccess"
+      # 1. Raspberry Pi Pico Rules (for picotool and serial boot)
+      SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="0003", MODE="0666"
+      SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="000a", MODE="0666"
+        ACTION!="add|change", GOTO="probe_rs_rules_end"
 
-    SUBSYSTEM=="gpio", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+        SUBSYSTEM=="gpio", MODE="0660", GROUP="plugdev", TAG+="uaccess"
 
-    SUBSYSTEM!="usb|tty|hidraw", GOTO="probe_rs_rules_end"
+        SUBSYSTEM!="usb|tty|hidraw", GOTO="probe_rs_rules_end"
 
-    # Please keep this list sorted by VID:PID
+        # Please keep this list sorted by VID:PID
 
-    # STMicroelectronics ST-LINK V1
-    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3744", MODE="660", GROUP="plugdev", TAG+="uaccess"
+        # STMicroelectronics ST-LINK V1
+        ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3744", MODE="660", GROUP="plugdev", TAG+="uaccess"
 
-    # STMicroelectronics ST-LINK/V2
-    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", MODE="660", GROUP="plugdev", TAG+="uaccess"
+        # STMicroelectronics ST-LINK/V2
+        ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", MODE="660", GROUP="plugdev", TAG+="uaccess"
 
-    # STMicroelectronics ST-LINK/V2.1
-    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE="660", GROUP="plugdev", TAG+="uaccess"
-    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3752", MODE="660", GROUP="plugdev", TAG+="uaccess"
+        # STMicroelectronics ST-LINK/V2.1
+        ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE="660", GROUP="plugdev", TAG+="uaccess"
+        ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3752", MODE="660", GROUP="plugdev", TAG+="uaccess"
 
-    # STMicroelectronics STLINK-V3
-    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374d", MODE="660", GROUP="plugdev", TAG+="uaccess"
-    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374e", MODE="660", GROUP="plugdev", TAG+="uaccess"
-    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374f", MODE="660", GROUP="plugdev", TAG+="uaccess"
-    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3753", MODE="660", GROUP="plugdev", TAG+="uaccess"
-    ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3754", MODE="660", GROUP="plugdev", TAG+="uaccess"
+        # STMicroelectronics STLINK-V3
+        ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374d", MODE="660", GROUP="plugdev", TAG+="uaccess"
+        ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374e", MODE="660", GROUP="plugdev", TAG+="uaccess"
+        ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374f", MODE="660", GROUP="plugdev", TAG+="uaccess"
+        ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3753", MODE="660", GROUP="plugdev", TAG+="uaccess"
+        ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3754", MODE="660", GROUP="plugdev", TAG+="uaccess"
 
       
 
 
-        LABEL="probe_rs_rules_end"
+            LABEL="probe_rs_rules_end"
   '';
 
 

@@ -19,6 +19,7 @@ function M.setup()
 		html = c.html_prettier,
 		rust = c.rust_rustfmt,
 		cpp = from_stdout({ "clang-format", path_token }),
+		c = from_stdout({ "clang-format", path_token }),
 		gitignore = c.gitignore_sort,
 		nix = c.nix_nixpkgsfmt,
 		--nix = from_cmds({ "nixfmt", "-q", path_token }),
