@@ -60,29 +60,38 @@ end
 local function lsp_jumper(method, before)
 	-- methods
 	--   textDocument/definition
-	local client = M.get_one_lsp_client()
-	if not client then
-		return
-	end
 	return function()
-		local params = vim.lsp.util.make_position_params(0, client.offset_encoding)
-
-		local function handler(_, result, ctx, _)
-			-- full signature: err, result, ctx, config
-			local offset_encoding = vim.lsp.get_client_by_id(ctx.client_id).offset_encoding
-			if vim.tbl_islist(result) then
-				-- TODO we only use the first result
-				-- like the original, it would be better to open quickfix with options?
-				result = result[1]
-			end
-			if before then
-				vim.cmd(before)
-			end
-			vim.lsp.util.jump_to_location(result, offset_encoding, false)
-			vim.cmd("normal! zt")
+		local clients = vim.lsp.get_clients({ bufnr = 0 })
+		if #clients == 0 then
+			vim.notify("no lsp on this buffer")
+			return
 		end
-		-- TODO kinda works, but still async, user might get bored, switches buffer/windows, and then it gets weird
-		vim.lsp.buf_request(0, method, params, handler)
+		local client = clients[1]
+
+		local params = vim.lsp.util.make_position_params(0, client.offset_encoding)
+		local reply, err = client:request_sync(method, params, 2000, 0)
+
+		if err or not reply or reply.err then
+			vim.notify("lsp error: " .. (err or vim.inspect(reply and reply.err)))
+			return
+		end
+
+		if not reply.result or #reply.result == 0 then
+			vim.notify("no candidates")
+			return
+		end
+
+		if #reply.result > 1 then
+			require("telescope.builtin").lsp_definitions()
+			return
+		end
+
+		local selected = reply.result[1]
+		if before then
+			vim.cmd(before)
+		end
+		vim.lsp.util.show_document(selected, client.offset_encoding, { focus = true })
+		vim.cmd("normal! zt")
 	end
 end
 
@@ -211,8 +220,8 @@ function M.on_attach(client, bufnr)
 
 	nmap("gi", lsp_jumper("textDocument/implementation"), "go to implementation")
 
-	nmap("gd", M.definition, "go to definition")
-	nmap("gds", lsp_jumper("textDocument/definition", "tab split"), "go to definition in a new tab")
+	nmap("gd", lsp_jumper("textDocument/definition"), "go to definition")
+	nmap("gdt", lsp_jumper("textDocument/definition", "tab split"), "go to definition in a new tab")
 	nmap(
 		"gdr",
 		lsp_jumper("textDocument/definition", "set splitright | vsplit | set splitright!"),
