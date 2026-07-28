@@ -44,7 +44,7 @@ function mod.setup()
 	telescope.load_extension("fzf")
 
 	-- Function to show spell suggestions
-	function SpellSuggestions()
+	local function spell_suggestions()
 		local current_word = vim.fn.expand("<cword>")
 		bi.spell_suggest({
 			initial_mode = "insert",
@@ -53,7 +53,7 @@ function mod.setup()
 		})
 	end
 
-	map("n", ",ss", ":lua SpellSuggestions()<CR>", { desc = "Spell suggestions" })
+	map("n", ",ss", spell_suggestions, { desc = "Spell suggestions" })
 
 	map("", ",,", ":Telescope git_files<cr>", { desc = "find git files" })
 	map("n", "gds", bi.lsp_document_symbols, { desc = "document symbols" })
@@ -67,7 +67,7 @@ function mod.setup()
 		bi.man_pages({ sections = { "ALL" } })
 	end, { desc = "man pages" })
 	map("n", "gt", bi.commands, { desc = "vim commands" })
-	map("n", "gc", mod.git_diff_files, {})
+	map("n", "<leader>gc", mod.git_diff_files, { desc = "git changed files" })
 
 	map("n", "gu", function()
 		bi.diagnostics({ bufnr = 0 })
@@ -81,7 +81,7 @@ function mod.git_diff_files(opts)
 	local pickers = require("telescope.pickers")
 	local finders = require("telescope.finders")
 	local conf = require("telescope.config").values
-	local list = vim.fn.systemlist("git diff --name-only master 2>/dev/null | git diff --name-only main")
+	local list = vim.fn.systemlist("git diff --name-only master 2>/dev/null || git diff --name-only main 2>/dev/null")
 
 	pickers
 		.new(opts, {

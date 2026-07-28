@@ -36,6 +36,7 @@ in
       susp
       vpn_status
       pkgs.firefox
+      pkgs.kicad
       pkgs.papers
       pkgs.gthumb
       pkgs.networkmanager-openconnect

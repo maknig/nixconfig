@@ -6,6 +6,11 @@ function M.setup(capabilities)
 		on_attach = require('my.lsp').on_attach,
 	})
 
+	vim.lsp.config("biome", {
+		capabilities = capabilities,
+		on_attach = require('my.lsp').on_attach,
+	})
+
 	vim.lsp.enable("biome")
 	vim.lsp.enable("ts_ls")
 end

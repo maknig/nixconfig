@@ -5,7 +5,6 @@
 }: {
   programs.nushell = {
     enable = true;
-    ##configFile.source = ./nu/config.nu;
-    
+    configFile.source = ./nu/config.nu;
   };
 }

@@ -2,6 +2,7 @@ local M = {}
 
 function M.setup(capabilities)
     vim.lsp.config("nil_ls", {
+        on_attach = require("my.lsp").on_attach,
         capabilities = capabilities,
         settings = { -- https://github.com/oxalica/nil/blob/main/docs/configuration.md
 

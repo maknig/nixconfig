@@ -51,11 +51,8 @@ local options = function()
 	set.softtabstop = 4
 	set.shiftwidth = 4
 	set.expandtab = true
-	set.smarttab = true
-	set.autoindent = true
 	set.copyindent = true
 
-	set.modeline = false
 	set.modelines = 0
 	set.wildmode = "longest:full"
 	set.laststatus = 3 --avante.nvim recommendation
@@ -65,8 +62,6 @@ local options = function()
 	-- noinsert: Do not insert text until a selection is made
 	-- noselect: Do not select, force user to select one from the menu
 	set.completeopt = "menuone,noinsert,noselect"
-	-- diagnostic messages defaults to 4000
-	set.updatetime = 300
 
 	vim.g.python_highlight_all = 1
 
@@ -96,33 +91,20 @@ local load = function()
 	require("my/git").setup()
 
 	require("my/telescope").setup()
-	require("my/lspconfig").setup()
+	require("my/lsp").setup()
 	require("my/diagnostic").setup()
 	require("my/treesitter").setup()
 	require("my/funky").setup()
 	--require("my/formatter").setup()
 
+	require("my/dap").setup()
 	-- require("my/avante").setup()
 	require("my/codecompanion").setup()
 
-	require("copilot").setup({
-
-		-- auth_provider_url = "https://ilt-ost.ghe.com/",
-		-- server_opts_overrides = {
-		-- 	settings = {
-		-- 		advanced = {
-		-- 			-- Points the Copilot LSP to your enterprise API endpoints
-		-- 			serverUrl = "https://ilt-ost.ghe.com/",
-		-- 			-- Specify a proxy if your corporate network requires it
-		-- 			-- proxy = "http://your-proxy-server:port",
-		-- 		},
-		-- 	},
-		-- },
-	})
 	--require("my/dap").setup()
 
 	require("render-markdown").setup({
-		file_types = { "Avante", "codecompanion" },
+		file_types = { "markdown", "Avante", "codecompanion" },
 		completions = { lsp = { enabled = true } },
 		lang_aliases = {
 			typescriptreact = "typescript",

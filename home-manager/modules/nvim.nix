@@ -136,7 +136,6 @@ in
         (plug "telescope-nvim")
         (plug "telescope-fzf-native-nvim")
 
-        #(plug "rustacean-nvim")
         (plug "rustacean-nvim")
 
         (plug "neodev-nvim")
@@ -157,14 +156,11 @@ in
         codecompanion-nvim
         avante-nvim
         copilot-lua
-        copilot-lsp
         #(plugAvante "avante-nvim")
-
-        (plug "copilot-enterpries-nvim")
         #(plug "semshi-nvim")
 
-        #nvim-dap-ui
-        #nvim-dap
+        nvim-dap-ui
+        nvim-dap
         which-key-nvim
         # letting Nix manage treesitter: https://nixos.wiki/wiki/Treesitter
         treesitter

@@ -35,6 +35,10 @@ function M.setup()
 	vim.api.nvim_set_hl(0, "@comment.safety", { fg = palette.red.bright, bold = true })
 	vim.api.nvim_create_autocmd({ "BufWinEnter", "WinNew" }, {
 		callback = function()
+			if vim.w.comment_matches_added then
+				return
+			end
+			vim.w.comment_matches_added = true
 			vim.fn.matchadd("@comment.todo", [[//.*\zs\<TODO\>]])
 			vim.fn.matchadd("@comment.note", [[//.*\zs\<NOTE\>]])
 			vim.fn.matchadd("@comment.safety", [[//.*\zs\<SAFETY\>]])

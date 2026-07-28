@@ -32,6 +32,9 @@ local function lsp_jumper(method, before)
 		end
 
 		if #reply.result > 1 then
+			if before then
+				vim.cmd(before)
+			end
 			require("telescope.builtin").lsp_definitions()
 			return
 		end
@@ -55,12 +58,12 @@ function M.setup()
 	require("my.lsps.clangd").setup(capabilities)
 	require("my.lsps.lua").setup(capabilities)
 	require("my.lsps.nix").setup(capabilities)
-	--require("my.lsps.python").setup(capabilities)
-	M.setup_python()
+	require("my.lsps.python").setup(capabilities)
 	-- require("my.lsps.ltex").setup(capabilities)
-	--	require("my.lsps.rust").setup(capabilities)
+	require("my.lsps.rust").setup_rustaceanvim(capabilities)
 	require("my.lsps.typescript").setup(capabilities)
 	require("my.lsps.yaml").setup(capabilities)
+	require("my.lsps.md").setup(capabilities)
 end
 
 function M.setup_luasnip()
@@ -76,11 +79,6 @@ function M.setup_completion()
 
 	cmp.setup({
 		view = { entries = { name = "wildmenu", separator = " | " }, docs = { auto_open = true } },
-		--view = { entries = { name = "menuone", separator = " | " }, docs = { auto_open = true } },
-		--completion = {
-		--	autocomplete = true,
-		--	--completeopt = "menu,menuone",
-		--},
 		snippet = {
 			expand = function(args)
 				require("luasnip").lsp_expand(args.body)
@@ -106,7 +104,6 @@ function M.setup_completion()
 				end,
 			}),
 			["<S-Tab>"] = cmp.mapping({
-
 				i = function(fallback)
 					if cmp.visible() then
 						cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
@@ -115,7 +112,6 @@ function M.setup_completion()
 					end
 				end,
 			}),
-			-- ['<c-u>'] = cmp.mapping.open_docs(),
 		},
 		experimental = {
 			ghost_text = true,
@@ -161,13 +157,12 @@ function M.on_attach(client, bufnr)
 	local b = vim.lsp.buf
 
 	nmap("gD", b.declaration)
-	-- nmap("gi", b.implementation)
 	nmap("gtd", b.type_definition)
 
 	nmap("gi", lsp_jumper("textDocument/implementation"), "go to implementation")
 
 	nmap("gd", lsp_jumper("textDocument/definition"), "go to definition")
-	nmap("gds", lsp_jumper("textDocument/definition", "tab split"), "go to definition in a new tab")
+	nmap("gdt", lsp_jumper("textDocument/definition", "tab split"), "go to definition in a new tab")
 	nmap(
 		"gdr",
 		lsp_jumper("textDocument/definition", "set splitright | vsplit | set splitright!"),
@@ -181,10 +176,10 @@ function M.on_attach(client, bufnr)
 		"go to definition in split up"
 	)
 
-	nmap("t.", b.hover, "hover symbol")
+	nmap("K", b.hover, "hover symbol")
 	imap("<c-k>", b.signature_help, "signature help")
 	nmap("tl", b.references, "find references")
-	nmap("ca", b.code_action, "code action")
+	nmap("<leader>ca", b.code_action, "code action")
 	nmap("rn", b.rename, "rename symbol")
 
 	-- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -195,51 +190,6 @@ function M.on_attach(client, bufnr)
 			border = "none",
 		},
 	})
-end
-
-function M.setup_python(capabilities)
-	-- vim.lsp.config("ty", {
-	-- 	capabilities = capabilities,
-	-- 	inlayHints = {
-	-- 		variableTypes = true,
-	-- 		callArgumentNames = true,
-	-- 	},
-	-- 	experimental = {
-	-- 		rename = true,
-	-- 	},
-	-- 	settings = {
-	-- 		ty = {
-	-- 			diagnosticMode = "workspace",
-	-- 		},
-	-- 	},
-	-- })
-	vim.lsp.config("ty", {
-		capabilities = capabilities,
-		settings = {
-			ty = {
-				inlayHints = {
-					callArgumentNames = true,
-					variableTypes = true,
-				},
-				experimental = {
-					rename = true,
-				},
-
-				diagnosticMode = "workspace",
-			},
-		},
-	})
-
-	-- Required: Enable the language server
-	vim.lsp.enable("ty")
-end
-
-function M.setup_tex(capabilities)
-	vim.lsp.config("texlab", {
-		capabilities = capabilities,
-	})
-
-	vim.lsp.enable("texlab")
 end
 
 return M

@@ -2,7 +2,7 @@ local M = {}
 
 function M.setup(capabilities)
 	vim.lsp.config("marksman", {
-		on_attach = M.on_attach,
+		on_attach = require("my.lsp").on_attach,
 		capabilities = capabilities,
 		settings = {
 			marksman = {

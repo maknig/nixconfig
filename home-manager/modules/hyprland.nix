@@ -48,7 +48,6 @@ in
       pkgs.hyprlock
       pkgs.hypridle
       pkgs.hyprshot
-      pkgs.hypridle
       pkgs.cliphist
       pkgs.wl-clipboard
       pkgs.rofi

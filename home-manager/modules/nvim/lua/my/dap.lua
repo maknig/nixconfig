@@ -1,5 +1,37 @@
 local M = {}
 
+local function parse_cargo_config()
+	local cwd = vim.fn.getcwd()
+	local path = cwd .. "/.cargo/config.toml"
+	if vim.fn.filereadable(path) == 0 then
+		path = cwd .. "/.cargo/config"
+	end
+	if vim.fn.filereadable(path) == 0 then
+		return { chip = nil, target = nil }
+	end
+	local content = table.concat(vim.fn.readfile(path), "\n")
+	local chip = content:match("%-%-chip%s+([%w_]+)")
+	local target = content:match('target%s*=%s*"([^"]+)"')
+	return { chip = chip, target = target }
+end
+
+local function find_elf(target)
+	if not target then
+		return ""
+	end
+	local dir = vim.fn.getcwd() .. "/target/" .. target .. "/debug"
+	if vim.fn.isdirectory(dir) == 0 then
+		return ""
+	end
+	for _, entry in ipairs(vim.fn.readdir(dir)) do
+		local full = dir .. "/" .. entry
+		if vim.fn.isdirectory(full) == 0 and not entry:find("%.") then
+			return full
+		end
+	end
+	return ""
+end
+
 function M.setup()
 	local dap = require("dap")
 	local dapui = require("dapui")
@@ -41,75 +73,56 @@ function M.setup()
 		type = "server",
 		port = "${port}",
 		executable = {
-			command = vim.fn.expand("probe-rs"), -- make sure probe-rs is installed
+			command = "probe-rs",
 			args = { "dap-server", "--port", "${port}" },
 		},
 	}
-	dap.configurations.cpp = {
-		{
-			name = "Launch with probe-rs",
-			type = "probe-rs-debug",
-			request = "launch",
-			cwd = "${workspaceFolder}",
-			stopOnEntry = true,
-			chip = "stm32l431cc",
-			coreConfigs = function()
-				-- we must provide program-binary for the core
-				local elf = vim.fn.input("Path to ELF for core 0: ", vim.fn.getcwd() .. "/build2/re-leva.elf", "file")
-				return {
-					{
-						core = 0, -- target core index
-						run = true, -- start running after reset
-						programBinary = elf, -- <-- THIS IS REQUIRED
-						stopOnEntry = true,
-					},
-				}
-			end,
-		},
+	local probe_rs_config = {
+		name = "Launch with probe-rs",
+		type = "probe-rs-debug",
+		request = "launch",
+		cwd = vim.fn.getcwd(),
+		stopOnEntry = true,
+		chip = function()
+			local cargo = parse_cargo_config()
+			return cargo.chip or vim.fn.input("Chip: ")
+		end,
+		coreConfigs = function()
+			local cargo = parse_cargo_config()
+			local default_elf = find_elf(cargo.target)
+			local elf = vim.fn.input("Path to ELF: ", default_elf, "file")
+			return {
+				{
+					core = 0,
+					run = true,
+					programBinary = elf,
+					stopOnEntry = true,
+					rttEnabled = true,
+				},
+			}
+		end,
 	}
-	-- Handle RTT events (optional, but useful)
+	dap.configurations.rust = { probe_rs_config }
+	dap.configurations.cpp = { probe_rs_config }
+
 	dap.listeners.before["event_probe-rs-rtt-channel-config"]["dap-probe-rs"] = function(session, body)
-		vim.notify(string.format("probe-rs RTT channel %d (“%s”) opened", body.channelNumber, body.channelName))
-		-- must send this request back to receive RTT data
-		session:request("rttWindowOpened", { body.channelNumber, true })
+		session:request("rttWindowOpened", { channelNumber = body.channelNumber, windowIsOpen = true })
 	end
 
 	dap.listeners.before["event_probe-rs-rtt-data"]["dap-probe-rs"] = function(_, body)
-		local msg = string.format("RTT ch %d: %s", body.channelNumber, body.data)
-		require("dap.repl").append(msg)
+		require("dap.repl").append(body.data)
 	end
-
-	dap.listeners.before["event_probe-rs-show-message"]["dap-probe-rs"] = function(_, body)
-		local msg = "probe-rs: " .. body.message
-		require("dap.repl").append(msg)
-	end
-	vim.keymap.set("n", "<F5>", function()
-		dap.continue()
-	end)
-	vim.keymap.set("n", "<F10>", function()
-		dap.step_over()
-	end)
-	vim.keymap.set("n", "<F11>", function()
-		dap.step_into()
-	end)
-	vim.keymap.set("n", "<F12>", function()
-		dap.step_out()
-	end)
-	vim.keymap.set("n", "<Leader>b", function()
-		dap.toggle_breakpoint()
-	end)
+	vim.keymap.set("n", "<F5>", dap.continue, { desc = "DAP continue" })
+	vim.keymap.set("n", "<F10>", dap.step_over, { desc = "DAP step over" })
+	vim.keymap.set("n", "<F11>", dap.step_into, { desc = "DAP step into" })
+	vim.keymap.set("n", "<F12>", dap.step_out, { desc = "DAP step out" })
+	vim.keymap.set("n", "<Leader>b", dap.toggle_breakpoint, { desc = "DAP toggle breakpoint" })
 	vim.keymap.set("n", "<Leader>B", function()
 		dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
-	end)
-	vim.keymap.set("n", "<Leader>dr", function()
-		dap.repl.open()
-	end)
-	vim.keymap.set("n", "<Leader>dl", function()
-		dap.run_last()
-	end)
-	vim.keymap.set("n", "<Leader>du", function()
-		dapui.toggle()
-	end)
+	end, { desc = "DAP conditional breakpoint" })
+	vim.keymap.set("n", "<Leader>dr", dap.repl.open, { desc = "DAP open REPL" })
+	vim.keymap.set("n", "<Leader>dl", dap.run_last, { desc = "DAP run last" })
+	vim.keymap.set("n", "<Leader>du", dapui.toggle, { desc = "DAP UI toggle" })
 end
 
 return M

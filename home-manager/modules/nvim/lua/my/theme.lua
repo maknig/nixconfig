@@ -74,12 +74,12 @@ function M.setup()
 	end
 
 	local function diagnostic(bufnr)
-		if vim.lsp.get_clients({ bufnr = bufnr }) == 0 then
+		if #vim.lsp.get_clients({ bufnr = bufnr }) == 0 then
 			return ""
 		end
 
 		local function num(severity)
-			return vim.diagnostic.get(bufnr, { severity = severity })
+			return #vim.diagnostic.get(bufnr, { severity = severity })
 		end
 
 		local s = vim.diagnostic.severity
@@ -91,20 +91,25 @@ function M.setup()
 			return ""
 		end
 		local names = {}
+		local seen = {}
 		for _, client in ipairs(clients) do
-			table.insert(names, client.name or tostring(client.id or "unknown"))
+			local name = client.name or tostring(client.id or "unknown")
+			if not seen[name] then
+				seen[name] = true
+				table.insert(names, name)
+			end
 		end
 		return table.concat(names, ", ")
 	end
 	local function lsp_busy()
-		if vim.lsp.get_clients({ bufnr = nil }) == 0 then
+		if #vim.lsp.get_clients({ bufnr = nil }) == 0 then
 			return ""
-		else
-			if vim.lsp.status() == 0 then
-				return "idle"
-			end
+		end
+		local status = vim.lsp.status()
+		if status == "" then
 			return lsp_clients_as_string()
 		end
+		return status
 	end
 
 	require("lualine").setup({
