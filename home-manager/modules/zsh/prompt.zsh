@@ -7,7 +7,7 @@ zstyle ':vcs_info:*' unstagedstr '!'
 zstyle ':vcs_info:*' stagedstr '+'
 
 need_push () {
-  up=$(/usr/bin/git cherry -v @{upstream} 2>/dev/null) || return
+  up=$(git cherry -v @{upstream} 2>/dev/null) || return
   if [[ $up == "" ]]
   then
     echo " "

@@ -43,10 +43,9 @@ export KEYTIMEMOUT=1 # quicker reaction to mode change (might interfere with oth
 
 ZLE_SPACE_SUFFIX_CHARS=$'&|'
 
-autoload -U up-line-or-beginning-search down-line-or-beginning-search insert-files edit-command-line
+autoload -U up-line-or-beginning-search down-line-or-beginning-search edit-command-line
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
-zle -N insert-files
 zle -N edit-command-line
 
 # vim insert mode for colemak as default
@@ -56,8 +55,6 @@ bindkey -M viins '^j' down-line-or-beginning-search
 # TODO this is really cool, start using it
 # TODO ctrl-something does not know shift or not
 # TODO ^f is mapped later for fzf stuff, need one place to know what is what?
-# bindkey -M viins '^f' insert-files
-bindkey -M viins '^f' insert-files
 bindkey -M viins '^e' edit-command-line
 bindkey -M viins '^h' run-help
 # TODO currently used by osh, but not for colemak
@@ -65,9 +62,6 @@ bindkey -M viins '^h' run-help
 # alternatively vim-style: \e-se
 # bindkey -M viins '^n' vi-open-line-below
 # TODO plus there might be a thing that on enter continuation pushes back the lines?
-
-bindkey '\e[A' history-search-backward
-bindkey '\e[B' history-search-forward
 
 # vim normal mode for colemak (stolen from dk)
 function {

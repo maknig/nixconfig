@@ -49,7 +49,13 @@
   };
   # Rich external-command completions. Nushell integration is auto-enabled
   # (enableNushellIntegration defaults to programs.nushell.enable).
-  programs.carapace.enable = true;
+  programs.carapace = {
+    enable = true;
+
+    # Shell Integration Toggles
+    enableZshIntegration = false; # Disable for Zsh
+    enableNushellIntegration = true; # Toggles Nushell completions
+  };
 
   home.file.".lesskey".text = ''
     #command

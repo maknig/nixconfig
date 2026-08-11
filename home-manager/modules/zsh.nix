@@ -11,7 +11,6 @@
       '';
     }
     {
-      # FIXME only on work machine
       initContent = lib.optionalString pkgs.stdenv.isLinux ''
         ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
         ZSH_HIGHLIGHT_DIRS_BLACKLIST+=(/efs)
@@ -35,7 +34,6 @@
 
       initContent=
         ''
-          eval "$(direnv hook zsh)"
           path+="$HOME/.nix-profile/bin"
         ''
         + builtins.readFile ./zsh/config.zsh
@@ -53,17 +51,6 @@
             sha256 = "lxwkVq9Ysvl2ZosD+riQ8dsCQIB5X4kqP+ix7XTDkKw=";
           };
         }
-        # nix run uses $SHELL
-        # {
-        #   name = "zsh-nix-shell";
-        #   file = "nix-shell.plugin.zsh";
-        #   src = pkgs.fetchFromGitHub {
-        #     owner = "chisui";
-        #     repo = "zsh-nix-shell";
-        #     rev = "v0.5.0";
-        #     sha256 = "0za4aiwwrlawnia4f29msk822rj9bgcygw6a8a6iikiwzjjz0g91";
-        #   };
-        # }
       ];
     }
   ];

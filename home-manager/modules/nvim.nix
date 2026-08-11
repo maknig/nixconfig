@@ -154,8 +154,8 @@ in
         dressing-nvim
         nui-nvim
         codecompanion-nvim
-        avante-nvim
-        copilot-lua
+        #avante-nvim
+        #copilot-lua
         #(plugAvante "avante-nvim")
         #(plug "semshi-nvim")
 

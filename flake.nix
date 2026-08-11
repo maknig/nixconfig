@@ -229,6 +229,7 @@
                   "cmp-spell"
                   "wezterm.nvim"
                   "nvidia-kernel-modules"
+                  #"copilot-language-server"
                 ];
 
             config.allowUnfree = false;
