@@ -37,9 +37,9 @@ setopt pushd_minus
 # ignore duplicates on the directory stack
 setopt pushd_ignore_dups
 
-# vim mode for zle
+# vim mode for zle (standard vi bindings, no layout remapping)
 bindkey -v
-export KEYTIMEMOUT=1 # quicker reaction to mode change (might interfere with other things) (1=0.1seconds)
+export KEYTIMEOUT=1 # quicker reaction to mode change (might interfere with other things) (1=0.1seconds)
 
 ZLE_SPACE_SUFFIX_CHARS=$'&|'
 
@@ -48,136 +48,12 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 zle -N edit-command-line
 
-# vim insert mode for colemak as default
+# keep some emacs-style bindings (^A, ^E, ^W, ...) available in insert mode
 bindkey -A viins main
 bindkey -M viins '^k' up-line-or-beginning-search
 bindkey -M viins '^j' down-line-or-beginning-search
-# TODO this is really cool, start using it
-# TODO ctrl-something does not know shift or not
-# TODO ^f is mapped later for fzf stuff, need one place to know what is what?
 bindkey -M viins '^e' edit-command-line
 bindkey -M viins '^h' run-help
-# TODO currently used by osh, but not for colemak
-# shift-enter would be nice ... not sure we can detect it
-# alternatively vim-style: \e-se
-# bindkey -M viins '^n' vi-open-line-below
-# TODO plus there might be a thing that on enter continuation pushes back the lines?
-
-# vim normal mode for colemak (stolen from dk)
-function {
-
-    function dk-vi-insert-at-beginning {
-        zle vi-first-non-blank
-        zle vi-insert
-    }
-    zle -N dk-vi-insert-at-beginning
-
-    function dk-vi-insert-before-word {
-        zle vi-backward-word
-        zle vi-insert
-    }
-    zle -N dk-vi-insert-before-word
-
-    function dk-vi-insert-before-Word {
-        zle vi-backward-blank-word
-        zle vi-insert
-    }
-    zle -N dk-vi-insert-before-Word
-
-    function dk-vi-insert-after-word {
-        zle vi-forward-word
-        zle vi-add-next
-    }
-    zle -N dk-vi-insert-after-word
-
-    function dk-vi-insert-after-Word {
-        zle vi-forward-blank-word
-        zle vi-add-next
-    }
-    zle -N dk-vi-insert-after-Word
-
-    local binds=(
-
-        # navigate
-        b vi-backward-blank-word
-        h vi-backward-char
-        b vi-backward-word
-        '0' vi-beginning-of-line
-        $ vi-end-of-line
-        Y vi-forward-blank-word
-        l vi-forward-char
-        m vi-first-non-blank
-        w vi-forward-word
-        # TODO should I use the vi-* versions here?
-        # or make history handling completely separate
-        # left hand here is often a better flow
-        # no vi-* versions for plain line moves
-        # u up-line-or-beginning-search
-        # e down-line-or-beginning-search
-        k up-line
-        j down-line
-        # TODO any way to just start from an empty mapping anyway?
-        # consider options: -m, -rp to remove based on prefix
-        # ok I think we make an empty one and bind it to main: bindkey -A mymap main
-        # and first an empty one: bindkey -N mymap, or get it from viins? ins needs defaults
-        # bindkey -M vicmd -r s
-
-        # insert
-        sn vi-insert
-        si vi-add-next
-        se vi-open-line-below
-        su vi-open-line-above
-        sm dk-vi-insert-at-beginning
-        so vi-add-eol
-        sl dk-vi-insert-before-word
-        sL dk-vi-insert-before-Word
-        sy dk-vi-insert-after-word
-        sY dk-vi-insert-after-Word
-        p vi-replace-chars
-
-        # change (see viopp below)
-        ss vi-change
-
-        # delete (see viopp below)
-        d vi-delete
-        x vi-delete-char
-
-        # history
-        '^u' up-line-or-beginning-search
-        '^e' down-line-or-beginning-search
-
-        # miscellaneous
-        '^xe' edit-command-line
-
-    )
-
-    bindkey -N vicmd
-    bindkey -M vicmd $binds
-
-    function dk-opp-line {
-        CURSOR=0
-        MARK=$#BUFFER
-    }
-    zle -N dk-opp-line
-
-    function dk-opp-eol {
-        MARK=$#BUFFER
-    }
-    zle -N dk-opp-eol
-
-    local binds=(
-        # TODO select-a-word includes trailing spaces
-        # TODO select-a-shell-word refers to a full argument :)
-        # TODO zsh actually has argument text objects, and surround-and-escape stuff :)
-        n dk-opp-line
-        e select-in-word
-        E select-in-blank-word
-        i dk-opp-eol
-    )
-
-    bindkey -N viopp
-    bindkey -M viopp $binds
-}
 
 # TODO these hooks, should I chain? do others chain?
 # the default already contained something. copy that function and chain?

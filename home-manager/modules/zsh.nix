@@ -37,7 +37,6 @@
           path+="$HOME/.nix-profile/bin"
         ''
         + builtins.readFile ./zsh/config.zsh
-        + builtins.readFile ./zsh/prompt.zsh
         + builtins.readFile ./zsh/completion.zsh;
 
       plugins = [

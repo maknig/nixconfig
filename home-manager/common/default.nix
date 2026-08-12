@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   # TODO: https://nix-community.github.io/home-manager/#sec-install-nixos-module
   # do we need to set?:
   # home-manager.useUserPackages = true;
@@ -55,6 +55,14 @@
     # Shell Integration Toggles
     enableZshIntegration = false; # Disable for Zsh
     enableNushellIntegration = true; # Toggles Nushell completions
+  };
+
+  # Cross-shell prompt (zsh + nushell). enableZshIntegration/
+  # enableNushellIntegration default to true when programs.zsh/
+  # programs.nushell are enabled.
+  programs.starship = {
+    enable = true;
+    settings = lib.importTOML ../modules/starship.toml;
   };
 
   home.file.".lesskey".text = ''
