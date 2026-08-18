@@ -1,8 +1,7 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
+{ config
+, pkgs
+, lib
+, ...
 }: {
   programs.zsh = lib.mkMerge [
     {
@@ -18,7 +17,9 @@
       '';
     }
     {
+
       enable = true;
+      
 
       shellAliases = {
         reload = ". ~/.zshrc";
@@ -32,7 +33,7 @@
         dk = "docker kill $(docker ps -q)";
       };
 
-      initContent=
+      initContent =
         ''
           path+="$HOME/.nix-profile/bin"
         ''

@@ -17,6 +17,7 @@
       enable = true;
       useOSProber = true;
       efiSupport = true;
+      font = "/boot/grub/fonts/unicode.pf2";
     };
     loader.efi.canTouchEfiVariables = true;
   };
