@@ -14,6 +14,7 @@
     pkgs.signal-desktop
     #pkgs.spotify
     pkgs.opencode
+    pkgs.slack
     pkgs.dua
     pkgs.eza
     pkgs.yazi

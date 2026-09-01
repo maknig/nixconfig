@@ -5,6 +5,7 @@ $username@${custom.host} in $directory\
 $git_branch\
 $git_state\
 $git_status\
+$python\
 $jobs\
 $status\
 $line_break\

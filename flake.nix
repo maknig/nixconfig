@@ -229,6 +229,7 @@
                   "cmp-spell"
                   "wezterm.nvim"
                   "nvidia-kernel-modules"
+                  "slack"
                   #"copilot-language-server"
                 ];
 
