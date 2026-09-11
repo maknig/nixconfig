@@ -62,8 +62,8 @@ rec {
               [ home ];
 
             nix = {
-              package = pkgs.nixVersions.stable;
-              extraOptions = "experimental-features = nix-command flakes";
+              package = pkgs.nixVersions.latest;
+              settings.experimental-features = [ "nix-command" "flakes" ];
             };
 
             #nixpkgs = {
@@ -130,7 +130,7 @@ rec {
               nix = {
                 package = pkgs.nixVersions.latest;
                 settings = {
-                  experimental-features = "nix-command flakes";
+                  experimental-features = [ "nix-command" "flakes" ];
                   auto-optimise-store = true;
                 };
               };

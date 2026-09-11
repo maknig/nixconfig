@@ -45,8 +45,6 @@ in
       extraPortals = [ pkgs.xdg-desktop-portal pkgs.xdg-desktop-portal-wlr pkgs.xdg-desktop-portal-hyprland ];
     };
 
-    services.dbus.enable = true;
-    services.dbus.packages = [ pkgs.gcr ];
 
     environment.systemPackages = with pkgs;
       [

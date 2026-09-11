@@ -17,7 +17,7 @@
       config.nix.registry;
 
   nix.settings = {
-    experimental-features = "nix-command flakes";
+    experimental-features = [ "nix-command" "flakes" ];
     # Deduplicate and optimize nix store
     auto-optimise-store = true;
   };
@@ -69,7 +69,7 @@
 
   services.dbus = {
     enable = true;
-    packages = [ pkgs.gcr ];
+    packages = [ pkgs.gcr_4 ];
   };
 
   # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
