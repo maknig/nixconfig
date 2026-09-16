@@ -309,7 +309,12 @@ in
     home.file.".config/hypr/hyprpaper.conf".source = ./hyprland/hyprpaper.conf;
     home.file.".config/hypr/hyprlock.conf".source = ./hyprland/hyprlock.conf;
     home.file.".config/hypr/hypridle.conf".source = ./hyprland/hypridle.conf;
-    home.file.".config/hypr/hyprland.conf".source = ./hyprland/hyprland.conf;
+    home.file.".config/hypr/hyprland.lua".source = ./hyprland/hypr/hyprland.lua;
+    home.file.".config/hypr/monitors.lua".source = ./hyprland/hypr/monitors.lua;
+    home.file.".config/hypr/look.lua".source = ./hyprland/hypr/look.lua;
+    home.file.".config/hypr/input.lua".source = ./hyprland/hypr/input.lua;
+    home.file.".config/hypr/binds.lua".source = ./hyprland/hypr/binds.lua;
+    home.file.".config/hypr/windowrules.lua".source = ./hyprland/hypr/windowrules.lua;
     home.file.".config/rofi/config.rasi".source = ./rofi/config.rasi;
     home.file.".config/rofi/powermenu.rasi".source = ./rofi/powermenu.rasi;
   };
