@@ -22,16 +22,16 @@
 
   #hardware.enableAllFirmware = true;
   #hardware.enableRedistributableFirmware = true;
-  fonts = {
-    enableDefaultPackages = true;
-  fontconfig.enable = true;
-    packages = with pkgs; [
-      font-adobe-100dpi
-      font-adobe-75dpi
-      font-alias
-    ];
-  };
-  services.xserver.fontPath = "/run/current-system/sw/share/X11/fonts/100dpi,/run/current-system/sw/share/X11/fonts/75dpi";
+#  fonts = {
+#    enableDefaultPackages = true;
+#  fontconfig.enable = true;
+#    packages = with pkgs; [
+#      font-adobe-100dpi
+#      font-adobe-75dpi
+#      font-alias
+#    ];
+#  };
+#  services.xserver.fontPath = "/run/current-system/sw/share/X11/fonts/100dpi,/run/current-system/sw/share/X11/fonts/75dpi";
 
 
   environment.systemPackages = [
