@@ -22,17 +22,53 @@
 
   #hardware.enableAllFirmware = true;
   #hardware.enableRedistributableFirmware = true;
-#  fonts = {
-#    enableDefaultPackages = true;
-#  fontconfig.enable = true;
-#    packages = with pkgs; [
-#      font-adobe-100dpi
-#      font-adobe-75dpi
-#      font-alias
-#    ];
-#  };
-#  services.xserver.fontPath = "/run/current-system/sw/share/X11/fonts/100dpi,/run/current-system/sw/share/X11/fonts/75dpi";
+  #  fonts = {
+  #    enableDefaultPackages = true;
+  #  fontconfig.enable = true;
+  #    packages = with pkgs; [
+  #      font-adobe-100dpi
+  #      font-adobe-75dpi
+  #      font-alias
+  #    ];
+  #  };
+  #  services.xserver.fontPath = "/run/current-system/sw/share/X11/fonts/100dpi,/run/current-system/sw/share/X11/fonts/75dpi";
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.hplip ]; # Includes PPDs and tools for HP printers
+  };
 
+  # Enable network discovery (mDNS / IPP Everywhere)
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+  services.samba = {
+    enable = true;
+    smbd.enable = false;
+    nmbd.enable = false;
+    winbindd.enable = false;
+  };
+
+  hardware.printers = {
+    ensurePrinters = [
+      {
+        name = "HP_Color_LaserJet_M577";
+        location = "Office";
+        deviceUri = "smb://print-rj-c.ost.ch/d8102-a4mfp";
+        model = "HP/hp-color_laserjet_mfp_m577-ps.ppd.gz";
+        ppdOptions = {
+          # No credentials stored anywhere in this config/git repo.
+          # This just tells CUPS the queue needs a login; the username/password
+          # are typed at print time (desktop print dialog or CUPS web UI prompt).
+          "auth-info-required" = "username,password";
+        };
+      }
+    ];
+    ensureDefaultPrinter = "HP_Color_LaserJet_M577";
+  };
+ 
 
   environment.systemPackages = [
     pkgs.brightnessctl
