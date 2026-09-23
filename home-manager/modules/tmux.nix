@@ -92,7 +92,7 @@
   };
 
   programs.tmate = {
-    enable = true;
+    enable = false;
     # FIXME: This causes tmate to hang.
     # extraConfig = config.xdg.configFile."tmux/tmux.conf".text;
   };

@@ -55,7 +55,7 @@
     ensurePrinters = [
       {
         name = "HP_Color_LaserJet_M577";
-        location = "Office";
+        location = "8.102";
         deviceUri = "smb://print-rj-c.ost.ch/d8102-a4mfp";
         model = "HP/hp-color_laserjet_mfp_m577-ps.ppd.gz";
         ppdOptions = {
