@@ -187,6 +187,8 @@
       flake = false;
 
     };
+
+    globalprotect-openconnect.url = "github:yuezk/GlobalProtect-openconnect";
   };
 
   outputs =

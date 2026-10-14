@@ -6,7 +6,10 @@
 }: {
   imports = [
     ../modules/probe-rs-udev.nix
+    inputs.globalprotect-openconnect.nixosModules.default
   ];
+
+  programs.globalprotect-openconnect.enable = true;
 
 
   dots.profiles.desktop.enable = true;
