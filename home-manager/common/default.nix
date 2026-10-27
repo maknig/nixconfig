@@ -27,7 +27,6 @@
     # fonts
     pkgs.fontconfig
     pkgs.nerd-fonts.ubuntu-mono
-    #pkgs.nerd-fonts.ubuntu-mono
     #pkgs.nerdfonts
     #(pkgs.nerd-fonts.override { fonts = [ "UbuntuMono" "Iosevka" "ZedMono" ]; })
 
