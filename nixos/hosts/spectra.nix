@@ -23,6 +23,9 @@
   services.blueman.enable = true;
   services.fwupd.enable = true;
 
+  # Intel RealSense udev rules
+  #services.udev.packages = [ pkgs.librealsense ];
+
   #hardware.enableAllFirmware = true;
   #hardware.enableRedistributableFirmware = true;
   #  fonts = {
@@ -42,9 +45,9 @@
 
   # Enable network discovery (mDNS / IPP Everywhere)
   services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
+    enable = false;
+    nssmdns4 = false;
+    openFirewall = false;
   };
 
   services.samba = {
