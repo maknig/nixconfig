@@ -102,6 +102,7 @@ local load = function()
 	require("my/codecompanion").setup()
 
 	--require("my/dap").setup()
+    require("neorg").setup()
 
 	require("render-markdown").setup({
 		file_types = { "markdown", "Avante", "codecompanion" },

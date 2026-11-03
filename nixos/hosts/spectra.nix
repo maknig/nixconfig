@@ -19,6 +19,7 @@
   };
 
   hardware.bluetooth.enable = true;
+  hardware.sane.enable = true;
 
   services.blueman.enable = true;
   services.fwupd.enable = true;

@@ -192,7 +192,6 @@
   outputs =
     { self
     , nixpkgs
-    , nixpkgs-stable
     , flake-utils
     , neovim-nightly-overlay
     , home-manager
@@ -242,18 +241,10 @@
 
           }
         );
-        pkgsStableBySystem = forEachSystem (
-          system:
-          import inputs.nixpkgs-stable {
-            inherit system;
-
-            config.allowUnfree = false;
-          }
-        );
-
+        
       in
       rec {
-        inherit pkgsBySystem pkgsStableBySystem;
+        inherit pkgsBySystem;
         lib = import ./lib { inherit inputs; } // inputs.nixpkgs.lib;
 
         # Formatter for your nix files, available through 'nix fmt'
