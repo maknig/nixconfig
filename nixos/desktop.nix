@@ -19,6 +19,8 @@ in
 
     services.pulseaudio.enable = false;
 
+    services.upower.enable = true;
+
     services.pipewire = {
       enable = true;
       alsa.enable = true;

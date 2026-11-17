@@ -5,12 +5,12 @@
 }: {
   programs.zsh = lib.mkMerge [
     {
-      initContent = lib.optionalString pkgs.stdenv.isDarwin ''
+      initContent = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
         bindkey '^R' history-incremental-search-backward
       '';
     }
     {
-      initContent = lib.optionalString pkgs.stdenv.isLinux ''
+      initContent = lib.optionalString pkgs.stdenv.hostPlatform.isLinux ''
         ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
         ZSH_HIGHLIGHT_DIRS_BLACKLIST+=(/efs)
         ZSH_HIGHLIGHT_MAXLENGTH=2000
