@@ -81,7 +81,7 @@
   users.users.matthias = {
     isNormalUser = true;
     description = "Matthias";
-    extraGroups = [ "lp" "networkmanager" "wheel" "docker" "plugdev" "dialout" "video" "input" ];
+    extraGroups = [ "scanner" "lp" "networkmanager" "wheel" "docker" "plugdev" "dialout" "video" "input" ];
   };
 
 

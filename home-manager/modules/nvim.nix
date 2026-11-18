@@ -133,6 +133,7 @@ in
         # telescope
         #(plug "plenary-nvim")
         plenary-nvim
+        neorg
         (plug "telescope-nvim")
         (plug "telescope-fzf-native-nvim")
 

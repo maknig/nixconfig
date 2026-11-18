@@ -6,12 +6,6 @@
 }:
 with lib; let
   cfg = config.dots.profiles.desktop;
-
-  stablePkgs = import inputs.nixpkgs-stable {
-    inherit (pkgs) system;
-    config.allowUnfree = true;
-  };
-
 in
 {
   options.dots.profiles.desktop = {
@@ -24,6 +18,8 @@ in
     security.rtkit.enable = true;
 
     services.pulseaudio.enable = false;
+
+    services.upower.enable = true;
 
     services.pipewire = {
       enable = true;

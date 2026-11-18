@@ -43,7 +43,7 @@ in
   };
   config = mkIf cfg.enable {
     home.packages = [
-      inputs.hypr-contrib.packages.${pkgs.stdenv.hostPlatform.system}.grimblast
+      #inputs.hypr-contrib.packages.${pkgs.stdenv.hostPlatform.system}.grimblast
       pkgs.hyprpaper
       pkgs.hyprlock
       pkgs.hypridle
@@ -89,7 +89,7 @@ in
     };
 
     services.mako = {
-      enable = true;
+      enable = false;
       settings = {
         ignore-timeout = "true";
         default-timeout = 0;
@@ -106,11 +106,100 @@ in
       };
     };
 
+    programs.ashell = {
+      enable = true;
+      # Automatically starts ashell with your graphical session
+      systemd.enable = false;
+
+      package = pkgs.ashell.overrideAttrs (old: rec {
+        version = "0.11.0-unstable-2026-11-10";
+        src = pkgs.fetchFromGitHub {
+          owner = "MalpenZibo";
+          repo = "ashell";
+          rev = "6de2268557e4aac838f9431475e875c5add44634";
+          hash = "sha256-FZoapghA4ZtbYeHs5Yxc2FWWoorPH6IjOD8wXosZHbA=";
+        };
+        cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+          inherit src;
+          hash = "sha256-tq0sQ9nRzKRTDVR6BUJNUAJK+n9UzHJiCAkGtKwVLUI=";
+        };
+      });
+
+      # Translates Nix attributes directly into config.toml
+      settings = {
+        language = "en-US"; # UI language
+        region = "de-CH";
+        modules = {
+          left = [ "Workspaces" "MediaPlayer" ];
+          center = [ "WindowTitle" ];
+          right = [
+            "SystemInfo"
+            [ "Privacy" "Settings" ]
+            "KeyboardLayout"
+            "Tempo"
+            "Notifications"
+            "Tray"
+          ];
+        };
+        keyboard_layout = {
+          labels = {
+            "English (US)" = "EN";
+            "German (Switzerland)" = "CH";
+          }; # (default: {}) map layout names to short labels
+        };
+
+        appearance = {
+          success_color = "#a3be8c";
+          warning_color = "#ebcb8b";
+          danger_color = "#bf616a";
+          text_color = "#eceff4";
+          workspace_colors = [ "#88c0d0" "#81a1c1" "#5e81ac" ];
+
+          primary_color = {
+            base = "#88c0d0";
+            text = "#242933";
+          };
+
+          background_color = {
+            base = "#3b4252";
+            weak = "#434c5e";
+            strong = "#4c566a";
+          };
+          #font_name = "Ubuntu Mono Nerd Font";
+          #background_color = "#000000";
+          #text_color = "#F2E9E4";
+          #primary_color = { base = "#caccd1"; text = "#383c4a"; };
+          #success_color = "#a6da95";
+          #warning_color = "#eed49f";
+          #danger_color = "#ed8796";
+          #opacity = { default = 1.0; bar = 0.65; };
+
+          bar = {
+            surface = "solid";
+            radius = "sm";
+            margin = [ 5 5 0 5 ];
+            padding = 0;
+          };
+
+
+
+          modules = {
+            default.radius = "sm";
+            group.radius = "sm";
+            workspaces.radius = "sm";
+          };
+        };
+        workspaces = {
+          visibility_mode = "MonitorSpecific";
+        };
+      };
+    };
+
     programs.waybar = {
       enable = true;
       systemd = {
         enable = false;
-        targets = ["graphical-session.target"];
+        targets = [ "graphical-session.target" ];
       };
       settings = [
         {
@@ -309,13 +398,15 @@ in
     home.file.".config/hypr/hyprpaper.conf".source = ./hyprland/hyprpaper.conf;
     home.file.".config/hypr/hyprlock.conf".source = ./hyprland/hyprlock.conf;
     home.file.".config/hypr/hypridle.conf".source = ./hyprland/hypridle.conf;
-    home.file.".config/hypr/hyprland.conf".source = ./hyprland/hyprland.conf;
-    #home.file.".config/hypr/hyprland.lua".source = ./hyprland/hypr/hyprland.lua;
-    #home.file.".config/hypr/monitors.lua".source = ./hyprland/hypr/monitors.lua;
-    #home.file.".config/hypr/look.lua".source = ./hyprland/hypr/look.lua;
-    #home.file.".config/hypr/input.lua".source = ./hyprland/hypr/input.lua;
-    #home.file.".config/hypr/binds.lua".source = ./hyprland/hypr/binds.lua;
-    #home.file.".config/hypr/windowrules.lua".source = ./hyprland/hypr/windowrules.lua;
+    #home.file.".config/hypr/hyprland.conf".source = ./hyprland/hyprland.conf;
+
+    home.file.".config/hypr/hyprland.lua".source = ./hyprland/hypr/hyprland.lua;
+    home.file.".config/hypr/monitors.lua".source = ./hyprland/hypr/monitors.lua;
+    home.file.".config/hypr/look.lua".source = ./hyprland/hypr/look.lua;
+    home.file.".config/hypr/input.lua".source = ./hyprland/hypr/input.lua;
+    home.file.".config/hypr/binds.lua".source = ./hyprland/hypr/binds.lua;
+    home.file.".config/hypr/windowrules.lua".source = ./hyprland/hypr/windowrules.lua;
+
     home.file.".config/rofi/config.rasi".source = ./rofi/config.rasi;
     home.file.".config/rofi/powermenu.rasi".source = ./rofi/powermenu.rasi;
   };

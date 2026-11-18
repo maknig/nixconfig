@@ -8,13 +8,14 @@
 -- See https://wiki.hypr.land/configuring/core/autostart/
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd("waybar & hyprpaper & mako")
-    hl.exec_cmd("nm-applet & blueman-applet")
-    hl.exec_cmd("hypridle")
+	-- hl.exec_cmd("waybar & hyprpaper & mako")
+    hl.exec_cmd("ashell & hyprpaper & mako")
+	-- hl.exec_cmd("nm-applet & blueman-applet")
+	hl.exec_cmd("hypridle")
 
-    -- Clipboard manager
-    hl.exec_cmd("wl-paste --type text --watch cliphist store")
-    hl.exec_cmd("wl-paste --type image --watch cliphist store")
+	-- Clipboard manager
+	hl.exec_cmd("wl-paste --type text --watch cliphist store")
+	hl.exec_cmd("wl-paste --type image --watch cliphist store")
 end)
 
 -------------------------------
@@ -33,7 +34,7 @@ hl.env("QT_QPA_PLATFORM", "wayland;xcb") -- Same for Qt apps
 -- Some default env vars.
 hl.env("GDK_SCALE", "1")
 hl.env("XCURSOR_SIZE", "24")
-hl.env("HYPRCURSOR_SIZE", "48")
+hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("MOZ_ENABLE_WAYLAND", "1")
 
 ---------------------

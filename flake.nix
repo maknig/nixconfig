@@ -8,8 +8,6 @@
     # at the same time. Here's an working example:
     #nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
-    #nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -27,9 +25,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hypr-contrib = {
-      url = "github:hyprwm/contrib";
-    };
+    #hypr-contrib = {
+    #  url = "github:hyprwm/contrib";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
@@ -174,7 +173,9 @@
 
     rustacean-nvim = {
       url = github:mrcjkb/rustaceanvim;
+
       flake = true;
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     neodev-nvim = {
@@ -187,12 +188,16 @@
       flake = false;
 
     };
+
+    globalprotect-openconnect = {
+      url = "github:yuezk/GlobalProtect-openconnect";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     { self
     , nixpkgs
-    , nixpkgs-stable
     , flake-utils
     , neovim-nightly-overlay
     , home-manager
@@ -242,18 +247,10 @@
 
           }
         );
-        pkgsStableBySystem = forEachSystem (
-          system:
-          import inputs.nixpkgs-stable {
-            inherit system;
-
-            config.allowUnfree = false;
-          }
-        );
 
       in
       rec {
-        inherit pkgsBySystem pkgsStableBySystem;
+        inherit pkgsBySystem;
         lib = import ./lib { inherit inputs; } // inputs.nixpkgs.lib;
 
         # Formatter for your nix files, available through 'nix fmt'

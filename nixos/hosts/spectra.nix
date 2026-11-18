@@ -6,7 +6,10 @@
 }: {
   imports = [
     ../modules/probe-rs-udev.nix
+    inputs.globalprotect-openconnect.nixosModules.default
   ];
+
+  programs.globalprotect-openconnect.enable = true;
 
 
   dots.profiles.desktop.enable = true;
@@ -16,9 +19,13 @@
   };
 
   hardware.bluetooth.enable = true;
+  hardware.sane.enable = true;
 
   services.blueman.enable = true;
   services.fwupd.enable = true;
+
+  # Intel RealSense udev rules
+  #services.udev.packages = [ pkgs.librealsense ];
 
   #hardware.enableAllFirmware = true;
   #hardware.enableRedistributableFirmware = true;
@@ -39,9 +46,9 @@
 
   # Enable network discovery (mDNS / IPP Everywhere)
   services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
+    enable = false;
+    nssmdns4 = false;
+    openFirewall = false;
   };
 
   services.samba = {
