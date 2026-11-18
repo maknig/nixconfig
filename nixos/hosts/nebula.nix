@@ -42,6 +42,40 @@
   };
   hardware.nvidia-container-toolkit.enable = true;
 
+  virtualisation.docker.daemon.settings = {
+    features.cdi = true;
+    default-runtime = "nvidia";
+    runtimes.nvidia.path =
+      "${pkgs.nvidia-container-toolkit.tools}/bin/nvidia-container-runtime";
+  };
+
+  # nvidia-container-runtime shells out to `runc`; dockerd's PATH on NixOS
+  # doesn't include it, so pin the absolute path via its config file.
+  environment.etc."nvidia-container-runtime/config.toml".text = ''
+    disable-require = false
+
+    [nvidia-container-cli]
+      environment = []
+      ldconfig = "@${pkgs.glibc.bin}/bin/ldconfig"
+      load-kmods = true
+      no-cgroups = false
+
+    [nvidia-container-runtime]
+      debug = "/dev/null"
+      log-level = "info"
+      mode = "auto"
+      runtimes = ["${pkgs.runc}/bin/runc"]
+
+      [nvidia-container-runtime.modes]
+        [nvidia-container-runtime.modes.cdi]
+          annotation-prefixes = ["cdi.k8s.io/"]
+          default-kind = "nvidia.com/gpu"
+          spec-dirs = ["/etc/cdi", "/run/cdi"]
+
+    [nvidia-ctk]
+      path = "${pkgs.nvidia-container-toolkit}/bin/nvidia-ctk"
+  '';
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot = {

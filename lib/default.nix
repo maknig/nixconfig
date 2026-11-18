@@ -40,7 +40,7 @@ rec {
       pkgs = inputs.self.pkgsBySystem."${system}";
       username = user;
       homeDirectory =
-        if pkgs.stdenv.isDarwin
+        if pkgs.stdenv.hostPlatform.isDarwin
         then "/Users/${username}"
         else "/home/${username}";
     in

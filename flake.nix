@@ -25,9 +25,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hypr-contrib = {
-      url = "github:hyprwm/contrib";
-    };
+    #hypr-contrib = {
+    #  url = "github:hyprwm/contrib";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
@@ -172,7 +173,9 @@
 
     rustacean-nvim = {
       url = github:mrcjkb/rustaceanvim;
+
       flake = true;
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     neodev-nvim = {
@@ -186,7 +189,10 @@
 
     };
 
-    globalprotect-openconnect.url = "github:yuezk/GlobalProtect-openconnect";
+    globalprotect-openconnect = {
+      url = "github:yuezk/GlobalProtect-openconnect";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -241,7 +247,7 @@
 
           }
         );
-        
+
       in
       rec {
         inherit pkgsBySystem;
