@@ -13,5 +13,10 @@ in
     home.sessionVariables = {
       TERMINFO_DIRS = "$HOME/.nix-profile/share/terminfo:$TERMINFO_DIRS";
     };
+    # copy (not symlink) .app bundles so Spotlight indexes them
+    targets.darwin.linkApps.enable = false;
+    targets.darwin.copyApps.enable = true;
+
+
   };
 }

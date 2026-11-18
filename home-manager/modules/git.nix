@@ -11,7 +11,7 @@ in {
         {
 
           name = "Matthias Koenig";
-          email = "matthias.koenig@gmail.com";
+          email = "matthi.koenig@gmail.com";
         };
       init.defaultBranch = "main";
       core = {

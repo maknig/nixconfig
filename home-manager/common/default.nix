@@ -12,11 +12,14 @@
   home.packages = [
     pkgs.home-manager
     pkgs.signal-desktop
-    #pkgs.spotify
+    pkgs.spotify
+    pkgs.firefox
     pkgs.opencode
     pkgs.slack
     pkgs.dua
+    pkgs.dust
     pkgs.eza
+    pkgs.just
     pkgs.yazi
     pkgs.htop
     pkgs.btop
