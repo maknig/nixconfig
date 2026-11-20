@@ -37,6 +37,7 @@ in
       vpn_status
       pkgs.firefox
       pkgs.kicad
+      pkgs.keepass
       pkgs.papers
       pkgs.gthumb
       pkgs.networkmanager-openconnect
