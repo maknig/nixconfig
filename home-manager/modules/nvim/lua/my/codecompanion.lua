@@ -1,12 +1,12 @@
 local mod = {}
 
 function mod.setup()
-    ---@diagnostic disable-next-line: redundant-parameter
-    require("codecompanion").setup({
+	---@diagnostic disable-next-line: redundant-parameter
+	require("codecompanion").setup({
 		-- CodeCompanion v18+ uses "interactions" instead of "strategies"
 		interactions = {
 			chat = {
-				adapter = "llmhub", -- Point this to your llmhub adapter defined below
+				adapter = "copilot", -- Point this to your llmhub adapter defined below
 				keymaps = {
 					send = {
 						modes = { n = "<C-s>", i = "<C-s>" },
@@ -74,6 +74,13 @@ function mod.setup()
 							model = {
 								default = "best-chat", -- Uses the Qwen 3.6 27B model tag we found
 							},
+						},
+					})
+				end,
+				copilot = function()
+					return require("codecompanion.adapters").extend("copilot", {
+						env = {
+							url = "https://ilt-ost.ghe.com",
 						},
 					})
 				end,

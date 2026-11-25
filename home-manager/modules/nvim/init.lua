@@ -102,8 +102,12 @@ local load = function()
 	require("my/codecompanion").setup()
 
 	--require("my/dap").setup()
-    require("neorg").setup()
+	require("neorg").setup()
 
+	-- require("copilot").setup({
+	-- 	auth_provider_url = "https://ilt-ost.ghe.com",
+	-- })
+	--
 	require("render-markdown").setup({
 		file_types = { "markdown", "Avante", "codecompanion" },
 		completions = { lsp = { enabled = true } },

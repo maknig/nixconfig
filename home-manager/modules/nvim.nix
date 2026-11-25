@@ -90,7 +90,7 @@ in
       package = pkgs.neovim;
       withPython3 = true;
       withNodeJs = true;
-      withRuby= true;
+      withRuby = true;
 
       plugins = with pkgs.vimPlugins; [
         # (plug "hop-nvim")

@@ -4,18 +4,18 @@
 , ...
 }: {
   programs.zsh = lib.mkMerge [
-    {
-      initContent = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+    (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+      initContent = ''
         bindkey '^R' history-incremental-search-backward
       '';
-    }
-    {
-      initContent = lib.optionalString pkgs.stdenv.hostPlatform.isLinux ''
+    })
+    (lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+      initContent = ''
         ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
         ZSH_HIGHLIGHT_DIRS_BLACKLIST+=(/efs)
         ZSH_HIGHLIGHT_MAXLENGTH=2000
       '';
-    }
+    })
     {
 
       enable = true;

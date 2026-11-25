@@ -35,7 +35,7 @@ in
         }
         # macOS /bin/zsh links the system ncurses, which can't read the nix-built
         # alacritty terminfo (garbled line editing, see alacritty#4357)
-        // lib.optionalAttrs pkgs.stdenv.isDarwin {
+        // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
           terminal.shell = {
             program = "${pkgs.zsh}/bin/zsh";
             args = [ "-l" ];
